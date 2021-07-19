@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href ="~/css/VisitorHome.css" type="text/css" />
+
+        <style>
+ body {
+   width: 100%;
+}
+
+.slider {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 700px;
+
+}
+
+.content {
+    height: 350px;
+    width: 100%;
+    position: absolute;
+    top: 150px;
+}
+
+.content .images {
+     height: 100%;
+     width:100%;
+
+}
+
+.content .images img {
+     height: 100%;
+     width:102.3%;
+     transition:0.5s;
+
+}
+
+.btm-slides {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.btm-slides span {
+    height: 20px;
+    width: 20px;
+    border: 2px solid white;
+    margin: 0 3px;
+    cursor: pointer;
+    border-radius: 50%;
+ }
+
+.sliders {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    cursor: pointer;
+}
+
+.sliders:hover {
+    background: rgba(255,255,255,0.2);
+ }
+
+.right {
+    right: 0;
+}
+
+.sliders span {
+    line-height: 41px;
+    font-size: 35px;
+    color: white;
+}
+
+.nav-item {
+    margin-right: 30px;
+}
+
+@@media only screen and (max-width:770px) {
+    .content {
+
+        height: 200px;
+        left: 15px;
+    }
+
+    .btm-slides span {
+        width: 10px;
+        height: 10px;
+    }
+
+    .sliders {
+        width: 30px;
+    }
+
+    .navbar-toggler {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+        </style>
+    </head>
+
+
+    <div class="slider row" style="width:100%">
+        <div class="content col-sm-12">
+            <div class="images">
+                <img src="~/pictures/l2.jpg" class="pic">
+                <img src="~/pictures/l3.jpg" class="pic">
+                <img src="~/pictures/l1.jpg" class="pic">
+                <img src="~/pictures/l4.jpg" class="pic">
+                <img src="~/pictures/l5.jpg" class="pic">
+            </div>
+            <div class="btm-slides">
+                <span onclick="btm_slide(1)"></span>
+                <span onclick="btm_slide(2)"></span>
+                <span onclick="btm_slide(3)"></span>
+                <span onclick="btm_slide(4)"></span>
+                <span onclick="btm_slide(5)"></span>
+            </div>
+            <div class="sliders left" onclick="side_slide(-1)" style="position:absolute;left:40px">
+                <span class="fas fa-angle-left"></span>
+            </div>
+            <div class="sliders right" onclick="side_slide(1)">
+                <span class="fas fa-angle-right"></span>
+            </div>
+        </div>
+        
+        
+        <script>
+            var indexValue = 1;
+            showImg(indexValue);
+            function btm_slide(e) { showImg(indexValue = e); }
+            function side_slide(e) { showImg(indexValue += e); }
+            function showImg(e) {
+                var i;
+                const img = document.querySelectorAll('img.pic');
+                const slider = document.querySelectorAll('.btm-slides span');
+                if (e > img.length) { indexValue = 1 }
+                if (e < 1) { indexValue = img.length }
+                for (i = 0; i < img.length; i++) {
+                    img[i].style.display = "none";
+                }
+                for (i = 0; i < slider.length; i++) {
+                    slider[i].style.background = "rgba(255,255,255,0.1)";
+                }
+                img[indexValue - 1].style.display = "block";
+                slider[indexValue - 1].style.background = "white";
+            }
+        </script>
+
+    </div>
