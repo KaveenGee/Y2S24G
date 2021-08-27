@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\Y2S24G\\helo\\helo\\helo.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\Y2S24G2\\helo\\helo\\helo.csproj",
       "projectName": "helo",
-      "projectPath": "C:\\Users\\User\\source\\repos\\Y2S24G\\helo\\helo\\helo.csproj",
+      "projectPath": "C:\\Users\\User\\source\\repos\\Y2S24G2\\helo\\helo\\helo.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\Y2S24G\\helo\\helo\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\Y2S24G2\\helo\\helo\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
