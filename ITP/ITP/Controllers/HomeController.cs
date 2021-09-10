@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ITP.Models;
+using ITP.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,17 +16,16 @@ namespace ITP.Controllers
 {
     public class HomeController : Controller
     {
-        SqlCommand command;
-        private static String connectionstring = "workstation id=Project.mssql.somee.com;packet size=4096;user id=donkavi2_SQLLogin_1;pwd=12345678;data source=Project.mssql.somee.com;persist security info=False;initial catalog=Project";
-        SqlConnection connection = new SqlConnection(connectionstring);
-        SqlDataReader reader;
+        
         private readonly ILogger<HomeController> _logger;
-        private readonly AppDbContext DBob;
-       
-        public HomeController(AppDbContext DB)
+        private AppDbContext _db;
+
+
+
+        public HomeController(AppDbContext db, ILogger<HomeController> logger)
         {
-            DBob = DB;
-            
+            _db = db;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -68,8 +68,96 @@ namespace ITP.Controllers
             ViewData["action2"] = action2;
             ViewData["cid"] = cid;
             ViewBag.img = action5;
-            return View();
+            return View(_db.Item.ToList());
         }
+
+        //Get items details action method
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var item = _db.Item.FirstOrDefault(c => c.IItemId == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return View(item);
+        }
+
+        //POST items details action method
+        [HttpPost]
+        [ActionName("Detail")]
+        public ActionResult ItemDetail(int? id)
+        {
+            List<ItemModel> items = new List<ItemModel>();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var item = _db.Item.FirstOrDefault(c => c.IItemId == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            items = HttpContext.Session.Get<List<ItemModel>>("items");
+            if (items == null)
+            {
+                items = new List<ItemModel>();
+            }
+            items.Add(item);
+            HttpContext.Session.Set("items", items);
+            //return View(item);
+            return RedirectToAction(nameof(Index));
+        }
+
+        //Get Remove action method
+        [ActionName("Remove")]
+        public IActionResult RemoveToCart(int? id)
+        {
+            List<ItemModel> items = HttpContext.Session.Get<List<ItemModel>>("items");
+            if (items != null)
+            {
+                var item = items.FirstOrDefault(c => c.IItemId == id);
+                if (item != null)
+                {
+                    items.Remove(item);
+                    HttpContext.Session.Set("items", items);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        //remove to cart action 
+        [HttpPost]
+        public IActionResult Remove(int? id)
+        {
+            List<ItemModel> items = HttpContext.Session.Get<List<ItemModel>>("items");
+            if (items != null)
+            {
+                var item = items.FirstOrDefault(c => c.IItemId == id);
+                if (item != null)
+                {
+                    items.Remove(item);
+                    HttpContext.Session.Set("items", items);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        //Get product cart action method
+
+        public IActionResult Cart()
+        {
+            List<ItemModel> items = HttpContext.Session.Get<List<ItemModel>>("items");
+            if (items == null)
+            {
+                items = new List<ItemModel>();
+            }
+            return View(items);
+        }
+
 
         public IActionResult Privacy()
         {
