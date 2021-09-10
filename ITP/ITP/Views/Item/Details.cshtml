@@ -1,0 +1,205 @@
+﻿@model ITP.Models.ItemModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    h1 {
+        color: #235CCD;
+        font-family: Roboto;
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px #ABB2B9;
+        font-size: 45px;
+    }
+
+    h4 {
+        color: black;
+        font-family: Roboto;
+        text-align: center;
+        font-weight: bold;
+        font-size: 35px;
+        text-shadow: 0px 0px 5px #235CCD;
+    }
+
+    div.col-8.col-4 {
+        font-size: 20px;
+        font-family: Roboto;
+        font-weight: normal;
+    }
+
+    div.col-3 {
+        font-size: 20px;
+        font-family: Roboto;
+        font-weight: bold;
+        color: #235CCD;
+        text-align: center
+    }
+
+    div.col-8 {
+        font-size: 20px;
+        font-family: Roboto;
+        font-weight: bold;
+        color: #235CCD;
+    }
+
+    div.form-group1 {
+        padding-top: 21em;
+    }
+</style>
+
+<h1>Inventory Form</h1>
+<br />
+<h4>Product Details</h4>
+<hr style="height: 2px; border-width: 0; color: gray; background-color: #235CCD" />
+
+<form asp-action="" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border row" style="background-color: #f2f2f2;">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IItemId"></label>
+                </div>
+                <div class="col-8">
+                    <input type="hidden" asp-for="IItemId" />
+                    <input asp-for="IItemId" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IItemId" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IDateTime"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IDateTime" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IBrand"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IBrand" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IBrand" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IModel"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IModel" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IModel" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ICategory"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ICategory" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="ICategory" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IQPurchase"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IQPurchase" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IQPurchase" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IQStock"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IQStock" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IQStock" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IQSold"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IQSold" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IQSold" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IUPrice"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IUPrice" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IUPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ITPrice"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ITPrice" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="ITPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IIValue"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IIValue" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IIValue" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IDiscount"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IDiscount" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IDiscount" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IDescription"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IDescription" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ImageName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ImageName" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="ImageName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            Uploaded Image
+            <img src="@("~/images/items/"+Model.ImageName)" asp-append-version="true" width="250px" height="250px" />
+            <div class="form-group1">
+                <div>
+                    @Html.ActionLink("Update", "Edit", new { id = Model.IItemId }, new { @class = "btn btn-outline-success" })
+                    <a asp-action="Index" value="Back" class="btn btn-outline-dark">Back to List</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
