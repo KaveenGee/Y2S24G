@@ -1,0 +1,91 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ITP.Models.Admin
+
+@{
+    Admin ob1 = ViewBag.ob;
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Admin ID</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.Admin_ID
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.Name
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Username</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.Username
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Password</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.Password
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.Email
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Phone</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.Phone_Number
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">NIC</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.NIC
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Position</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                @ob1.Type
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+
+            </div>
+        </div>
+    </div>
+</div>
