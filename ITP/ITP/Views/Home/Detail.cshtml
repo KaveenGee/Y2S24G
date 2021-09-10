@@ -1,0 +1,100 @@
+﻿@model ITP.Models.ItemModel
+@using System.Net.Http
+@using ITP.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+    @{
+
+        List<ItemModel> items = HttpContextAccessor.HttpContext.Session.Get<List<ItemModel>>("items");
+        ItemModel item = null;
+        if (items != null)
+        {
+            item = items.FirstOrDefault(c=>c.IItemId  == Model.IItemId);
+        }
+
+
+    }
+@{
+    ViewData["Title"] = "Detail";
+}
+<br />
+
+<h2 class="text-info">Product Details</h2>
+<form asp-action="Detail" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border row">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IBrand"></label>
+                </div>
+                <div class="col-8">
+                    <input type="hidden" asp-for="IItemId" />
+                    <input asp-for="IBrand" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IBrand" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IUPrice"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IUPrice" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IUPrice" class="text-danger"></span>
+            </div>
+            @*<div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Image"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Image" class="form-control" type="file" />
+                    </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>*@
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IDescription"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IDescription" readonly="readonly" readonly="readonly" class="form-control" />
+                </div>
+                <span asp-validation-for="IDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+
+                </div>
+                <div class="col-8">
+                    @*@if (item!= null)
+                    {
+                            <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.IItemId">Remove to Cart</button>
+                    }
+                    else
+                    {*@ 
+                            <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
+                    @*}*@
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <img src="~/images/items/@Model.ImageName" width="100%" height="250px" style="border-radius: 5px;border: 1px solid #efefef" />
+            
+            <img src="~/Images/Items/instock.png" width="50%" height="40px" />
+        </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
