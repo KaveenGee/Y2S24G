@@ -21,9 +21,7 @@ namespace ITP.Controllers
         SqlDataReader reader;
         private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext DBob;
-        List<ItemModel> list = new List<ItemModel>();
-        ItemModel test = null;
-
+       
         public HomeController(AppDbContext DB)
         {
             DBob = DB;
