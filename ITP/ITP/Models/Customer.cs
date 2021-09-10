@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace ITP.Models
 {
@@ -44,7 +46,7 @@ namespace ITP.Models
         [Display(Name = "Address")]
         public String Address { get; set; }
 
-        public byte[] image { get; set; }
+        public String Image { get; set; }
 
         [RegularExpression(@"^.*[0-9]{9}[V-v]$", ErrorMessage = "Invalid")]
         [Required(ErrorMessage = "Enter  NIC")]
@@ -54,5 +56,11 @@ namespace ITP.Models
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = "Enter Phone number")]
         public String PhoneNumber { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Upload file")]
+        public IFormFile Imagefile { get; set; }
+
+        public DateTime Joindate { get; set; }
     }
 }
