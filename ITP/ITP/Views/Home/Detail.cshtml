@@ -46,14 +46,14 @@
                 <span asp-validation-for="IUPrice" class="text-danger"></span>
             </div>
             @*<div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Image"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Image" class="form-control" type="file" />
-                    </div>
-                    <span asp-validation-for="Image" class="text-danger"></span>
-                </div>*@
+            <div class="col-4">
+                <label asp-for="Image"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Image" class="form-control" type="file" />
+            </div>
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>*@
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="IDescription"></label>
@@ -63,18 +63,27 @@
                 </div>
                 <span asp-validation-for="IDescription" class="text-danger"></span>
             </div>
+            @*<div class="form-group row">
+                <div class="col-4">
+                    <label>QTY</label>
+                </div>
+                <div class="col-8">
+                    <input type="number" class="form-control" />
+                </div>
+
+            </div>*@
             <div class="form-group row">
                 <div class="col-4">
 
                 </div>
                 <div class="col-8">
                     @*@if (item!= null)
-                    {
-                            <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.IItemId">Remove to Cart</button>
-                    }
-                    else
-                    {*@ 
-                            <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
+                {
+                        <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.IItemId">Remove to Cart</button>
+                }
+                else
+                {*@
+                    <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
                     @*}*@
                 </div>
 

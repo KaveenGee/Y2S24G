@@ -86,7 +86,7 @@ namespace ITP.Controllers
             return View(item);
         }
 
-        //POST items details action method
+        //POST items details action method add to cart
         [HttpPost]
         [ActionName("Detail")]
         public ActionResult ItemDetail(int? id)
@@ -111,6 +111,36 @@ namespace ITP.Controllers
             //return View(item);
             return RedirectToAction(nameof(Index));
         }
+
+        //[HttpPost]
+        //[ActionName("Detail")]
+        //public ActionResult ItemDetail(int? id, int qty)
+        //{
+        //    List<OrderDetails> items = new List<OrderDetails>();
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var item = _db.Item.FirstOrDefault(c => c.IItemId == id);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    items = HttpContext.Session.Get<List<OrderDetails>>("items");
+        //    if (items == null)
+        //    {
+        //        items = new List<OrderDetails>();
+        //    }
+        //    OrderDetails od = new OrderDetails();
+        //    od.ItemId = id;
+        //    od.Quntity = qty;
+        //    od.Price = item.IUPrice;
+        //    od.TotalPrice = qty * item.IUPrice;
+        //    items.Add(od);
+        //    HttpContext.Session.Set("items", items);
+        //    //return View(item);
+        //    return RedirectToAction(nameof(Detail));
+        //}
 
         //Get Remove action method
         [ActionName("Remove")]

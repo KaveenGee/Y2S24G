@@ -11,10 +11,14 @@ namespace ITP.Models
         public int OrderId { get; set; }
 
         [Display(Name = "Product")]
-        public int ItemId { get; set; }
+        public int? ItemId { get; set; }
 
-        [Display(Name = "Customer Id")]
-        public int CustomerId { get; set; }
+        //[Display(Name = "Customer Id")]
+        //public int CustomerId { get; set; }
+
+        public int Quntity { get; set; }
+        public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
 
 
         [ForeignKey("OrderId")]
@@ -23,8 +27,8 @@ namespace ITP.Models
         [ForeignKey("ItemId")]
         public ItemModel Item { get; set; }
 
-        [ForeignKey("CustomerId")]
-        public Customer Customer{ get; set; }
+        //[ForeignKey("CustomerId")]
+        //public Customer Customer{ get; set; }
 
     }
 }
