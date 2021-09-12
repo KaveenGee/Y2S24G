@@ -1,0 +1,160 @@
+﻿@model ITP.Models.Order
+@using ITP.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Order Details";
+}
+@{
+
+    List<ItemModel> items = HttpContextAccessor.HttpContext.Session.Get<List<ItemModel>>("items");
+
+    if (items == null)
+    {
+        items = new List<ItemModel>();
+    }
+    
+
+}
+<br />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<h2 class="text-info">Order Details</h2>
+<form asp-action="Checkout" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border row">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ReceiverName"></label>
+                </div>
+                <div class="col-8">
+                    <input type="hidden" asp-for="Id" />
+                    <input asp-for="ReceiverName" class="form-control" />
+                    <span asp-validation-for="ReceiverName" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DeliveryAddress"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DeliveryAddress" class="form-control" />
+                    <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PhoneNo"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="PhoneNo" class="form-control" />
+                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="City"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="col-8">
+                    @*<select asp-for="ProductTypeId" asp-items="ViewBag.productTypeId" class="form-control"></select>*@
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="OrderDate"></label>
+                </div>
+                <div class="col-8">
+                    @*<select asp-for="SpecialTagId" asp-items="ViewBag.TagId" class="form-control"></select>*@
+                    <input asp-for="OrderDate" readonly="readonly" id="currentDateTime" type="text" class="form-control" />
+                    <span asp-validation-for="OrderDate" class="text-danger"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in items)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/Images/Items/@item.ImageName" height="100px" width="150px" object-fit="contain" />
+                            </td>
+                            <td>@item.IBrand</td>
+                            <td>@item.IUPrice</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-right">
+                <h3>Total Price : @items.Sum(c => c.IUPrice)</h3>
+            </div>
+            <div class="form-group text-right">
+                <input type="submit" value="Place Order" class="btn btn-success" />
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date + ' ' + time;
+        document.getElementById("currentDateTime").value = dateTime;
+
+        //$(document).ready(function () {
+        //    $(function () {
+        //        var dtToday = new Date();
+
+        //        var month = dtToday.getMonth() + 1;
+        //        var day = dtToday.getDate();
+        //        var year = dtToday.getFullYear();
+        //        if (month < 10)
+        //            month = '0' + month.toString();
+        //        if (day < 10)
+        //            day = '0' + day.toString();
+
+        //        var maxDate = year + '-' + month + '-' + day;
+        //        $('#currentDateTime').attr('min', maxDate).attr('max', maxDate);
+          
+        //    });
+        //});
+    </script>
+
+}
+
+
+
