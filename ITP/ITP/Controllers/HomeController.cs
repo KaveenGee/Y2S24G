@@ -83,43 +83,85 @@ namespace ITP.Controllers
             {
                 return NotFound();
             }
-            return View(item);
+            ViewItemDetailsModel viewItemDetailsModel = new ViewItemDetailsModel();
+            viewItemDetailsModel.IItemId = item.IItemId;
+            viewItemDetailsModel.IBrand = item.IBrand;
+            viewItemDetailsModel.IUPrice = item.IUPrice;
+            viewItemDetailsModel.IDescription = item.IDescription;
+            viewItemDetailsModel.Quntity = 1;
+            viewItemDetailsModel.ImageName = item.ImageName;
+            return View(viewItemDetailsModel);
         }
 
         //POST items details action method
+        //[HttpPost]
+        //[ActionName("Detail")]
+        //public ActionResult ItemDetail(int? id)
+        //{
+        //    List<ItemModel> items = new List<ItemModel>();
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var item = _db.Item.FirstOrDefault(c => c.IItemId == id);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    items = HttpContext.Session.Get<List<ItemModel>>("items");
+        //    if (items == null)
+        //    {
+        //        items = new List<ItemModel>();
+        //    }
+        //    items.Add(item);
+        //    HttpContext.Session.Set("items", items);
+        //    //return View(item);
+        //    return RedirectToAction(nameof(Detail));
+        //}
+
+
+
+
+
         [HttpPost]
         [ActionName("Detail")]
-        public ActionResult ItemDetail(int? id)
+        public ActionResult ItemDetail(int? id, ViewItemDetailsModel viewItemDetailsModel)
         {
-            List<ItemModel> items = new List<ItemModel>();
+
+            List<OrderDetails> items = new List<OrderDetails>();
             if (id == null)
             {
                 return NotFound();
             }
-            var item = _db.Item.FirstOrDefault(c => c.IItemId == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            items = HttpContext.Session.Get<List<ItemModel>>("items");
+            //var item = _db.Item.FirstOrDefault(c => c.IItemId == id);
+            //if (item == null)
+            //{
+            //    return NotFound();
+            //}
+            items = HttpContext.Session.Get<List<OrderDetails>>("items");
             if (items == null)
             {
-                items = new List<ItemModel>();
+                items = new List<OrderDetails>();
             }
-            items.Add(item);
+            OrderDetails od = new OrderDetails();
+            od.ItemId = viewItemDetailsModel.IItemId;
+            od.Quntity = viewItemDetailsModel.Quntity;
+            od.Price = viewItemDetailsModel.IUPrice;
+            od.TotalPrice = viewItemDetailsModel.Quntity * viewItemDetailsModel.IUPrice;
+            items.Add(od);
             HttpContext.Session.Set("items", items);
             //return View(item);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Detail));
         }
 
         //Get Remove action method
         [ActionName("Remove")]
         public IActionResult RemoveToCart(int? id)
         {
-            List<ItemModel> items = HttpContext.Session.Get<List<ItemModel>>("items");
+            List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
             if (items != null)
             {
-                var item = items.FirstOrDefault(c => c.IItemId == id);
+                var item = items.FirstOrDefault(c => c.ItemId == id);
                 if (item != null)
                 {
                     items.Remove(item);
@@ -133,10 +175,10 @@ namespace ITP.Controllers
         [HttpPost]
         public IActionResult Remove(int? id)
         {
-            List<ItemModel> items = HttpContext.Session.Get<List<ItemModel>>("items");
+            List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
             if (items != null)
             {
-                var item = items.FirstOrDefault(c => c.IItemId == id);
+                var item = items.FirstOrDefault(c => c.ItemId == id);
                 if (item != null)
                 {
                     items.Remove(item);
@@ -150,14 +192,34 @@ namespace ITP.Controllers
 
         public IActionResult Cart()
         {
-            List<ItemModel> items = HttpContext.Session.Get<List<ItemModel>>("items");
+            List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
             if (items == null)
             {
-                items = new List<ItemModel>();
+                items = new List<OrderDetails>();
             }
-            return View(items);
-        }
+            List<ViewCartDetailsModel> viewCartDetailsModelsList = new List<ViewCartDetailsModel>();
+            foreach (var item in items)
+            {
+                ViewCartDetailsModel viewCartDetailsModel = new ViewCartDetailsModel();
 
+                viewCartDetailsModel.IItemId = item.ItemId;
+                viewCartDetailsModel.Quntity = item.Quntity;
+                viewCartDetailsModel.IUPrice = item.Price;
+
+                var product = _db.Item.FirstOrDefault(c => c.IItemId == item.ItemId);
+
+                viewCartDetailsModel.IBrand = product.IBrand;
+                viewCartDetailsModel.IDescription = product.IDescription;
+                viewCartDetailsModel.ImageName = product.ImageName;
+
+                viewCartDetailsModelsList.Add(viewCartDetailsModel);
+            }
+
+
+
+
+            return View(viewCartDetailsModelsList);
+        }
 
         public IActionResult Privacy()
         {

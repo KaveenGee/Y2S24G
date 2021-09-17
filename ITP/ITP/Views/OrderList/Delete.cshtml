@@ -1,0 +1,82 @@
+﻿@model ITP.Models.OrderListClass
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<body style="background-color:midnightblue">
+    <div class="col-md-6" style="margin-left:40% ; margin-top:3% ; position:absolute">
+        <img src="~/Images/Delivery/d.png" alt="Alternate Text" class="img-responsive" style="width: 90%; height: 90%" />
+    </div>
+
+    <div style="background-color: white;border-radius:30px; padding:20px;width:450px;margin-top:5%">
+        <h4 style="text-align: center; color:cornflowerblue;"><b>Delete Orders</b></h4>
+        <h6><b>Are you sure you want to delete this Order?</b></h6>
+
+        <div class="col-md-6">
+            <img src="~/Images/Delivery/99.png.png" alt="Alternate Text" class="img-responsive" style="width:50%;" />
+        </div>
+
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Deliveryid)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Deliveryid)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Order_ID)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Order_ID)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Receivername)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Receivername)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.DeliveryAddress)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.DeliveryAddress)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.ODateTime)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.ODateTime)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Driver)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Driver)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.OStatus)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.OStatus)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-info">Back to List</a>
+        </form>
+    </div>
+</body>
