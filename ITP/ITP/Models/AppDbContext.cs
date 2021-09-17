@@ -12,6 +12,10 @@ namespace ITP.Models
 
         }
         public DbSet<Customer> CustomerInfo { get; set; }
+        public DbSet<supplierlog> Supplierlog { get; set; }
 
+        public DbSet<handlesupplierClass> handlesuppliers { get; set; }
+        public DbSet<excessfaultyclass> ExcessFaulty { get; set; }
+    
     }
 }

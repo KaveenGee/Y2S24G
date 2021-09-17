@@ -1,0 +1,50 @@
+﻿@model ITP.Models.handlesupplierClass
+
+@{
+    ViewData["Title"] = "Details";
+}
+<body style="background-color:darkblue;">
+
+
+    <div style="background-color:white; border-radius:30px; padding:25px;width:450px; margin-top:5%;">
+
+        <h4 style="text-align:center; color:cornflowerblue;"><b>SEE DETAILS</b></h4>
+        <dl class="row">
+
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.SupplierIndex)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.SupplierIndex)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.NameofSupplier)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.NameofSupplier)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Company)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Company)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+        </dl>
+        @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+        <a asp-action="Index" class=" btn btn-outline-primary">Back to List</a>
+    </div>
+               
+      
+</body>
