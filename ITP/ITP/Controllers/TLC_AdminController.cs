@@ -5,6 +5,9 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using ITP.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using PasswordGenerator;
 
 namespace ITP.Controllers
 {
@@ -43,10 +47,33 @@ namespace ITP.Controllers
             return View("Owner/Owner_dashboard");
         }
 
+     
+
         //render the owner dashboard partial view1
         public IActionResult _dashboard()
         {
-          
+            command = new SqlCommand("SELECT * FROM item", connection);
+            connection.Open();
+            reader = command.ExecuteReader();
+            int icount = reader.Cast<object>().Count();
+            reader.Close();
+
+            command = new SqlCommand("SELECT * FROM CustomerInfo", connection);
+            reader = command.ExecuteReader();
+            int ccount = reader.Cast<object>().Count();
+            reader.Close();
+
+            command = new SqlCommand("SELECT * FROM orders", connection);
+            reader = command.ExecuteReader();
+            int ocount = reader.Cast<object>().Count();
+
+
+
+
+            ViewBag.itemcount = icount;
+            ViewBag.cuscount = ccount;
+            ViewBag.ocount = ocount;
+
             return PartialView("Owner/_dashboard");
         }
 
@@ -55,6 +82,7 @@ namespace ITP.Controllers
         //render the owner dashboard partial view2
         public ActionResult CustomerList()
         {
+            string img = JsonConvert.DeserializeObject<string>(HttpContext.Session.GetString("Adminsession_img"));
             command = new SqlCommand("select * from CustomerInfo", connection);
             // command.CommandType = System.Data.CommandType.TableDirect;
             connection.Open();
@@ -80,6 +108,7 @@ namespace ITP.Controllers
                 TestList.Add(test);
             }
             connection.Close();
+            ViewBag.url = img;
           ViewBag.totalcustomer = TestList;
             return View("Owner/CustomerList");
         }
@@ -92,9 +121,79 @@ namespace ITP.Controllers
         public ActionResult saveCustomer(Customer ob)
         {
 
+          
+            var pwd = new Password().IncludeLowercase().IncludeUppercase().LengthRequired(5);
+            string result = pwd.Next();
+            var uname = new Password().IncludeLowercase().LengthRequired(6);
+            string runame = uname.Next();
+            ob.Username = runame;
+            ob.Password = result;
+            ob.ConfirmPassword = result;
             DBob.CustomerInfo.Add(ob);
             DBob.SaveChanges();
-            
+
+
+            string Themessage = @"<html>
+                          <body>
+                            <div style="" width: 500px; height: 620px; border: 6px solid DodgerBlue;position:relative; "">
+
+                <img src = cid:myImageID style = "" width:150px;height:auto;position:relative;left:180px;margin-left:170px"">
+        
+
+                 <h4 style = ""position:relative;left:40px;font-family:Comic Sans MS;margin-left:60px;font-size:20px"" ><font color = ""DodgerBlue""> Hi </font>{name} we Created an Account for you </h4>
+                  
+                         <img src = cid:myImageID2 style = "" width:270px;height:250px;position:absolute;left:300px;border-radius:50%;margin-left:120px"">
+                     
+                            <h4 style = ""position:relative;left:90px;top:0px;margin-left:170px;font-size:20px""> Username = <font color = ""#9932CC"">{uname}</font> </h4>
+                            <h4 style = ""position:relative;left:90px;top:0px;margin-left:170px;font-size:20px""> Password = <font color = ""#9932CC"">{pword}</font> </h4>
+                          
+                              <p style = ""font-size:20px;color:#FF7F50;position:relative;left:80px;top:0px;letter-spacing:5px;margin-left:70px"" >WELCOME TO TLC FAMILY </p>
+                           
+
+                           </div>
+                            </body>
+                            </html>";
+
+
+
+
+
+
+
+           
+            Themessage = Themessage.Replace("{uname}", runame);
+            Themessage = Themessage.Replace("{pword}", result);
+            Themessage = Themessage.Replace("{name}", ob.FirstName);
+            string to = ob.Email; //To address    
+            string from = "tlclifepartner2021@gmail.com"; //From address    
+            MailMessage message = new MailMessage(from, to);
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(Themessage, null, "text/html");
+
+
+            LinkedResource theEmailImage = new LinkedResource("wwwroot/Images/Customer/logo.png");
+            theEmailImage.ContentId = "myImageID";
+            htmlView.LinkedResources.Add(theEmailImage);
+
+            LinkedResource theEmailImage2 = new LinkedResource("wwwroot/Images/Customer/rocket.gif");
+            theEmailImage2.ContentId = "myImageID2";
+            htmlView.LinkedResources.Add(theEmailImage2);
+
+            message.AlternateViews.Add(htmlView);
+
+            message.Subject = "Welcome To TLC Family";
+            //message.Body = mailbody;
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+            NetworkCredential MyCredentials = new NetworkCredential("tlclifepartner2021@gmail.com", "Tlc@2021");
+
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = MyCredentials;
+
+
+            client.Send(message);
+
 
             return RedirectToAction("CustomerList");
         }
@@ -164,7 +263,9 @@ namespace ITP.Controllers
                 }
                 TestList.Add(test);
             }
+            string img = JsonConvert.DeserializeObject<string>(HttpContext.Session.GetString("Adminsession_img"));
             connection.Close();
+            ViewBag.url = img;
             ViewBag.totalcustomer = TestList;
             return View("Owner/CustomerList");
          
@@ -176,6 +277,13 @@ namespace ITP.Controllers
 
         //reder customer partial view
         public IActionResult _customer() {
+            command = new SqlCommand("SELECT * FROM CustomerInfo", connection);
+            connection.Open();
+            reader = command.ExecuteReader();
+            int ccount = reader.Cast<object>().Count();
+           
+
+            ViewBag.c = ccount;
             return PartialView("Owner/_customer");
         }
 
@@ -262,8 +370,8 @@ namespace ITP.Controllers
                 connection.Close();
 
                 string imgp = null;
-                string img = JsonConvert.DeserializeObject<string>(HttpContext.Session.GetString("Adminsession_img"));
-                if (String.IsNullOrEmpty(img))
+                
+                if (String.IsNullOrEmpty(test.Image))
                 {
                     imgp = "default.png";
                 }
@@ -275,8 +383,39 @@ namespace ITP.Controllers
                 command = new SqlCommand("SELECT * FROM item", connection);
                 connection.Open();
                 reader = command.ExecuteReader();
-                int count = reader.Cast<object>().Count();
-                ViewBag.itemcount = count;
+                int icount = reader.Cast<object>().Count();
+                reader.Close();
+
+                command = new SqlCommand("SELECT * FROM CustomerInfo", connection);
+                reader = command.ExecuteReader();
+                int ccount = reader.Cast<object>().Count();
+                reader.Close();
+
+                command = new SqlCommand("SELECT * FROM orders", connection);
+                reader = command.ExecuteReader();
+                int ocount = reader.Cast<object>().Count();
+                reader.Close();
+
+                command = new SqlCommand("SELECT * FROM driver", connection);
+                reader = command.ExecuteReader();
+                int dcount = reader.Cast<object>().Count();
+                reader.Close();
+
+                command = new SqlCommand("SELECT * FROM feedback", connection);
+                reader = command.ExecuteReader();
+                int fcount = reader.Cast<object>().Count();
+
+
+                HttpContext.Session.SetString("ic", JsonConvert.SerializeObject(icount));
+                HttpContext.Session.SetString("cc", JsonConvert.SerializeObject(ccount));
+                HttpContext.Session.SetString("oc", JsonConvert.SerializeObject(ocount));
+                HttpContext.Session.SetString("dc", JsonConvert.SerializeObject(dcount));
+                HttpContext.Session.SetString("fc", JsonConvert.SerializeObject(fcount));
+                ViewBag.itemcount = icount;
+                ViewBag.cuscount = ccount;
+                ViewBag.ocount = ocount;
+                ViewBag.dcount = dcount;
+                ViewBag.fcount = fcount;
                 ViewBag.mpic = imgp;
                 DateTime now = DateTime.Now;
                 string s = now.DayOfWeek.ToString();
@@ -345,6 +484,7 @@ namespace ITP.Controllers
             return PartialView("Owner/_managerinfo");
         }
 
+        //method that use to render the manageredit partial view
         public async Task<IActionResult> render2()
         {
             int cid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("Adminsession"));
@@ -353,6 +493,8 @@ namespace ITP.Controllers
             return PartialView("Owner/_manageredit");
         }
 
+
+        //method that use to edit manager info
         [HttpPost]
         public async Task<IActionResult> _manageredit(Admin ob)
         {
@@ -389,6 +531,8 @@ namespace ITP.Controllers
 
         }
 
+
+        //method use to add profile pic to admin
         [HttpPost]
         public async Task<IActionResult> AddProfilePic([Bind("Imagefile")] Admin ob)
         {
@@ -422,6 +566,128 @@ namespace ITP.Controllers
             return View("Owner/Managerprofile");
 
 
+        }
+
+        //method for manager change password
+        public IActionResult Managereditpassword(string cp, string np, string npa)
+        {
+            int cid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("Adminsession"));
+            command = new SqlCommand("update Admin set Password = @p,Re_Password = @cp where Admin_ID = @id", connection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = cid;
+            command.Parameters.Add("@p", SqlDbType.NVarChar, 255).Value = np;
+            command.Parameters.Add("@cp", SqlDbType.NVarChar, 255).Value = np;
+            connection.Open();
+            command.ExecuteNonQuery();
+            return RedirectToAction("Managerprofile");
+
+        }
+
+        //method  that use to logout
+        public IActionResult logout()
+        {
+            HttpContext.Session.Remove("Adminsession");
+            HttpContext.Session.Remove("Adminsession_img");
+            return RedirectToAction("Index", "TLC_Admin");
+        }
+
+
+        public async Task<IActionResult> sendEmails([Bind("Imagename", "Email_title", "Email_body")] Email ob)
+        {
+            int ic = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("ic"));
+            int cc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("cc"));
+            int oc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("oc"));
+            int dc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("dc"));
+            int fc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("fc"));
+            string Name = null, imgp = null;
+            command = new SqlCommand("select Email from customerinfo", connection);
+            connection.Open();
+            reader = command.ExecuteReader();
+            
+           
+            string rootpath = _hostEnvironment.WebRootPath;
+            string picname = Path.GetFileNameWithoutExtension(ob.Imagename.FileName);
+            string extension = Path.GetExtension(ob.Imagename.FileName);
+            picname = picname + extension;
+            string path = Path.Combine(rootpath + "/Images/Manager/" + picname);
+            using (var filestream = new FileStream(path, FileMode.Create))
+            {
+
+                await ob.Imagename.CopyToAsync(filestream);
+            }
+            string title = ob.Email_title;
+            string body = ob.Email_body;
+
+            string Themessage = @"<html>
+                         
+
+                <img src = cid:myImageID style = "" width:600px;height:400px;position:relative;left:180px;margin-left:170px""><br><p>{msg}</p>";
+
+
+
+
+
+
+
+            while (reader.Read())
+            {
+                string to = reader["Email"].ToString();
+                Themessage = Themessage.Replace("{msg}", body);
+                // string to = "it20009540@my.sliit.lk"; //To address
+
+                string from = "tlclifepartner2021@gmail.com"; //From address    
+                MailMessage message = new MailMessage(from, to);
+                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(Themessage, null, "text/html");
+
+
+                LinkedResource theEmailImage = new LinkedResource("wwwroot/Images/Manager/" + picname);
+                theEmailImage.ContentId = "myImageID";
+                htmlView.LinkedResources.Add(theEmailImage);
+
+
+
+                message.AlternateViews.Add(htmlView);
+
+                message.Subject = title;
+                //message.Body = mailbody;
+                message.BodyEncoding = Encoding.UTF8;
+                message.IsBodyHtml = true;
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+                NetworkCredential MyCredentials = new NetworkCredential("tlclifepartner2021@gmail.com", "Tlc@2021");
+
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = MyCredentials;
+
+
+                client.Send(message);
+            }
+            reader.Close();
+            ViewBag.itemcount = ic;
+                ViewBag.cuscount = cc;
+                ViewBag.ocount = oc;
+                ViewBag.dcount = dc;
+                ViewBag.fcount = fc;
+                int aid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("Adminsession"));
+                command = new SqlCommand("SELECT * FROM Admin where Admin_ID = @id ", connection);
+                command.Parameters.Add("@id", SqlDbType.Int).Value = aid;
+                reader = command.ExecuteReader();
+               
+                while (reader.Read())
+                {
+
+
+                   Name = reader["Name"].ToString();
+                   imgp = reader["Image"].ToString();
+                }
+                ViewBag.mpic = imgp;
+                DateTime now = DateTime.Now;
+                string s = now.DayOfWeek.ToString();
+                ViewBag.day = s;
+                ViewBag.name = Name;
+                ViewBag.TerminoDaAvaliacao = now;
+
+            
+            return View("Owner/Owner_dashboard");
         }
 
     }

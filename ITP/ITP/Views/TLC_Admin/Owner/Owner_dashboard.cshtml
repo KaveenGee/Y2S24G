@@ -144,22 +144,22 @@
                     <i class="fas fa-tachometer-alt me-2"></i>Profile
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn2">
-                    <i class="fas fa-project-diagram me-2"></i>Customers
+                    <i class="fas fa-users me-2"></i>Customers
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn3">
-                    <i class="fas fa-chart-line me-2"></i>Managers
+                    <i class="fas fa-users-cog me-2"></i>Managers
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-paperclip me-2"></i>Analysis
+                    <i class="fas fa-chart-pie me-2"></i>Analysis
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-shopping-cart me-2"></i>Notices
+                    <i class="far fa-flag me-2"></i>Notices
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-gift me-2"></i>Products
+                    <i class="fas fa-truck-moving me-2"></i>Vehicals
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-comment-dots me-2"></i>Chat
+                    <i class="fas fa-comment-dots me-2"></i>Feedbacks
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-map-marker-alt me-2"></i>Outlet
@@ -171,6 +171,7 @@
         </div>
 
         <div id="page-content-wrapper">
+
 
 
 
@@ -195,7 +196,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" asp-action="Managerprofile" asp-controller="TLC_Admin">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                    <li><a class="dropdown-item" asp-action="logout" asp-controller="TLC_Admin">Logout</a></li>
 
                                 </ul>
                             </li>
@@ -203,7 +204,6 @@
                     </div>
                 </div>
             </nav>
-
 
 
 
@@ -232,7 +232,7 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
-                                    <h3 class="fs-2 counter">720</h3>
+                                    <h3 class="fs-2 counter">@ViewBag.cuscount</h3>
                                     <p class="fs-5">Users</p>
                                 </div>
                                 <i class="fas fa-users fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -263,7 +263,7 @@
                         <div class="col-md-3 ">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
-                                    <h3 class="fs-2 counter">25</h3>
+                                    <h3 class="fs-2 counter">@ViewBag.ocount</h3>
                                     <p class="fs-5">Orders</p>
                                 </div>
                                 <i class="fas fa-shopping-cart fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -295,7 +295,7 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
-                                    <h3 class="fs-2 counter">3899</h3>
+                                    <h3 class="fs-2 counter">@ViewBag.dcount</h3>
                                     <p class="fs-5">Vehicals</p>
                                 </div>
                                 <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -305,7 +305,7 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
-                                    <h3 class="fs-2 counter">25</h3>
+                                    <h3 class="fs-2 counter">@ViewBag.fcount</h3>
                                     <p class="fs-5">Riviews</p>
                                 </div>
                                 <i class="fas fa-newspaper fs-1 primary-text border rounded-full secondary-bg p-3"></i>
