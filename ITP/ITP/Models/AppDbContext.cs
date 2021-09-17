@@ -13,5 +13,9 @@ namespace ITP.Models
         }
         public DbSet<Customer> CustomerInfo { get; set; }
 
+        public DbSet<EmployeeClass> Employee { get; set; }
+        public DbSet<AttendeesModel> AttendeesTable { get; set; }
+
+       
     }
 }
