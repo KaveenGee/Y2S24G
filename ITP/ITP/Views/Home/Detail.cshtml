@@ -1,15 +1,16 @@
-﻿@model ITP.Models.ItemModel
+﻿@*@model ITP.Models.ItemModel*@
+@model ITP.Models.ViewItemDetailsModel
 @using System.Net.Http
 @using ITP.Utility
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
     @{
 
-        List<ItemModel> items = HttpContextAccessor.HttpContext.Session.Get<List<ItemModel>>("items");
-        ItemModel item = null;
+        List<OrderDetails> items = HttpContextAccessor.HttpContext.Session.Get<List<OrderDetails>>("items");
+        OrderDetails item = null;
         if (items != null)
         {
-            item = items.FirstOrDefault(c=>c.IItemId  == Model.IItemId);
+            item = items.FirstOrDefault(c=>c.ItemId  == Model.IItemId);
         }
 
 
@@ -46,45 +47,45 @@
                 <span asp-validation-for="IUPrice" class="text-danger"></span>
             </div>
             @*<div class="form-group row">
-            <div class="col-4">
-                <label asp-for="Image"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="Image" class="form-control" type="file" />
-            </div>
-            <span asp-validation-for="Image" class="text-danger"></span>
-        </div>*@
+                    <div class="col-4">
+                        <label asp-for="Image"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Image" class="form-control" type="file" />
+                    </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>*@
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="IDescription"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="IDescription" readonly="readonly" readonly="readonly" class="form-control" />
+                    <input asp-for="IDescription" readonly="readonly"  class="form-control" />
                 </div>
                 <span asp-validation-for="IDescription" class="text-danger"></span>
             </div>
-            @*<div class="form-group row">
+            <div class="form-group row">
                 <div class="col-4">
-                    <label>QTY</label>
+                    <label asp-for="Quntity"></label>
                 </div>
                 <div class="col-8">
-                    <input type="number" class="form-control" />
+                    <input asp-for="Quntity" type="number" class="form-control" />
                 </div>
-
-            </div>*@
+                <span asp-validation-for="Quntity" class="text-danger"></span>
+            </div>
             <div class="form-group row">
                 <div class="col-4">
 
                 </div>
                 <div class="col-8">
-                    @*@if (item!= null)
-                {
-                        <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.IItemId">Remove to Cart</button>
-                }
-                else
-                {*@
-                    <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
-                    @*}*@
+                    @if (item!= null)
+                    {
+                            <button type="submit" class="btn btn-danger form-control" asp-action="Remove" asp-route-id="@Model.IItemId">Remove to Cart</button>
+                    }
+                    else
+                    {
+                            <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
+                    }
                 </div>
 
             </div>
@@ -95,7 +96,7 @@
         </div>
         <div class="col-1"></div>
         <div class="col-3">
-            <img src="~/images/items/@Model.ImageName" width="100%" height="250px" style="border-radius: 5px;border: 1px solid #efefef" />
+            <img src="~/images/items/@Model.ImageName" width="100%"  object-fit="contain"  style="border-radius: 5px;border: 1px solid #efefef" />
             
             <img src="~/Images/Items/instock.png" width="50%" height="40px" />
         </div>

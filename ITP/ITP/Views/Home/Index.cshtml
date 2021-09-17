@@ -65,6 +65,7 @@
                         <div class="btn-group">
                             <label style="font-size: 20px;color: #a51313"><b>Price : @item.IUPrice</b></label>
                         </div>
+                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="pull-right" > <i class="fas fa-shopping-cart"></i> </a>
                         <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-success pull-right btn-outline-info">Deatils</a>
                     </div>
                 </div>
