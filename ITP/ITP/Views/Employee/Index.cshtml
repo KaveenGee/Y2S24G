@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ITP.Models.EmployeeClass>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Empid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpNIC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpContactNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpDateofApproval)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpAge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpSalary)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpNIC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpContactNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpDateofApproval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpAge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpSalary)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Empid },new{@class="btn btn-primary"}) |
+                @Html.ActionLink("Details", "Details", new {  id=item.Empid }, new {@class="btn btn-success"}) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.Empid },new {@class="btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

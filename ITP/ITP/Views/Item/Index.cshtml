@@ -1,5 +1,327 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<ITP.Models.ItemModel>
+
 @{
+    ViewData["Title"] = "Index";
 }
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <style>
+        h1.hh {
+            color: #235CCD;
+            font-family: Roboto;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px #ABB2B9;
+            font-size: 45px;
+        }
+
+        h4.hhh {
+            color: black;
+            font-family: Roboto;
+            text-align: center;
+            font-weight: bold;
+            font-size: 35px;
+            text-shadow: 0px 0px 5px #235CCD;
+        }
+
+        th {
+            font-size: 20px;
+            font-family: Roboto;
+            font-weight: bold;
+            padding: 8px;
+            text-align: center
+        }
+
+        td {
+            font-size: 17px;
+            font-family: Roboto;
+            font-weight: normal;
+            padding: 8px;
+            text-align: center
+        }
+
+            td.btnsE {
+                filter: drop-shadow(8px 8px 10px gray);
+            }
+
+            td.btnsD {
+                filter: drop-shadow(8px 8px 10px gray);
+            }
+
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        p {
+            padding-top: 40px;
+        }
+
+        th {
+            color: #235CCD;
+            background: #f2f2f2;
+        }
+
+        a.ViewI {
+            font-size: 17px;
+            font-family: Roboto;
+            font-weight: normal;
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 8px 8px 10px gray;
+        }
+
+        body {
+            font-family: Roboto;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .openBtn {
+            background: #f1f1f1;
+            border: none;
+            padding: 10px 15px;
+            font-size: 17px;
+            font-weight: bold;
+            color: #235CCD;
+            cursor: pointer;
+            border-radius: 20px;
+            filter: drop-shadow(8px 8px 10px gray);
+        }
+
+            .openBtn:hover {
+                background: deepskyblue;
+            }
+
+        .overlay {
+            height: 100%;
+            width: 100%;
+            display: none;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0, 0.9);
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 46%;
+            width: 80%;
+            text-align: center;
+            margin-top: 30px;
+            margin: auto;
+        }
+
+        .overlay .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 60px;
+            cursor: pointer;
+            color: white;
+        }
+
+            .overlay .closebtn:hover {
+                color: #ccc;
+            }
+
+        .overlay input[type=text] {
+            padding: 15px;
+            font-size: 17px;
+            border: none;
+            float: left;
+            width: 80%;
+            background: white;
+        }
+
+            .overlay input[type=text]:hover {
+                background: #f1f1f1;
+            }
+
+        .overlay button {
+            float: left;
+            width: 20%;
+            padding: 15px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .overlay button:hover {
+                background: #bbb;
+            }
+
+        p.search {
+            text-align: center;
+        }
+
+        div.searchbtn {
+            text-align: center;
+        }
+
+        .my-custom-scrollbar {
+            position: relative;
+            height: 500px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>
+</head>
+<h1 class="hh">Inventory Form</h1>
+<br />
+<h4 class="hhh">Product List</h4>
+<hr style="height: 2px; border-width: 0; color: gray; background-color: #235CCD" />
+
+<div id="myOverlay" class="overlay">
+    <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form method="get" asp-action="Index">
+            <input type="text" placeholder="Enter Brand, Model or category...." value=" @ViewData["Getitemdetails"]" name="Itemsearch">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</div>
+<div class="searchbtn">
+    <button class="openBtn" onclick="openSearch()">Search Your Products Here</button><br /><br />
+    @*<a class="viewi" asp-action="Index">View All Inventory Items</a>*@
+    <a class="ViewI" data-toggle="tooltip" title="View your Product List" asp-action="Index">Inventory</a>
+</div>
+
+
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="p rounded border">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IItemId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IBrand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IModel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ICategory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IQPurchase)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.IUPrice)
+                </th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IItemId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IBrand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ICategory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IQPurchase)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IUPrice)
+                    </td>
+
+                    <td class="btnsE">
+                        @Html.ActionLink("Details", "Details", new { id = item.IItemId }, new { @class = "btn btn-outline-info" })
+                    </td>
+                    <td class="btnsD">
+                        @Html.ActionLink("Remove", "Delete", new { id = item.IItemId }, new { @class = "btn btn-outline-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p>
+    <a class="btn btn-outline-success" asp-action="Create" style="filter: drop-shadow(8px 8px 10px gray);">ADD New Product</a>
+</p>
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+    
+        <script type="text/javascript">
+        $(document).ready( function () {
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        } );
+        $(function(){
+            var save = '@TempData["save"]'
+            if(save!='') {
+                alertify.success(save);
+            }
+            var edit = '@TempData["edit"]'
+            if(edit!='') {
+                alertify.success(edit);
+            }
+            var del = '@TempData["delete"]'
+            if (del!='') {
+                alertify.error(del);
+            }
+        })
+
+        //search button
+        function openSearch() {
+            document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function closeSearch() {
+            document.getElementById("myOverlay").style.display = "none";
+        }
+
+        //tooltip
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+}
+
+
+
+
+

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ITP
 {
@@ -25,6 +27,7 @@ namespace ITP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("Myconnection")));
             services.AddSession(options => {
@@ -32,6 +35,15 @@ namespace ITP
             });
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
+            });
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                //options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
             });
         }
 
@@ -50,7 +62,7 @@ namespace ITP
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();
             app.UseRouting();
             app.UseSession();
             app.UseAuthorization();
