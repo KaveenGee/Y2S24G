@@ -1,5 +1,5 @@
 ﻿@using ITP.Models
-@model List<ItemModel>
+@model List<ViewCartDetailsModel>
 @{
     ViewData["Title"] = "Cart";
 }
@@ -14,9 +14,10 @@
                 <th>Image</th>
                 <th>Name </th>
                 <th>Description</th>
+                <th>Quntity</th>
                 <th>Price</th>
-                 <th></th>
-                <th></th>
+                <th>Total Price</th>
+                @*<th></th>*@
             </tr>
         </thead>
         <tbody>
@@ -24,22 +25,27 @@
             {
             <tr>
                 <td>
-                    <img src="~/Images/Items/@item.ImageName" height="150px" object-fit="contain" />
-                    </td>
-                    <td>@item.IBrand.</td>
-                    <td>@item.IDescription.</td>
-                    <td>@item.IUPrice.</td>
-              
+                    <img src="~/Images/Items/@item.ImageName" height="70px" object-fit="contain" />
+                </td>
+                <td>@item.IBrand</td>
+                <td>@item.IDescription</td>
+                @*<td>@item.Quntity</td>*@
+                <td><input asp-for="@item.Quntity" type="number" value="@item.Quntity" onchange="setItemTotal(this)"/></td>
+                <td>@item.IUPrice</td>
+                <td>@(item.Quntity*item.IUPrice)</td>
+                
+               
+
                 <td>
                     <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>
-                <td>
-                    <a asp-action="Update" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                </td>
+                @*<td>
+            <a asp-action="Update" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger">
+                <i class="fas fa-pencil-alt"></i>
+            </a>
+        </td>*@
             </tr>
             }
 
@@ -56,3 +62,13 @@
         <a  asp-action="Checkout" asp-controller="Order" class="btn btn-info">Process to Checkout</a>
     </div>
 </div>
+
+<script>
+    function setItemTotal(e) {
+        var qty = $(e).val();
+        var up = parseFloat($(e).closest("td").next().text());
+        $(e).closest("td").next().next().text(qty * up);
+
+    }
+
+</script>

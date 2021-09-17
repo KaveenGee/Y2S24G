@@ -1,0 +1,73 @@
+﻿@model ITP.Models.AttendeesModel
+@{
+    ViewData["Title"] = "Create";
+}
+<br />
+
+<h2 class="text-info text-center">Attend to Job</h2>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        @*<h3>@ViewBag.message</h3>*@
+
+        @using (Html.BeginForm("Create", "Create", FormMethod.Post))
+        {
+            <div class="form-group row">
+                <div class="col-2">
+                    <label>Employee Name</label>
+                </div>
+                <div class="col-5">
+                    <input name="empName" class="form-control" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label>Date</label>
+                </div>
+                <div class="col-5">
+                    <input name="workDay" class="form-control" type="date" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label>Time</label>
+                </div>
+                <div class="col-5">
+                    <input name="attendTime" class="form-control" type="time" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-5">
+                    <input name="isAvailabity" type="checkbox" /><label> Not available today</label>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Save" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+
+        }
+
+        @if (ViewBag.Message != null)
+        {
+            <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+                return false;
+            };
+            </script>
+
+        }
+
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

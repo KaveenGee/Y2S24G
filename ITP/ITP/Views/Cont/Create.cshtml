@@ -1,0 +1,98 @@
+﻿@model ITP.Models.NewCont
+
+@{
+    ViewData["Title"] = "Create";
+}
+<html>
+<head>
+    <style>
+
+        .btn-primary{
+            background-color:#03c04A;
+            border:none;
+            padding:10px 45px;
+        }
+
+        .heading-section {
+            margin-top:13px;
+            margin-bottom:5px;
+            font-family:Roboto;
+            font-size: 50px;
+            font-weight: bold;
+            color: #0099ff;
+            text-align:center;
+        }
+        .downc{
+            font-family:Roboto;
+            font-size:14px;
+            color:grey;
+            text-align:center;
+            margin-top:70px;
+        }
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+    </style>
+</head>
+<body>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="heading-section">CONTACT US</h1>
+        <img src="~/Images/Feedback/contact.gif" width="500" height="350" class="center">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="Cid" class="control-label"></label>
+                <input asp-for="Cid" class="form-control" />
+                <span asp-validation-for="Cid" class="text-danger"></span>
+            </div>*@
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Fname" class="control-label"></label>
+                        <input asp-for="Fname" class="form-control" placeholder="Sudewa"/>
+                        <span asp-validation-for="Fname" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Lname" class="control-label"></label>
+                        <input asp-for="Lname" class="form-control" placeholder="Jayanath" />
+                        <span asp-validation-for="Lname" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="name@gmail.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phonen" class="control-label"></label>
+                <input asp-for="Phonen" class="form-control" placeholder="+94 71 6181247" />
+                <span asp-validation-for="Phonen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cmessage" class="control-label"></label>
+                <input asp-for="Cmessage" class="form-control" />
+                <span asp-validation-for="Cmessage" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <input onclick="alert('Your Message Submitted')" type="submit" value="SUBMIT" class="btn btn-primary" />
+            </div>
+        </form>
+       <p class="downc">Use features like smart content and conditional logic to adapt the page to the user’s needs. Do you have a different set of questions for a prospect than you do a user that needs support? Make sure your page displays the right questions and information no matter the persona.</p>
+  </div>
+</div>
+<div>
+    @*<a asp-action="Index">Back to List</a>*@
+</div>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

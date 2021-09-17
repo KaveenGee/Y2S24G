@@ -12,6 +12,16 @@ namespace ITP.Models
 
         }
         public DbSet<Customer> CustomerInfo { get; set; }
+        public DbSet<NewCont> ContactusTable { get; set; }
+        public DbSet<Newfeed> Feedback { get; set; }
+
+        public DbSet<supplierlog> Supplierlog { get; set; }
+
+        public DbSet<handlesupplierClass> handlesuppliers { get; set; }
+        
+        public DbSet<excessfaultyclass> ExcessFaulty { get; set; }
+    
+        public DbSet<OrderListClass> DeliveryList { get; set;}
 
 
         public DbSet<ItemModel> Item { get; set; }
@@ -22,6 +32,12 @@ namespace ITP.Models
 
         public DbSet<Admin> Admin{ get; set; }
 
+
+        public DbSet<EmployeeClass> Employee { get; set; }
+        
+        public DbSet<AttendeesModel> AttendeesTable { get; set; }
+
+       
 
     }
 }

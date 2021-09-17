@@ -85,6 +85,7 @@ namespace ITP.Controllers
                 //Insert record
                 _context.Add(itemModel);
                 await _context.SaveChangesAsync();
+                TempData["save"] = "This Product has been saved";
                 return RedirectToAction(nameof(Index));
             }
             return View(itemModel);
@@ -120,6 +121,7 @@ namespace ITP.Controllers
                 {
                     _context.Update(itemModel);
                     await _context.SaveChangesAsync();
+                    TempData["edit"] = "This Product has been Updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -176,6 +178,7 @@ namespace ITP.Controllers
             //delete the record
             _context.Item.Remove(itemModel);
             await _context.SaveChangesAsync();
+            TempData["delete"] = "This Product has been deleted";
             return RedirectToAction(nameof(Index));
         }
     }
