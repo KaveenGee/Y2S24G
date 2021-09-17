@@ -1,0 +1,196 @@
+﻿@model ITP.Models.ItemModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    h1 {
+        color: #235CCD;
+        font-family: Roboto;
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px #ABB2B9;
+        font-size: 45px;
+    }
+
+    h4 {
+        color: black;
+        font-family: Roboto;
+        text-align: center;
+        font-weight: bold;
+        font-size: 35px;
+        text-shadow: 0px 0px 5px #235CCD;
+    }
+
+    div.col-md-4 {
+        color: #235CCD;
+        font-family: Roboto;
+        text-align: left;
+        font-weight: normal;
+        font-size: 20px;
+    }
+
+    div.form-group {
+        color: #235CCD;
+        font-family: Roboto;
+        text-align: left;
+        font-weight: normal;
+        font-size: 20px;
+    }
+    div.form-groupc {
+        padding-left: 65em;
+        
+    }
+</style>
+
+<h1>Inventory Form</h1>
+
+<h4>Add Product</h4>
+<hr style="height: 2px; border-width: 0; color: gray; background-color: #235CCD" />
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border row" style="background-color: #f2f2f2;">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <h3>@ViewBag.message</h3>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IItemId"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IItemId" class="form-control" />
+            </div>
+            <span asp-validation-for="IItemId" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IDateTime"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IDateTime" class="form-control" />
+            </div>
+            <span asp-validation-for="IDateTime" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IBrand"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IBrand" class="form-control" />
+            </div>
+            <span asp-validation-for="IBrand" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IModel"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IModel" class="form-control" />
+            </div>
+            <span asp-validation-for="IModel" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ICategory"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ICategory" class="form-control" />
+                @*<input asp-for="ProductTypeId" class="form-control"/>*@
+            </div>
+            <span asp-validation-for="ICategory" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IQPurchase"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IQPurchase" class="form-control" />
+            </div>
+            <span asp-validation-for="IQPurchase" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IQStock"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IQStock" class="form-control" />
+            </div>
+            <span asp-validation-for="IQStock" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IQSold"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IQSold" class="form-control" />
+            </div>
+            <span asp-validation-for="IQSold" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IUPrice"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IUPrice" class="form-control" />
+            </div>
+            <span asp-validation-for="IUPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ITPrice"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ITPrice" class="form-control" />
+            </div>
+            <span asp-validation-for="ITPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IIValue"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IIValue" class="form-control" />
+            </div>
+            <span asp-validation-for="IIValue" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IDiscount"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IDiscount" class="form-control" />
+            </div>
+            <span asp-validation-for="IDiscount" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IDescription"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="IDescription" class="form-control" />
+            </div>
+            <span asp-validation-for="IDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ImageFile"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ImageFile" accept="image/*" />
+            </div>
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+        <div class="form-groupc">
+            <input type="submit" value="Create" class="btn btn-outline-primary" />
+            <a asp-action="Index" value="Back" class="btn btn-outline-dark">Back to List</a>
+        </div>
+    </div>
+    
+</form>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

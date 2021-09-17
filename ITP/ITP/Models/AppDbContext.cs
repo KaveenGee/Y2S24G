@@ -14,5 +14,15 @@ namespace ITP.Models
         public DbSet<Customer> CustomerInfo { get; set; }
         public DbSet<OrderListClass> DeliveryList { get; set;}
 
+
+        public DbSet<ItemModel> Item { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+
+        public DbSet<Admin> Admin{ get; set; }
+
+
     }
 }

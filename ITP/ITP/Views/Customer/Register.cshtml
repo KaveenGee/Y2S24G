@@ -1,0 +1,298 @@
+﻿@model ITP.Models.Customer
+
+<head>
+    <title>Register</title>
+    <style>
+        @@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
+        header{
+            display:none;
+         }
+        #footer{
+            display:none;
+        }
+        .divider-text {
+            position: relative;
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+            .divider-text span {
+                padding: 7px;
+                font-size: 12px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .divider-text:after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                border-bottom: 1px solid #ddd;
+                top: 55%;
+                left: 0;
+                z-index: 1;
+            }
+
+        .btn-facebook {
+            background-color: #405D9D;
+            color: #fff;
+        }
+
+        .btn-twitter {
+            background-color: #42AEEC;
+            color: #fff;
+        }
+
+        body {
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+        }
+
+
+
+        #div1 {
+            padding: 10px;
+            width: 150px;
+            position: absolute;
+            left: 230px;
+            display: none;
+            top: -50px;
+        }
+
+        .invalid::before {
+            font-family: Font Awesome 5 Free;
+            content: 'X';
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            right: 25px;
+        }
+
+        .invalid {
+            position: relative;
+            left: 40px;
+            color: red;
+        }
+
+        .valid {
+            position: relative;
+            left: 40px;
+            color: green;
+        }
+
+            .valid::before {
+                content: "O";
+                position: relative;
+                right: 25px;
+            }
+
+        .hi {
+            font-family: sens sans-serif;
+        }
+
+        li.method1 {
+            float: left;
+            font-size: 20px;
+            background-color: green;
+            overflow: hidden;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+
+
+<div class="container" style="">
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="~/Images/Customer/reg_pic.svg" style="margin-top:150px;width:500px;" />
+        </div>
+        <div class="card bg-light col-md-6 ml-auto" style="margin-top:60px;">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="card-title mt-3 text-center">Create Account</h4>
+                        <p class="text-center">Get started with your free account</p>
+                        <p>
+                          @*<a href="" class="btn btn-block btn-danger"> <i class="fab fa-google"></i>   Login via google</a>
+                          <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>*@
+                        </p>
+                        <p class="divider-text">
+                            <span class="bg-light">OR</span>
+                        </p>
+                    </div>
+                </div>
+
+                <form asp-action="CustomerCreate" enctype="multipart/form-data">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+
+                        <input asp-for="LastName" class="form-control" placeholder="Enter First Name" />
+
+                    </div>
+
+
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input asp-for="FirstName" class="form-control" placeholder="Enter Lats Name" />
+
+                    </div>
+
+                    <span asp-validation-for="NIC" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-id-card"></i> </span>
+                        </div>
+                        <input asp-for="NIC" class="form-control" placeholder="Enter nic" />
+
+                    </div>
+
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input asp-for="Email" class="form-control" placeholder="Enter Email" />
+
+                    </div>
+
+
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-phone"></i> </span>
+                        </div>
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Enter PhoneNumber" />
+
+                    </div>
+
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i> </span>
+                        </div>
+
+                        <input asp-for="Username" class="form-control" placeholder="Enter Username" />
+
+                    </div>
+
+
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                        </div>
+                        <input asp-for="Address" class="form-control" placeholder="Enter Address" />
+
+                    </div>
+
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input asp-for="Password" class="form-control pass" placeholder="Enter Password" onfocus="Passwordinfo()" onblur="hidebar()" onkeyup="passwordfunction()" id="pwd" />
+                        <div id="div1">
+                            <p id="low" class="invalid">lower case</p>
+                            <p id="high" class="invalid">Upper Case</p>
+                            <p id="num" class="invalid">Number</p>
+                            <p id="char" class="invalid">8 Characters</p>
+                        </div>
+
+                    </div>
+
+                    <span asp-validation-for="ConfirmPassword" class="text-danger "></span>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Reenter Password" />
+
+                    </div>
+
+                    
+                    <!-- <div class="form-group input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+        </div>
+        <input type ="file" asp-for="ConfirmPassword" class="form-control" placeholder="Reenter Password" />
+
+    </div>-->
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                    </div>
+                    <p class="text-center">Have an account? <a asp-action="Customerlogin" asp-controller="Customer">Log In</a> </p>
+                </form>
+
+            </article>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function Passwordinfo() {
+        document.getElementById("div1").style = "display:block";
+    }
+    function hidebar() {
+        document.getElementById("div1").style = "display:none";
+    }
+    function passwordfunction() {
+        var low = /[a-z]/g;
+        var lows = document.getElementById("low");
+        var input = document.getElementById("pwd");
+        if (input.value.match(low)) {
+            lows.classList.remove("invalid");
+            lows.classList.add("valid");
+        }
+        else {
+            lows.classList.remove("valid");
+            lows.classList.add("invalid");
+        }
+        var high = /[A-Z]/g;
+        var highs = document.getElementById("high");
+        if (input.value.match(high)) {
+            highs.classList.remove("invalid");
+            highs.classList.add("valid");
+
+        }
+        else {
+            highs.classList.remove("valid");
+            highs.classList.add("invalid");
+        }
+        var num = /[0-9]/g;
+        var numb = document.getElementById("num");
+        if (input.value.match(num)) {
+            numb.classList.remove("invalid");
+            numb.classList.add("valid");
+        }
+        else {
+            numb.classList.remove("valid");
+            numb.classList.add("invalid");
+        }
+        var char = document.getElementById("char");
+        if (input.value.length >= 8) {
+            char.classList.remove("invalid");
+            char.classList.add("valid");
+
+        }
+        else {
+            char.classList.remove("valid");
+            char.classList.add("invalid");
+        }
+    }
+</script>
