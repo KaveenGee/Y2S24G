@@ -1,0 +1,73 @@
+﻿@model ITP.Models.Admin
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Admin ob1 = ViewBag.ob;
+}
+<div class="card mb-3" style="padding:30px;">
+    <form asp-action="_manageredit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Admin_ID" class="control-label"></label>
+                    <input asp-for="Admin_ID" class="form-control" readonly value="@ob1.Admin_ID" />
+                    <span asp-validation-for="Admin_ID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" value="@ob1.Name" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control" value="@ob1.Username"  required/>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" value="@ob1.Email" type="email" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Phone_Number" class="control-label"></label>
+                    <input asp-for="Phone_Number" class="form-control" value="@ob1.Phone_Number" type ="tel" required />
+                    <span asp-validation-for="Phone_Number" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="NIC" class="control-label"></label>
+                    <input asp-for="NIC" class="form-control" value="@ob1.NIC" onkeyup="check1(this)" maxlength="10" required />
+                    <span asp-validation-for="NIC" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    var check = function (dat) {
+
+    }
+</script>

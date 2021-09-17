@@ -1,0 +1,110 @@
+﻿@using ITP.Models;
+@model IEnumerable<MonthlyAttendenceModel>
+@{
+    ViewData["Title"] = "View Monthly Attendence";
+}
+<h1 class="text-center">Employee Monthly Attendence List</h1>
+<br/>
+<br/>
+<div class="row">
+    <div class="col-7">
+
+        @using (Html.BeginForm("", "MonthlyAttendence", FormMethod.Get))
+        {
+            <div class="form-group row">
+                <div class="col-5">
+                    <input class="form-control" id="datePicker" type="month" name="searching" value="<%= tdate %>">
+                </div>
+                <div class="col-2">
+                    <input type="submit" value="Search" class="btn btn-info" />
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<br/>
+<div>
+    <table class="table table-striped border" id="myTable">
+        <thead>
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(c => c.EmpId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.EmpName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.DayCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.OverTime)
+                </th>
+                @*<th></th>*@
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="7" class="text-center" style="color:red;">No Match Data</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.EmpId</td>
+                        <td>@item.EmpName</td>
+                        <td>@item.DayCount</td>
+                        <td>@item.OverTime</td>
+                        @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.EmpId }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Details", "Details", new { id = item.EmpId }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Remove", "Delete", new { id = item.EmpId }, new { @class = "btn btn-danger" })
+                        </td>*@
+                    </tr>
+                }
+            }
+        </tbody>
+
+
+    </table>
+</div>
+
+@section scripts{
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        } );
+        $(function(){
+            var save = '@TempData["save"]'
+            if(save!='') {
+                alertify.success(save);
+            }
+            var edit = '@TempData["edit"]'
+            if(edit!='') {
+                alertify.success(edit);
+            }
+            var del = '@TempData["delete"]'
+            if (del!='') {
+                alertify.error(del);
+            }
+        })
+    </script>
+}
+
+
+

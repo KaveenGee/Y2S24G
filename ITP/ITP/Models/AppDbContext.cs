@@ -15,5 +15,29 @@ namespace ITP.Models
         public DbSet<NewCont> ContactusTable { get; set; }
         public DbSet<Newfeed> Feedback { get; set; }
 
+        public DbSet<supplierlog> Supplierlog { get; set; }
+
+        public DbSet<handlesupplierClass> handlesuppliers { get; set; }
+        
+        public DbSet<excessfaultyclass> ExcessFaulty { get; set; }
+    
+        public DbSet<OrderListClass> DeliveryList { get; set;}
+
+
+        public DbSet<ItemModel> Item { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+
+        public DbSet<Admin> Admin{ get; set; }
+
+
+        public DbSet<EmployeeClass> Employee { get; set; }
+        
+        public DbSet<AttendeesModel> AttendeesTable { get; set; }
+
+       
+
     }
 }

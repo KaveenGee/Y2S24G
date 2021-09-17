@@ -1,0 +1,368 @@
+﻿@model ITP.Models.Customer
+<style>
+    * {
+     
+    }
+    .table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        
+    }
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 4px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #0099FF;
+            color: white;
+        }
+   #footer{
+        display:none;
+    }
+   header{
+       display:none;
+   }
+</style>
+ <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"
+        integrity="sha256-C6CB9UYIS9UJeqinPHWTHVqh/E1uhG5Twh+Y5qFQmYg="
+        crossorigin="anonymous"></script>
+    
+
+<div class="container">
+<div class="row">
+    <div class="col-md-12 my-auto ">
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom:30px;margin-top:30px">
+  Add Customer
+</button>
+        <div class="row">
+            <div class="col-md-6">
+
+                <form class="d-flex" method="get" asp-action="CustomerList2">
+                    <input class="form-control me-2" type="search" placeholder="Search for a customer" aria-label="Search" value="@ViewData["cusdetails"]" name="cusSearch">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                   
+                </form>
+            </div>
+            <div class="col-md-6 ">
+                  <h2>Customer list</h2>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a asp-action="CustomerList"> All Customer</a>
+            </div>
+        </div>
+      
+
+        <div class="modal fade modal1" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="Customercreate">
+              <div class="modal-body">
+                  
+                      <label>First Name</label>
+
+                      @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control",@required = "true"})
+                      <label>Last Name</label>
+                      @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                      <label>Address</label>
+                      @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @type = "email" })
+                      <label>Email</label>
+                      @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                      <label>Phone Number</label>
+                      @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                      <label>NIC</label>
+                      @Html.TextBoxFor(m => m.NIC, new { @class = "form-control" })
+
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-success" id="btnsave" type="submit" >Create</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+              </div>
+          </form>
+      </div>
+</div>
+</div>
+
+
+
+        <table class="table table-hover" style="font-size:15px;" id="customers">
+            <thead>
+                <tr class="table-light">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cusid)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.NIC)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.totalcustomer)
+                {
+                <tr class="bg-white">
+                    <td>
+                        <img src="~/Images/Customer/@item.Image" style="width:40px;height:40px;border-radius:50%" id="pich" />
+                    </td>
+                    <td>
+                        @item.Cusid
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+
+                    <td>
+                        @item.Address
+                    </td>
+
+                    <td>
+                        @item.NIC
+                    </td>
+                    <td>
+                        @item.PhoneNumber
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" onclick="editcus(@item.Cusid, '@item.FirstName', '@item.LastName', '@item.NIC', '@item.Address', '@item.PhoneNumber', '@item.Email')">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="viewcus(@item.Cusid, '@item.FirstName', '@item.LastName', '@item.NIC', '@item.Address', '@item.PhoneNumber', '@item.Email')">
+                            View
+                        </button>
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="confirmDelete(@item.Cusid)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+             <input type="hidden" id="wid"/>
+        </table>
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Customer Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <h3>Are you sure you want to Delete?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+         <button type="button" class="btn btn-danger" id="delcus">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Customer Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <label>Cusid</label>
+                                    <input readonly id="dis0" class="form-control" />
+                                    <label>FirstName</label>
+                                    <input readonly id="dis1" class="form-control" />
+                                    <label>LastName</label>
+                                    <input readonly id="dis2" class="form-control" />
+                                    <label>Email</label>
+                                    <input readonly id="dis3" class="form-control" />
+                                    <label>NIC</label>
+                                    <input readonly id="dis4" class="form-control" />
+                                    <label>PhoneNumber</label>
+                                    <input readonly id="dis5" class="form-control" />
+                                    <label>Address</label>
+                                    <input readonly id="dis6" class="form-control" />
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Customer Update</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form id="Customeredit">
+          <label>Cusid</label>
+          @Html.TextBoxFor(m => m.Cusid, new { @class = "form-control", @id = "in0" })
+                    <label>First Name</label>
+                                      @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "in1" })
+                                        <label>Last Name</label>
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @id = "in2" })
+                                        <label>Address</label>
+                                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @id = "in3" })
+                                        <label>Email</label>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "in4" })
+                                        <label>Phone Number</label>
+                                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @id = "in5" })
+                                        <label>NIC</label>
+                                        @Html.TextBoxFor(m => m.NIC, new { @class = "form-control", @id = "in6" })
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="editdata2">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+    <script>
+    $(document).ready(function () {
+        $("#btnsave").click(function () {
+            var data1 = $("#Customercreate").serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "/TLC_Admin/saveCustomer",
+                data: data1,
+                success: function () {
+                    window.location.reload(true);
+                }
+            })
+        })
+
+        $("#delcus").click(function () {
+            var _id = $("#wid").val();
+            $.ajax({
+                type: "POST",
+                url: "/TLC_Admin/Delete_byadmin",
+                data: { id: _id },
+                success: function () {
+                    window.location.reload(true);
+                    }
+
+                
+    
+            })
+        })
+        $("#editdata2").click(function () {
+            var data1 = $("#Customeredit").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/TLC_Admin/Editcusdata",
+                data: data1,
+                success: function () {
+                    window.location.reload(true);
+                }
+            })
+        })
+    })
+
+    var confirmDelete = function (id) {
+
+        $("#wid").val(id);
+
+    }
+    var editcus = function (id,f,l,n,a,p,e) {
+        $("#in0").val(id);
+        $("#in1").val(f);
+        $("#in2").val(l);
+        $("#in3").val(a);
+        $("#in4").val(e);
+        $("#in5").val(p);
+        $("#in6").val(n);
+        
+    }
+    var viewcus = function (id, f, l, n, a, p, e) {
+
+        $("#dis0").val(id);
+        $("#dis1").val(f);
+        $("#dis2").val(l);
+        $("#dis3").val(e);
+        $("#dis4").val(n);
+        $("#dis5").val(p);
+        $("#dis6").val(a);
+
+    }
+</script>
+
+

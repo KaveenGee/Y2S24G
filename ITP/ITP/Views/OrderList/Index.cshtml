@@ -1,0 +1,113 @@
+﻿@model IEnumerable<ITP.Models.OrderListClass>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<body style="background-color:whitesmoke;">
+
+    <h1 style="text-align:center; text-shadow: 0 0 2px #a4bff1, 0 0 9px #3e5eaa;"><b>Order List</b></h1>
+
+    <style>
+        tr:nth-child(even) {
+            background-color: #dcdddd;
+        }
+
+        tr:hover {
+            background-color: #a4bff1;
+        }
+    </style>
+
+
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary"> Add New Orders</a>
+    </p>
+    <form method="get" asp-action="Index">
+        <p>
+            <input type="search" placeholder="Enter Receviername ...." value="@ViewData["Getorderdetails"]" name="Ordersearch" style="width:400px;" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index">Get All Orders</a>
+        </p>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Deliveryid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Receivername)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeliveryAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ODateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Driver)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OStatus)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deliveryid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Order_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Receivername)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ODateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Driver)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OStatus)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Deliveryid }, new { @class = "btn btn-primary" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.Deliveryid }, new { @class = "btn btn-success" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Deliveryid }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <a asp-action="Generate" class="btn btn-primary"> Generate Report</a>
+    </p>
+</body>

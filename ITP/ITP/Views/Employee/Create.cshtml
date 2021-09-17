@@ -1,0 +1,83 @@
+﻿@model ITP.Models.EmployeeClass
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>NewEmployeeClass</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="Empid" class="control-label"></label>
+                <input asp-for="Empid" class="form-control" />
+                <span asp-validation-for="Empid" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Empname" class="control-label"></label>
+                <input asp-for="Empname" class="form-control" />
+                <span asp-validation-for="Empname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpNIC" class="control-label"></label>
+                <input asp-for="EmpNIC" class="form-control" />
+                <span asp-validation-for="EmpNIC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpAddress" class="control-label"></label>
+                <input asp-for="EmpAddress" class="form-control" />
+                <span asp-validation-for="EmpAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpEmail" class="control-label"></label>
+                <input asp-for="EmpEmail" class="form-control" />
+                <span asp-validation-for="EmpEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpGender" class="control-label"></label>
+                <input asp-for="EmpGender" class="form-control" />
+                <span asp-validation-for="EmpGender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpStatus" class="control-label"></label>
+                <input asp-for="EmpStatus" class="form-control" />
+                <span asp-validation-for="EmpStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpContactNo" class="control-label"></label>
+                <input asp-for="EmpContactNo" class="form-control" />
+                <span asp-validation-for="EmpContactNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpDateofApproval" class="control-label"></label>
+                <input asp-for="EmpDateofApproval" class="form-control" />
+                <span asp-validation-for="EmpDateofApproval" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpAge" class="control-label"></label>
+                <input asp-for="EmpAge" class="form-control" />
+                <span asp-validation-for="EmpAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpSalary" class="control-label"></label>
+                <input asp-for="EmpSalary" class="form-control" />
+                <span asp-validation-for="EmpSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
