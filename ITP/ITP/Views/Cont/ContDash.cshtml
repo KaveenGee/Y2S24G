@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ITP.Models.NewCont>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .head{
+       font-family:Bebas;
+       padding:0px 450px;
+       color:dimgrey;
+    }
+</style>
+<h1 class="head">Contact Dashboard</h1>
+
+<p>
+    @*<a asp-action="Create">Create New</a>*@
+</p>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Cid)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Fname)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Lname)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Phonen)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Cmessage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phonen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cmessage)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Cid }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Cid }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Cid }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -12,6 +12,8 @@ namespace ITP.Models
 
         }
         public DbSet<Customer> CustomerInfo { get; set; }
+        public DbSet<NewCont> ContactusTable { get; set; }
+        public DbSet<Newfeed> Feedback { get; set; }
 
     }
 }
