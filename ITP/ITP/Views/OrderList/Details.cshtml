@@ -1,0 +1,74 @@
+﻿@model ITP.Models.OrderListClass
+
+@{
+    ViewData["Title"] = "Details";
+}
+<body style="background-color:midnightblue;">
+    <div class="col-md-6" style="margin-left:40% ; margin-top:2% ; position:absolute">
+        <img src="~/Images/Delivery/ee.png.png" alt="Alternate Text" class="img-responsive" style="width: 70%; height: 70%" />
+    </div>
+    <div style="background-color:white; border-radius:30px; padding:25px;width:450px; margin-top:5%;">
+        <h4 style="text-align:center; color:cornflowerblue;"><b>SEE DETAILS</b></h4>
+
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Deliveryid)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Deliveryid)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Order_ID)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Order_ID)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Receivername)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Receivername)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.DeliveryAddress)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.DeliveryAddress)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.City)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.ODateTime)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.ODateTime)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Driver)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Driver)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.OStatus)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.OStatus)
+            </dd>
+        </dl>
+        <div>
+            @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+            <a asp-action="Index" class="btn btn-info">Back to List</a>
+        </div>
+    </div>
+</body>

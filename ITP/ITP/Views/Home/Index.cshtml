@@ -1,4 +1,7 @@
-﻿@{
+﻿@using ITP.Models;
+
+@model List<ItemModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -27,7 +30,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
+                <img src="~/Images/Customer/Banner2.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Some representative placeholder content for the third slide.</p>
@@ -44,3 +47,30 @@
         </button>
     </div>
 </section>
+<br />
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">
+                        <label style="font-size: 23px;color: steelblue">@item.IBrand</label>
+                    </h4>
+                </div>
+                <img src="~/images/items/@item.ImageName" alt="Card Image" class="card-img-top" style="height: 300px; object-fit:contain;" />
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label style="font-size: 20px;color: #a51313"><b>Price : @item.IUPrice</b></label>
+                        </div>
+                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="pull-right" > <i class="fas fa-shopping-cart"></i> </a>
+                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-success pull-right btn-outline-info">Deatils</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
