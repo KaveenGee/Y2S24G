@@ -5,8 +5,9 @@
 }
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <style>
-        h1 {
+        h1.hh {
             color: #235CCD;
             font-family: Roboto;
             text-align: center;
@@ -15,7 +16,7 @@
             font-size: 45px;
         }
 
-        h4 {
+        h4.hhh {
             color: black;
             font-family: Roboto;
             text-align: center;
@@ -40,19 +41,26 @@
             text-align: center
         }
 
+            td.btnsE {
+                filter: drop-shadow(8px 8px 10px gray);
+            }
+
+            td.btnsD {
+                filter: drop-shadow(8px 8px 10px gray);
+            }
+
+
         table {
             border-collapse: collapse;
             width: 100%;
         }
-
-
 
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
         p {
-            padding-top: 50px;
+            padding-top: 40px;
         }
 
         th {
@@ -67,6 +75,7 @@
             color: black;
             font-weight: bold;
             text-align: center;
+            text-shadow: 8px 8px 10px gray;
         }
 
         body {
@@ -86,6 +95,7 @@
             color: #235CCD;
             cursor: pointer;
             border-radius: 20px;
+            filter: drop-shadow(8px 8px 10px gray);
         }
 
             .openBtn:hover {
@@ -133,7 +143,6 @@
             float: left;
             width: 80%;
             background: white;
-            
         }
 
             .overlay input[type=text]:hover {
@@ -158,14 +167,24 @@
             text-align: center;
         }
 
-        p.searchbtn {
+        div.searchbtn {
             text-align: center;
+        }
+
+        .my-custom-scrollbar {
+            position: relative;
+            height: 500px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
         }
     </style>
 </head>
-<h1>Inventory Form</h1>
+<h1 class="hh">Inventory Form</h1>
 <br />
-<h4>Product List</h4>
+<h4 class="hhh">Product List</h4>
 <hr style="height: 2px; border-width: 0; color: gray; background-color: #235CCD" />
 
 <div id="myOverlay" class="overlay">
@@ -177,89 +196,91 @@
         </form>
     </div>
 </div>
-<p class="searchbtn">
+<div class="searchbtn">
     <button class="openBtn" onclick="openSearch()">Search Your Products Here</button><br /><br />
     @*<a class="viewi" asp-action="Index">View All Inventory Items</a>*@
-    <a class="ViewI" asp-action="Index">View All Inventory Items</a>
-</p>
+    <a class="ViewI" data-toggle="tooltip" title="View your Product List" asp-action="Index">Inventory</a>
+</div>
 
 
-<table class="p rounded border">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IItemId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IBrand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IModel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ICategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IQPurchase)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.IUPrice)
-            </th>
-
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="p rounded border">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IItemId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IDateTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IBrand)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IModel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ICategory)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IQPurchase)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.IItemId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IBrand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IModel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ICategory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IQPurchase)
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.IUPrice)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.IUPrice)
+                </th>
 
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.IItemId }, new { @class = "btn btn-outline-info" })
-                </td>
-                <td>
-                    @Html.ActionLink("Remove", "Delete", new { id = item.IItemId }, new { @class = "btn btn-outline-danger" })
-                </td>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IItemId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IBrand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ICategory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IQPurchase)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IUPrice)
+                    </td>
+
+                    <td class="btnsE">
+                        @Html.ActionLink("Details", "Details", new { id = item.IItemId }, new { @class = "btn btn-outline-info" })
+                    </td>
+                    <td class="btnsD">
+                        @Html.ActionLink("Remove", "Delete", new { id = item.IItemId }, new { @class = "btn btn-outline-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <p>
-    <a class="btn btn-outline-success" asp-action="Create">ADD New Product</a>
+    <a class="btn btn-outline-success" asp-action="Create" style="filter: drop-shadow(8px 8px 10px gray);">ADD New Product</a>
 </p>
 
 @section scripts{
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
-
-    <script type="text/javascript">
+    
+        <script type="text/javascript">
         $(document).ready( function () {
             $('#myTable').DataTable({
                 dom: 'Bfrtip',
@@ -283,6 +304,7 @@
             }
         })
 
+        //search button
         function openSearch() {
             document.getElementById("myOverlay").style.display = "block";
         }
@@ -290,6 +312,11 @@
         function closeSearch() {
             document.getElementById("myOverlay").style.display = "none";
         }
+
+        //tooltip
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
     </script>
 }

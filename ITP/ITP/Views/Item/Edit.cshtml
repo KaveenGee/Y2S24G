@@ -5,7 +5,7 @@
 }
 
 <style>
-    h1 {
+    h1.hh {
         color: #235CCD;
         font-family: Roboto;
         text-align: center;
@@ -14,7 +14,7 @@
         font-size: 45px;
     }
 
-    h4 {
+    h4.hhh {
         color: black;
         font-family: Roboto;
         text-align: center;
@@ -34,7 +34,8 @@
         font-family: Roboto;
         font-weight: bold;
         color: #235CCD;
-        text-align: center
+        text-align: center;
+        filter: drop-shadow(8px 8px 10px gray);
     }
 
     div.col-8 {
@@ -48,13 +49,13 @@
         padding-top: 21em;
     }
 </style>
-<h1>Inventory Form</h1>
+<h1 class="hh">Inventory Form</h1>
 <br />
 
-<h4>Update Product Details</h4>
+<h4 class="hhh">Update Product Details</h4>
 <hr style="height: 2px; border-width: 0; color: gray; background-color: #235CCD" />
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <div class="p-4 rounded border row" style="background-color: #f2f2f2;">
+    <div class="p-4 rounded border row" style="background-color: #f2f2f2; filter: drop-shadow(8px 8px 10px gray);">
         <div asp-validation-summary="ModelOnly" class="text-danger">
 
         </div>

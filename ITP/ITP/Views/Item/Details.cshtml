@@ -3,203 +3,293 @@
 @{
     ViewData["Title"] = "Details";
 }
+<html>
+<head>
 
-<style>
-    h1 {
-        color: #235CCD;
-        font-family: Roboto;
-        text-align: center;
-        font-weight: bold;
-        text-shadow: 2px 2px 8px #ABB2B9;
-        font-size: 45px;
-    }
+    <style>
+        h1.hh {
+            color: #235CCD;
+            font-family: Roboto;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px #ABB2B9;
+            font-size: 45px;
+        }
 
-    h4 {
-        color: black;
-        font-family: Roboto;
-        text-align: center;
-        font-weight: bold;
-        font-size: 35px;
-        text-shadow: 0px 0px 5px #235CCD;
-    }
+        h4.hhh {
+            color: black;
+            font-family: Roboto;
+            text-align: center;
+            font-weight: bold;
+            font-size: 35px;
+            text-shadow: 0px 0px 5px #235CCD;
+        }
 
-    div.col-8.col-4 {
-        font-size: 20px;
-        font-family: Roboto;
-        font-weight: normal;
-    }
+        div.col-8.col-4 {
+            font-size: 20px;
+            font-family: Roboto;
+            font-weight: normal;
+        }
 
-    div.col-3 {
-        font-size: 20px;
-        font-family: Roboto;
-        font-weight: bold;
-        color: #235CCD;
-        text-align: center
-    }
+        div.col-3 {
+            font-size: 20px;
+            font-family: Roboto;
+            font-weight: bold;
+            color: #235CCD;
+            text-align: center;
+            filter: drop-shadow(8px 8px 10px gray);
+        }
 
-    div.col-8 {
-        font-size: 20px;
-        font-family: Roboto;
-        font-weight: bold;
-        color: #235CCD;
-    }
+        div.col-8 {
+            font-size: 20px;
+            font-family: Roboto;
+            font-weight: bold;
+            color: #235CCD;
+        }
 
-    div.form-group1 {
-        padding-top: 21em;
-    }
-</style>
+        div.form-group1 {
+            padding-top: 21em;
+        }
 
-<h1>Inventory Form</h1>
-<br />
-<h4>Product Details</h4>
-<hr style="height: 2px; border-width: 0; color: gray; background-color: #235CCD" />
+        * {
+            box-sizing: border-box;
+        }
 
-<form asp-action="" method="post" enctype="multipart/form-data">
-    <div class="p-4 rounded border row" style="background-color: #f2f2f2;">
-        <div asp-validation-summary="ModelOnly" class="text-danger">
+        .img-magnifier-container {
+            position: relative;
+        }
 
+        .img-magnifier-glass {
+            position: absolute;
+            border: 3px solid #000;
+            border-radius: 50%;
+            cursor: none;
+            /*Set the size of the magnifier glass:*/
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <script>
+        function magnify(imgID, zoom) {
+            var img, glass, w, h, bw;
+            img = document.getElementById(imgID);
+            /*create magnifier glass:*/
+            glass = document.createElement("DIV");
+            glass.setAttribute("class", "img-magnifier-glass");
+            /*insert magnifier glass:*/
+            img.parentElement.insertBefore(glass, img);
+            /*set background properties for the magnifier glass:*/
+            glass.style.backgroundImage = "url('" + img.src + "')";
+            glass.style.backgroundRepeat = "no-repeat";
+            glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+            bw = 3;
+            w = glass.offsetWidth / 2;
+            h = glass.offsetHeight / 2;
+            /*execute a function when someone moves the magnifier glass over the image:*/
+            glass.addEventListener("mousemove", moveMagnifier);
+            img.addEventListener("mousemove", moveMagnifier);
+            /*and also for touch screens:*/
+            glass.addEventListener("touchmove", moveMagnifier);
+            img.addEventListener("touchmove", moveMagnifier);
+            function moveMagnifier(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                x = pos.x;
+                y = pos.y;
+                /*prevent the magnifier glass from being positioned outside the image:*/
+                if (x > img.width - (w / zoom)) { x = img.width - (w / zoom); }
+                if (x < w / zoom) { x = w / zoom; }
+                if (y > img.height - (h / zoom)) { y = img.height - (h / zoom); }
+                if (y < h / zoom) { y = h / zoom; }
+                /*set the position of the magnifier glass:*/
+                glass.style.left = (x - w) + "px";
+                glass.style.top = (y - h) + "px";
+                /*display what the magnifier glass "sees":*/
+                glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+            }
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return { x: x, y: y };
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1 class="hh">Inventory Form</h1>
+    <br />
+    <h4 class="hhh">Product Details</h4>
+    <hr style="height: 2px; border-width: 0; color: gray; background-color: #235CCD" />
+
+    <form asp-action="" method="post" enctype="multipart/form-data">
+        <div class="p-4 rounded border row" style="background-color: #f2f2f2; filter: drop-shadow(8px 8px 10px gray);">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IItemId"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="hidden" asp-for="IItemId" />
+                        <input asp-for="IItemId" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IItemId" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IDateTime"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IDateTime" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IDateTime" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IBrand"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IBrand" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IBrand" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IModel"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IModel" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IModel" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ICategory"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ICategory" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ICategory" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IQPurchase"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IQPurchase" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IQPurchase" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IQStock"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IQStock" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IQStock" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IQSold"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IQSold" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IQSold" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IUPrice"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IUPrice" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IUPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ITPrice"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ITPrice" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ITPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IIValue"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IIValue" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IIValue" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IDiscount"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IDiscount" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IDiscount" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IDescription"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="IDescription" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="IDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ImageName"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="ImageName" readonly="readonly" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ImageName" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                <div class="img-magnifier-container">
+                    Uploaded Image
+                    <img src="@("~/images/items/"+Model.ImageName)" id="myimage" asp-append-version="true" width="250px" height="250px" />
+                    <div id="myresult" class="img-zoom-result"></div>
+                    <div class="form-group1">
+                        <div>
+                            @Html.ActionLink("Update", "Edit", new { id = Model.IItemId }, new { @class = "btn btn-outline-success" })
+                            <a asp-action="Index" value="Back" class="btn btn-outline-dark">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="col-8">
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IItemId"></label>
-                </div>
-                <div class="col-8">
-                    <input type="hidden" asp-for="IItemId" />
-                    <input asp-for="IItemId" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IItemId" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IDateTime"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IDateTime" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IBrand"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IBrand" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IBrand" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IModel"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IModel" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IModel" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ICategory"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="ICategory" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="ICategory" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IQPurchase"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IQPurchase" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IQPurchase" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IQStock"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IQStock" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IQStock" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IQSold"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IQSold" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IQSold" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IUPrice"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IUPrice" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IUPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ITPrice"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="ITPrice" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="ITPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IIValue"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IIValue" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IIValue" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IDiscount"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IDiscount" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IDiscount" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="IDescription"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="IDescription" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="IDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ImageName"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="ImageName" readonly="readonly" class="form-control" />
-                </div>
-                <span asp-validation-for="ImageName" class="text-danger"></span>
-            </div>
+    </form>
+    <script>
+        /* Initiate Magnify Function
+with the id of the image, and the strength of the magnifier glass:*/
+        magnify("myimage", 3);
+    </script>
 
-        </div>
-        <div class="col-1"></div>
-        <div class="col-3">
-            Uploaded Image
-            <img src="@("~/images/items/"+Model.ImageName)" asp-append-version="true" width="250px" height="250px" />
-            <div class="form-group1">
-                <div>
-                    @Html.ActionLink("Update", "Edit", new { id = Model.IItemId }, new { @class = "btn btn-outline-success" })
-                    <a asp-action="Index" value="Back" class="btn btn-outline-dark">Back to List</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</form>
+</body>
+</html>
