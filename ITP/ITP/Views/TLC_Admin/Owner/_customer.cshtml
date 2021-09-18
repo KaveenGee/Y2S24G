@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model ITP.Models.Email
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -69,6 +70,40 @@
         background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
         color: #fff;
     }
+    .thirteen h4 {
+        position: relative;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0px;
+        text-transform: uppercase;
+        width: 250px;
+        text-align: center;
+        margin: auto;
+        white-space: nowrap;
+        border: 2px solid #222;
+        padding: 5px 11px 3px 11px;
+    }
+
+        .thirteen h4:before, .thirteen h4:after {
+            background-color: #c50000;
+            position: absolute;
+            content: '';
+            height: 7px;
+            width: 7px;
+            border-radius: 50%;
+            bottom: 12px;
+        }
+
+        .thirteen h4:before {
+            left: -20px;
+        }
+
+        .thirteen h4:after {
+            right: -20px;
+        }
+
+
+
 </style>
 <div class="row">
     <div class="col-md-12" style="margin-top:40px;">
@@ -81,10 +116,10 @@
                 <div class="row align-items-center mb-2 d-flex">
                     <div class="col-8">
                         <h2 class="d-flex align-items-center mb-0">
-                            15.07k
+                            @ViewBag.c
                         </h2>
                     </div>
-                    <div class="col-4 text-right">
+                    <div class="col-4 ">
                         <a class="btn btn-success" style="color:white;z-index:3" asp-action="CustomerList" asp-controller="TLC_Admin">Manage Customers</a>
                     </div>
                 </div>
@@ -97,14 +132,82 @@
 
 </div>
 <div class="row">
-<div id="char_div" style="margin-left:100px;" class="col-md-10">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <div id="char_div" style="margin-left:100px;" class="col-md-10">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    </div>
+    </div>
+
+<div class="row" style="margin-top:40px">
+   <div class="thirteen"> <h4 style="margin-left:160px">Notify Updates</h4></div>
+    <div class="col-md-4" style="background-color:white;padding:30px;margin-left:100px">
+
+
+        <form id="form1" asp-action="sendEmails" enctype="multipart/form-data">
+
+            <div>
+                <input type="file" asp-for="Imagename" onchange="showImagePreview(this)" class="btn btn-primary" accept="image/*" id="pic" />
+                <br /><br />
+                <img id="imgPreview" alt="Select an Image" width="320" src="~/Images/Customer/def.jpg" />
+            </div>
+            <div class="input-group mb-3" style="margin-top:50px">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Email-Title</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" asp-for="Email_title">
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Message</span>
+                </div>
+                <textarea class="form-control" aria-label="With textarea" asp-for="Email_body"></textarea>
+            </div>
+            <input type="submit" class="btn btn-success" style="color:white;margin-top:30px;margin-left:100px" id="sendmails" value="Send Emails" />
+        </form>
+
+
+
+
+        <script type="text/javascript">
+            function showImagePreview(input) {
+                if (input.files && input.files[0]) {
+                    var filerdr = new FileReader();
+                    filerdr.onload = function (e) {
+                        $('#imgPreview').attr('src', e.target.result);
+                    }
+                    filerdr.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+
+
+    </div>
+    <div class="col-md-1"></div>
+    @*@foreach (var item in ) {*@
+    <div class="col-md-2">
+
+        <div class="bg-white rounded shadow-sm py-3 px-4">
+            <img src="https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-4.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+            <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+           
+        </div>
+
+    </div>
+    @*}*@
 
 </div>
-    </div>
 <script>
+
+
+
+
+
+
+
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
 
@@ -129,6 +232,10 @@
                  var chart = new google.visualization.ColumnChart(document.getElementById('char_div'));
         chart.draw(data, options);
     });
-}
-</script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    }
+
+  
+
+
+        </script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
