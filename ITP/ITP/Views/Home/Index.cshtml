@@ -1,8 +1,125 @@
-﻿@{
+﻿@using ITP.Models;
+
+@model List<ItemModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <style>
+    .social-cover {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .cover-container {
+        height: 350px;
+        margin-top: -25px;
+        background-image: url();
+        background-size: cover;
+        position: relative;
+        margin-bottom: 25px;
+        background-position: center
+    }
+
+    .btn-brightblue.btn-inverse.btn-outlined {
+        color: #fff;
+        border-color: #fff;
+    }
+
+    .border-black75 {
+        border-color: #1fb7e8 !important;
+    }
+
+    .btn-brightblue.btn-outlined {
+        color: #1fb7e8;
+        background: 0 0;
+    }
+
+    .social-avatar {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        position: absolute;
+        background-color: #1fb7e8;
+    }
+
+    .photo {
+         width:300px;
+
+    }
+
+    .social-desc {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 300px;
+        position: absolute;
+    }
+
+        .social-desc div {
+            margin-left: 10%;
+            margin-top: 100px;
+        }
+
+    .fg-focus-white:focus,
+    .fg-hover-white:hover,
+    .fg-white,
+    .fg-white .tab-container.plain .nav-tabs .b-tab.active a,
+    .fg-white .fg-tab-active .tab-container .nav-tabs .b-tab.active a,
+    .fg-white .tab-container .nav-tabs .b-tab a {
+        color: #fff;
+    }
+
+    .fg-white {
+        opacity: 0.8;
+    }
+    .feed {
+        font-family: Bebas;
+        font-size: 19px;
+    }
+
+
+    .btn-orange75.btn-inverse.btn-outlined {
+        color: #fff;
+        border-color: #fff;
+    }
+
+    .btn-orange75.btn-outlined {
+        color: #EE682F;
+        background: 0 0;
+    }
+
+    .btn.btn-rounded {
+        line-height: 1;
+        border-radius: 100px;
+        height: auto !important;
+        padding: 15px !important;
+    }
+    .tag{
+        font-family:Bebas;
+        padding:0px 240px;
+    }
+
+    .btn > .rubix-icon {
+        line-height: 1;
+        font-size: 18px;
+    }
+    .black{
+        font-size:60px;
+    }
+    .social-like-count {
+        cursor: pointer;
+        display: inline-block;
+    }
+
+        .social-like-count > span {
+            margin-left: 25px;
+        }                    
 </style>
 <section id="banner">
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -27,7 +144,10 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="..." class="d-block w-100" alt="...">
+
+               <img src="~/Images/Customer/bg3.png" class="d-block w-100" alt="...">
+               
+
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Some representative placeholder content for the third slide.</p>
@@ -44,3 +164,54 @@
         </button>
     </div>
 </section>
+<br />
+<br />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">
+                        <label style="font-size: 23px;color: steelblue">@item.IBrand</label>
+                    </h4>
+                </div>
+                <img src="~/images/items/@item.ImageName" alt="Card Image" class="card-img-top" style="height: 300px; object-fit:contain;" />
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <label style="font-size: 20px;color: #a51313"><b>Price : @item.IUPrice</b></label>
+                        </div>
+                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="pull-right" > <i class="fas fa-shopping-cart"></i> </a>
+                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-success pull-right btn-outline-info">Deatils</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+<br>
+<br>
+<div class="container bootstrap snippets bootdey">
+    <div class="cover-container">
+        <div class="social-cover">
+            <img src="~/Images/Feedback/giphy.gif" width="973" height="350" />
+        </div>
+        <div class="social-desc">
+            <div class="visible-md visible-sm">
+                <h1 class="fg-white black">Welcome to TLC Life Parter</h1>
+                <h5 class="fg-white tag">Share your experience with us</h5>
+                <div style="margin-top:10px;">
+                </div>
+            </div>
+        </div>
+        <div class="social-avatar">
+            <img class="photo" src="~/Images/Feedback/5_stars.gif" >
+            <h4 class="fg-white text-center feed">OUR CUSTOMERS LOVE OUR PRODUCTS</h4>
+            <div class="text-center">
+                    <a class="btn btn-outline-light" asp-action="CreateFeed" asp-controller="Feed"> Create Feed</a>
+            </div>
+        </div>
+    </div>
+</div>           
