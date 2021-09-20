@@ -22,6 +22,7 @@ namespace ITP.Models
 
         public DbSet<Admin> Admin{ get; set; }
 
+        public DbSet<ITP.Models.CartClass> CartClass { get; set; }
 
     }
 }

@@ -19,7 +19,7 @@
 <br />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <h2 class="text-info">Order Details</h2>
-<form asp-action="Checkout" method="post" enctype="multipart/form-data">
+<form asp-action="ProcessCheckout" method="post" enctype="multipart/form-data">
     <div class="p-4 rounded border row">
         <div asp-validation-summary="ModelOnly" class="text-danger">
 
@@ -109,7 +109,8 @@
                 </tbody>
             </table>
             <div class="text-right">
-               @* <h3>Total Price : @items.Sum(c => c.IUPrice)</h3>*@
+                <h3>@*Total Price : @item.Sum(c => c.IUPrice)*@</h3>
+                <h3>Total Price : @Model.viewCartDetailsModelList.Sum(c => c.TotalPrice)</h3>
             </div>
             <div class="form-group text-right">
                 <input type="submit" value="Place Order" class="btn btn-success" />
