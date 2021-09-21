@@ -20,7 +20,19 @@ namespace ITP.Controllers
             var displaydata = _db.ExcessFaulty.ToList();
             return View(displaydata);
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Index(string ExcessFaultyLogsearch)
+        {
+            ViewData["GetExcessFaultydetails"] = ExcessFaultyLogsearch;
+
+            var orderquery = from x in _db.ExcessFaulty select x;
+            if (!String.IsNullOrEmpty(ExcessFaultyLogsearch))
+            {
+                orderquery = orderquery.Where(x => x.ExcessFaultyStatus.Contains(ExcessFaultyLogsearch));
+            }
+            return View(await orderquery.AsNoTracking().ToListAsync());
+        }
         public IActionResult Create()
         {
             return View();

@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
-    Layout = "_Layout1";
+   
 }
 
 <style>
@@ -61,6 +61,8 @@
             padding-bottom: 10px;
             text-align: center;
         }
+
+
 </style>
 <div class="two">
     <h1>
@@ -68,6 +70,7 @@
         <span>delete</span>
     </h1>
 </div>
+<link rel="stylesheet" href="~/css/sweetalert2.css" />
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -144,8 +147,22 @@
     <img src="~/Images/Items/@ViewBag.img" width="10%" object-fit="contain" />
 
     <form asp-action="Delete">
-        <input type="hidden" @*asp-for="OrderId"*@ value="@Model.OrderId" name="OD" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="hidden" value="@Model.OrderId" name="OD" />
+        <button type="submit" onclick="sweetalertclick()" value="Delete" class="btn btn-danger">Delete</button>
+
+
+        <script src="~/js/sweetalert2.all.min.js"></script>
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
     </form>
 </div>
+<script>
+    function sweetalertclick() {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been Deleted',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+</script>
