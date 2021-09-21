@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ITP.Models.handlesupplierClass>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<body style="background-image: linear-gradient(#00008b, #483d8b,#6a5acd,#4682b4,#87ceeb); ">
+
+    <div class="col-md-12" style="background-color:white;margin-top:2%;border-radius:20px;padding:20px;">
+        <div class="button" style="position:absolute;margin-left:90%;color:black">
+            <button onclick="document.location='https://localhost:44333/Home/Index'">HOME</button>
+        </div>
+        <h1 style="text-align: center; color: darkblue; @*text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px lightblue;*@"><b>HANDLE SUPPLIER LIST</b></h1>
+        <style>
+            tr:nth-child(even) {
+                background-color: #dcdddd;
+            }
+
+            tr:hover {
+                background-color: #a4bff1;
+            }
+        </style>
+        <div class="supplierButton" style="position:absolute;margin-left:15px;margin-top:40px">
+            <p>
+                <a asp-action="Create" class="btn btn-outline-dark">Enter New Supplier <i class="far fa-plus-square"></i> </a>
+            </p>
+        </div>
+        <div class="searchCont" style="float:right;margin-top:40px;">
+            <form method="get" asp-action="Index">
+                <p>
+                    <input type="search" placeholder="Enter SupplierName ...." value="@ViewData["GetSupplierdetails"]" name="Suppliersearch" style="width: 250px; border-color: Highlight; border-radius: 8px; height: 30px; padding: 5px" />
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    @*<a asp-action="Index" class="btn btn-outline-primary">Get Total Supplier Names</a>*@
+
+                </p>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SupplierIndex)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NameofSupplier)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Company)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SupplierIndex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameofSupplier)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Company)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.SupplierIndex }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = item.SupplierIndex }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.SupplierIndex }, new { @class = "btn btn-primary" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="getSupLog" style="">
+            <form method="get" asp-action="Index">
+                <p>
+                    <a asp-action="Index" class="btn btn-outline-primary">Get Total Supplier Log</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</body>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,13 @@ namespace ITP.Controllers
 {
     public class ItemController : Controller
     {
+        SqlCommand command;
+        private static String connectionstring = "workstation id=Project.mssql.somee.com;packet size=4096;user id=donkavi2_SQLLogin_1;pwd=12345678;data source=Project.mssql.somee.com;persist security info=False;initial catalog=Project";
+        SqlConnection connection = new SqlConnection(connectionstring);
+        SqlDataReader reader;
+        List<Customer> TestList = new List<Customer>();
+        Customer test = null;
+
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
@@ -37,6 +45,27 @@ namespace ITP.Controllers
                 itemquery = itemquery.Where(x => x.IBrand.Contains(Itemsearch) || x.IModel.Contains(Itemsearch) || x.ICategory.Contains(Itemsearch));
             }
             return View(await itemquery.AsNoTracking().ToListAsync());
+        }
+
+        public IActionResult DashSample()
+        {
+            return View();
+        }
+
+        public IActionResult _dashboard()
+        {
+            command = new SqlCommand("select * from Item", connection);
+            connection.Open();
+            reader = command.ExecuteReader();
+            int count = reader.Cast<object>().Count();
+
+            ViewBag.count = count;
+            return PartialView("_dashboard");
+        }
+
+        public IActionResult _inventory()
+        {
+            return PartialView("_inventory");
         }
 
         //GET: Image/Details/5
@@ -76,7 +105,7 @@ namespace ITP.Controllers
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(itemModel.ImageFile.FileName);
                 string extension = Path.GetExtension(itemModel.ImageFile.FileName);
-                itemModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                itemModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension; 
                 string path = Path.Combine(wwwRootPath + "/Images/Items", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -85,6 +114,7 @@ namespace ITP.Controllers
                 //Insert record
                 _context.Add(itemModel);
                 await _context.SaveChangesAsync();
+                TempData["save"] = "This Product has been added";
                 return RedirectToAction(nameof(Index));
             }
             return View(itemModel);
@@ -120,6 +150,7 @@ namespace ITP.Controllers
                 {
                     _context.Update(itemModel);
                     await _context.SaveChangesAsync();
+                    TempData["edit"] = "This Product has been Updated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -176,6 +207,7 @@ namespace ITP.Controllers
             //delete the record
             _context.Item.Remove(itemModel);
             await _context.SaveChangesAsync();
+            TempData["delete"] = "This Product has been deleted";
             return RedirectToAction(nameof(Index));
         }
     }

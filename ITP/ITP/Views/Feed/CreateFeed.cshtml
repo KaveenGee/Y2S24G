@@ -1,0 +1,433 @@
+﻿@model ITP.Models.Newfeed
+ 
+@{
+    ViewData["Title"] = "CreateFeed";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initail-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700 " rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=Fjm6PvxoeSb9xDhp8XVoaH3BAMYM7D6F7i4R14WyLCZbRUEUtyUl6ooyUaLhO55yQ8Ptifwfji2sMtbh9XbuXFPtuf1ZoAPcp12AtJNkY4Qv5siyLedx63qNvX4AXnuxoouNWOp3QN5sEFvwD-vefL7OBZmWsvtoFvYivbQ5v_UN4729gd77NQVUOjNn21i3KhRKdw-SxJoaVQGg6cUGNWLsa5qC8TitOyq3HABewJFiqSYLxZniNy_-ReYaOdQY1R-wxLZkIRoNbdW1as5xR6jzztWHviMPqTAU_zQW-4uFppBaQkvB0ZNIt_rMvRLNxQScY6BkDBWFii_ChilcRZPCgYXLOzfNpe0VJF2vLSvtZoAEYuk9vFjFuL14AAVd2aYnoowqm27VCsGfoZ26TMlzvTvlDvdMtpT0GSKJe9tmPjXHiC45i_5iWmEhd8JIJmx8l0Sgx_-k5W-GIf8rW68dNjx7juTJyVWnkTd9u21JwfqjNmxsxosWGTNz19DmefvaEVaV6kIuXoPwQch7ohosW8ysYTru5LjzsRo4Ex5Psj_G613uotPp3ZJISodXe81--YcyLaenJhUNYCfzvG4hm2orhDziPCIX8RAw5-r44pRbQjD8XpohWBlkDdMz3AYfe9j-sQ1nG9TH_G4on4obpgHE3T5JslqDZZ-b4BWfvJFevDrdajoOXkruxZCvqEgeE9PgcL2KwCe4FvOpzlhvubP0J7sp865ZMGM6t__FMWRIHVH-4zL4NSbPVce2RB_OUPgo-h-bwe2YoEaWkYB_k7s7D_wyxjQ9vhFBmHFgRa4NTxFzEVv31NORHJ64C4JgbEEZHvz970DZX2czR1LGiAJB3IyDMaObaItcLkQ81vUMxFYtijL1oYH6SFFi19adGRDxTZAOM_TUqWiBAz9ILCB1ziyEVO2Ty9OnFvWa7uq04nf8KGbFDTc7HfQ7t4t9PbhVB67hw2ZCTg-Jzvxf2YunLx9lSVdVac8NBHTAT7z2rq9B3prPHYB_9ouD9u-Gkb7kuNZxZP6L6HKAK6--2pT-5V_8-yqQS9wp8UAk33lzQ089Wwb5bmTC6Vcnjf6wafcBEQLboLVK9XlqUCOmXSz1QxdSKsYCgvbAwpZYm3GbZoo0eFXNatex2DuZvPVdA8FVxZTxDXqMW2ZpfFdUrk2ZqX1x8jdxCOX_IlncDu8PuehYMhFPE5keys0JYKv3m6Qf_gXfIDyfalw-zg" nonce="6b9214f20697263e61902ba1cbd5cfee" charset="UTF-8"></script>
+    <link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9tYWlsLWF0dGFjaG1lbnQuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2F0dGFjaG1lbnQvdS8wLz91aT0yJmlrPWQ4NjcxYjI3MDEmYXR0aWQ9MC4xJnBlcm1tc2dpZD1tc2ctYTpyLTczOTgxMDYzNjQ0MjQ0NDAxNTgmdGg9MTdiYWQzZWE3MmIxZTNkNiZ2aWV3PWF0dCZkaXNwPXNhZmUmcmVhbGF0dGlkPWZfa3Q0czY4djQwJnNhZGRiYXQ9QU5HamRKLUgxWlcxTXZCU0RHclFRbG5NNDNkNFFaRlZVeFdzNGhyRXRDOXhvcVVCSDRpbHJsQWFINTZIZzJ1YU9PNmFDTkpQZEF2QUNNS2RrbzBzSWJMNTNwWncwdVdRZWZJSkVfSGFvU0t0a1lxU0EzRWtmWUJWMEl4ZXVrM05OZ21kZzhwS2hwcVNYZ212cjNFY3p1d25QVnEzbmliajhGUEN6SzAwd3ZBcEh2YVU3VkkxRTI4cnhMWXZmVFRYLTNJc3B4eGRsVTkyOGpCVkJFYnJQWkdPUXlsNDBBM0MzZk5TZWVkQ201ZkdYbDQtSF9iUVlOdXVxLW54emRSX21YeWR1Vi1fTWEybF9ES25mQU5qYTc3MHdSb0J2dW9YR3F1MWRGdk9XdXdtZ29FR0dMWkdpMVduSzdudkMxT2RaOXV4dEFlVW5WcFdUTHh5QlFzd2F4b2U2SGlQZVdKbFFVOGJaTERXNnpzYWU3Zk0xTDBvREgzTWkxMVVQZV9XX2VpWE5NZlBlMlVvcUpucnJpUmxSVXJWMzktTTk1N0NMMWpsSm1kYUhmS2lhdHRjNjVQaGFGY1ZIa1VNdWtMZFZsdEl0b0FkVVJxQ2E3NDJNQ3RrWW8tUXl1NHRaOWRXUGxKVUoxTHN6blRRMktBTXI1a21aRlZ3d25uOHFTOVJPOWhWZ2RiU2NfREZGTDkwU3ZzdnBkSjVrSWpNOHN5elpzbk5QVEhHQUtDWENELXpKRjU1bl9aRXhoM193ZjBBeGRWM3JVN1hSMzJmQ0FmUzZIYWstdkF0a0RiNU9KWWF3Xzg3cmlSVHZxd2xyV3lQQmNJMHkydkE2YnNiYldBelFieUpfdDItdGFkVVFHYk96VXZkQmpQWTlHekZCbUFjZWxmQkNvTmtLVGo1NERMQ3UwWEpqYmYtTDU1WFp6OA" />
+
+
+    <style>
+
+        .rating {
+            display: inline-block;
+            position: relative;
+            height: 50px;
+            line-height: 50px;
+            font-size: 50px;
+        }
+
+            .rating label {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                cursor: pointer;
+            }
+
+                .rating label:last-child {
+                    position: static;
+                }
+
+                .rating label:nth-child(1) {
+                    z-index: 5;
+                }
+
+                .rating label:nth-child(2) {
+                    z-index: 4;
+                }
+
+                .rating label:nth-child(3) {
+                    z-index: 3;
+                }
+
+                .rating label:nth-child(4) {
+                    z-index: 2;
+                }
+
+                .rating label:nth-child(5) {
+                    z-index: 1;
+                }
+
+                .rating label input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    opacity: 0;
+                }
+
+                .rating label .icon {
+                    float: left;
+                    color: transparent;
+                }
+
+                .rating label:last-child .icon {
+                    color: #000;
+                }
+
+            .rating:not(:hover) label input:checked ~ .icon,
+            .rating:hover label:hover input ~ .icon {
+                color: #09f;
+            }
+
+            .rating label input:focus:not(:checked) ~ .icon:last-child {
+                color: #000;
+                text-shadow: 0 0 5px #09f;
+            }
+
+
+
+
+        /* Split the screen in half */
+        .split {
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        /* Control the left side */
+        .left {
+            left: 0;
+            background-color: transparent;
+           
+        }
+
+        .right {
+            right: 0;
+            background-color: #fff;
+        }
+        /* If you want the content centered horizontally and vertically */
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .heading-section {
+            margin-bottom: 0px;
+            font-family: Roboto;
+            font-size: 60px;
+            font-weight: bold;
+            color: #0099ff;
+            text-align: left;
+        }
+
+        .downc {
+            font-family: Roboto;
+            font-size: 10px;
+            color: grey;
+            text-align: left;
+            margin-top: 0px;
+        }
+
+        .btn-primary {
+            position: center
+        }
+        .text-pink{
+            font-size:24px;
+            color:white;
+        }
+        .bgsec1 {
+            background-color: #0093E9;
+            background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+        }
+      
+    </style>
+</head>
+<body>
+    <section class="bgsec1">
+      <div class="bgsec1">
+        <div class="flex flex-col lg:flex-row">
+            <div class="bgsec1">
+                <div class="relative flex flex-col items-center justify-center w-full h-full px-10 my-20 lg:px-16 lg:my-0">
+                    <div class="flex flex-col items-start space-y-8 tracking-tight lg:max-w-3xl">
+                        <div class="relative">
+                            <p class="mb-2 font-medium text-gray-700 uppercase">Welcome to Feedback Section</p>
+                            <h2 class="text-5xl font-bold text-gray-900 xl:text-6xl">TLC Life Partner</h2>
+                        </div>
+                        <p class="text-pink">Dear Valueble Customer, Thank you for Join with Us and You can send us your comments through this Feedback Section.</p>
+                        <a href="#Feeds" class="inline-block px-8 py-5 text-xl font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease">Check our Feedbacks</a>
+                    </div>
+                </div>
+            </div>
+            @* Start of Feedback Creating form Code *@
+            <div class="w-full bg-white lg:w-6/12 xl:w-5/12">
+                <div class="flex flex-col items-start justify-start w-full h-full p-10 lg:p-16 xl:p-24">
+                    <div class="relative w-full mt-10 space-y-8">
+                            <div id="Form" class="left">
+                                <h1 class="heading-section">FEEDBACK</h1>
+                                <p class="downc">Use features like smart content and conditional logic to adapt the page to the user’s needs. </p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form asp-action="CreateFeed">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            @*<div class="form-group">
+             <label asp-for="FeedID" class="control-label"></label>
+             <input asp-for="FeedID" class="form-control" />
+             <span asp-validation-for="FeedID" class="text-danger"></span>
+        </div>*@
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label asp-for="FirstName" class="control-label"></label>
+                                                        <input asp-for="FirstName" class="form-control" />
+                                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label asp-for="LastName" class="control-label"></label>
+                                                        <input asp-for="LastName" class="form-control" />
+                                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="FeedType" class="control-label"></label>
+                                                <input asp-for="FeedType" class="form-control" />
+                                                <span asp-validation-for="FeedType" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="FeedDes" class="control-label"></label>
+                                                <input asp-for="FeedDes" class="form-control" />
+                                                <span asp-validation-for="FeedDes" class="text-danger"></span>
+                                            </div>
+                                            <div></div>
+
+                                            <br>
+                                            @*<form></form>*@
+
+                                            <div class="rating">
+                                                <label>
+                                                    <input type="radio" name="St_01" value="1" />
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_01" value="2" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_01" value="3" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_01" value="4" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_01" value="5" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                            </div>
+
+                                            <br>
+                                            <div class="rating">
+                                                <label>
+                                                    <input type="radio" name="St_02" value="1" />
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_02" value="2" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_02" value="3" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_02" value="4" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="St_02" value="5" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                            </div>
+                                            <br>
+                                            <div class="rating">
+                                                <label>
+                                                    <input type="radio" name="Rate" value="1" />
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="Rate" value="2" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="Rate" value="3" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="Rate" value="4" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="Rate" value="5" />
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                    <span class="icon">★</span>
+                                                </label>
+                                            </div>
+
+                                            @*<div class="form-group">
+                                                <label asp-for="St_01" class="control-label"></label>
+                                                <input asp-for="St_01" class="form-control" />
+                                                <span asp-validation-for="St_01" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="St_02" class="control-label"></label>
+                                                <input asp-for="St_02" class="form-control" />
+                                                <span asp-validation-for="St_02" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Rate" class="control-label"></label>
+                                                <input asp-for="Rate" class="form-control" />
+                                                <span asp-validation-for="Rate" class="text-danger"></span>
+                                            </div>*@
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                                <input type="submit" value="Create" class="btn btn-primary" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </section>
+                        <!-- Section 2 -->
+                        <section id="Feeds" class="flex items-center justify-center py-16 bg-gray-100 min-w-screen">
+                            <div class="max-w-6xl px-12 mx-auto bg-gray-100 md:px-16 xl:px-10">
+                                <div class="flex flex-col items-center lg:flex-row">
+                                    <div class="flex flex-col items-start justify-center w-full h-full pr-8 mb-10 lg:mb-0 lg:w-1/2">
+                                        <p class="mb-2 text-base font-medium tracking-tight text-indigo-500 uppercase">Our customers love our product</p>
+                                        <h2 class="text-4xl font-extrabold leading-10 tracking-tight text-gray-900 sm:text-5xl sm:leading-none md:text-6xl lg:text-5xl xl:text-6xl">FEEDBACKS</h2>
+                                        <p class="my-6 text-lg text-gray-600">Don't just take our word for it, read from our extensive list of case studies and customer testimonials.</p>
+                                        <a href="#Form" class="flex items-center justify-center px-8 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo md:py-4 md:text-lg md:px-10">Create Feedback</a>
+                                    </div>
+                                    <div class="w-full lg:w-1/2">
+
+                                        @*Feedback viewing Area*@
+
+                                    
+
+
+                                        @*@foreach (var item in ViewBag.ob)
+                                        {
+                                        <blockquote class="flex items-center justify-between w-full col-span-1 p-6 bg-white rounded-lg shadow">
+                                            <div class="flex flex-col pr-8">
+                                                <div class="relative pl-12">
+                                                    <svg class="absolute left-0 w-10 h-10 text-indigo-500 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
+                                                        <path d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z"></path>
+                                                    </svg>
+                                                    <p class="mt-2 text-sm text-gray-600 sm:text-base lg:text-sm xl:text-base"></p>
+                                                </div>
+
+                                                <h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-800 truncate sm:text-base lg:text-sm lg:text-base">
+                                                    Jane Cooper
+                                                    <span class="mt-1 text-sm leading-5 text-gray-500 truncate">@item.FirstName</span>
+                                                </h3>
+                                            </div>
+                                            <img class="flex-shrink-0 w-20 h-20 bg-gray-300 rounded-full xl:w-24 xl:h-24" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                                        </blockquote>
+                                        }*@
+
+                                        @*<blockquote class="flex items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow">
+                                            <div class="flex flex-col pr-10">
+                                                <div class="relative pl-12">
+                                                    <svg class="absolute left-0 w-10 h-10 text-indigo-500 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
+                                                        <path d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z"></path>
+                                                    </svg>
+                                                    <p class="mt-2 text-sm text-gray-600 sm:text-base lg:text-sm xl:text-base">I can't express enough, how amazing this service has been for my company.</p>
+                                                </div>
+                                                <h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-800 truncate sm:text-base lg:text-sm lg:text-base">
+                                                    John Doe
+                                                    <span class="mt-1 text-sm leading-5 text-gray-500 truncate">- CEO SomeCompany</span>
+                                                </h3>
+                                                <p class="mt-1 text-sm leading-5 text-gray-500 truncate"></p>
+                                            </div>
+                                            <img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;aauto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                                        </blockquote>
+
+
+                                        <blockquote class="flex items-center justify-between w-full col-span-1 p-6 mt-4 bg-white rounded-lg shadow">
+                                            <div class="flex flex-col pr-10">
+                                                <div class="relative pl-12">
+                                                    <svg class="absolute left-0 w-10 h-10 text-indigo-500 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
+                                                        <path d="M30.7 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2C12.7 83.1 5 72.6 5 61.5c0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S30.7 31.6 30.7 42zM82.4 42c0 6.1 12.6 7 12.6 22 0 11-7.9 19.2-18.9 19.2-11.8 0-19.5-10.5-19.5-21.6 0-19.2 18-44.6 29.2-44.6 2.8 0 7.9 2 7.9 5.4S82.4 31.6 82.4 42z"></path>
+                                                    </svg>
+                                                    <p class="mt-2 text-sm text-gray-600 sm:text-base lg:text-sm xl:text-base">I can't express enough, how amazing this service has been for my company.</p>
+                                                </div>
+
+                                                <h3 class="pl-12 mt-3 text-sm font-medium leading-5 text-gray-800 truncate sm:text-base lg:text-sm lg:text-base">
+                                                    John Smith
+                                                    <span class="mt-1 text-sm leading-5 text-gray-500 truncate"></span>
+                                                    
+                                                </h3>
+                                                <p class="mt-1 text-sm leading-5 text-gray-500 truncate"></p>
+                                            </div>
+                                            <img class="flex-shrink-0 w-24 h-24 bg-gray-300 rounded-full" src="https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rrb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;aauto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                                        </blockquote>*@
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+</body>
+</html>
+        @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

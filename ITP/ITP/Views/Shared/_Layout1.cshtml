@@ -18,9 +18,9 @@
 </head>
 <body style="background-color: #DCDCDC;">
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white !important">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="~/Images/Customer/logo.png" style="width:90px;" /></a>
+            <a class="navbar-brand" href="#"><img src="~/Images/Customer/logo.png" style="width:100px;" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,7 +36,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" asp-action="Managerprofile" asp-controller="TLC_Admin">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" asp-action="logout" asp-controller="TLC_Admin">Logout</a></li>
 
                         </ul>
                     </li>
