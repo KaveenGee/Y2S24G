@@ -164,8 +164,8 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-map-marker-alt me-2"></i>Orders
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
-                    <i class="fas fa-power-off me-2"></i>Logout
+                <a href="#" id="cart" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-shopping-cart me-2"></i>Cart
                 </a>
             </div>
         </div>
@@ -378,6 +378,13 @@
                     function myFunction4() {
 
                      $("#con").load("@Html.Raw(Url.Action("DriverDash", "TLC_Admin")) ")
+                    }
+
+
+                    document.getElementById("cart").onclick = function () { myFunction3() };
+                    function myFunction3() {
+
+                     $("#con").load("@Html.Raw(Url.Action("CartPartialView", "TLC_Admin")) ")
                     }
 
     </script>
