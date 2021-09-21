@@ -39,8 +39,17 @@ namespace ITP.Controllers
         }
         [HttpPost]
 
-        public async Task<IActionResult> CreateFeed(Newfeed nec)
+        public async Task<IActionResult> CreateFeed(Newfeed nec,string St_01, string St_02, string Rate)
         {
+            int r1, r2, r3;
+            r1 = int.Parse(St_01);
+            r2 = int.Parse(St_02);
+            r3 = int.Parse(Rate);
+
+            nec.St_01 = r1;
+            nec.St_02 = r2;
+            nec.Rate = r3;
+
             if (ModelState.IsValid)
             {
                 _db.Add(nec);
@@ -102,16 +111,23 @@ namespace ITP.Controllers
             return RedirectToAction("FeedIn");
         }
 
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
 
-        public IActionResult MethodS()
+
+        public IActionResult FeedbackPartial()
         {
-            var displaydata = _db.Feedback.ToList();
-            return PartialView("FeedDash",displaydata);
+            command = new SqlCommand("SELECT * FROM Feedback", connection);
+            reader = command.ExecuteReader();
+            connection.Open();
+            int fcount = reader.Cast<object>().Count();
+            reader.Close();
+
+            ViewBag.feed = fcount;
+
+            return PartialView("Owner/FeedDash");
         }
+ 
+
+
 
         public ActionResult Feed1()
         {        
