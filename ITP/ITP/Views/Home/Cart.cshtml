@@ -1,5 +1,9 @@
 ﻿@using ITP.Models
 @model List<ViewCartDetailsModel>
+@*@model IEnumerable<ITP.Models.ViewCartDetailsModel>*@
+
+
+
 @{
     ViewData["Title"] = "Cart";
 }
@@ -7,68 +11,94 @@
 <h1>Your Cart</h1>
 
 <br />
-<div class="row">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name </th>
-                <th>Description</th>
-                <th>Quntity</th>
-                <th>Price</th>
-                <th>Total Price</th>
-                @*<th></th>*@
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var item in Model)
-            {
-            <tr>
-                <td>
-                    <img src="~/Images/Items/@item.ImageName" height="70px" object-fit="contain" />
-                </td>
-                <td>@item.IBrand</td>
-                <td>@item.IDescription</td>
-                @*<td>@item.Quntity</td>*@
-                <td><input asp-for="@item.Quntity" type="number" value="@item.Quntity" onchange="setItemTotal(this)"/></td>
-                <td>@item.IUPrice</td>
-                <td>@(item.Quntity*item.IUPrice)</td>
-                
-               
+<form method="post" asp-action="Checkout" asp-controller="Order">
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name </th>
+                    <th>Description</th>
+                    <th>Quntity</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach(var item in Model)*@
+                @for (int i = 0, j = Model.Count; i < j; i++)
+                {
+                    <tr>
 
-                <td>
-                    <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                </td>
-                @*<td>
-            <a asp-action="Update" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger">
-                <i class="fas fa-pencil-alt"></i>
-            </a>
-        </td>*@
-            </tr>
-            }
+                        <td>
+                            <img src="~/Images/Items/@Model[i].ImageName" height="70px" object-fit="contain" />
+                        </td>
+                        <td>@Model[i].IBrand</td>
+                        <td>@Model[i].IDescription</td>
+                       
+                        <td>
+                            <input type="hidden" asp-for="@Model[i].ImageName" />
+                            <input type="hidden" asp-for="@Model[i].IBrand" />
+                            <input type="hidden" asp-for="@Model[i].IDescription" />
+                            <input type="hidden" asp-for="@Model[i].IUPrice" />
+                            <input type="hidden" asp-for="@Model[i].IItemId" />
+                            <input type="hidden" asp-for="@Model[i].TotalPrice" />
+                            <input asp-for="@Model[i].Quntity" type="number" onchange="setItemTotal(this)" />
+                        </td>
+                        <td>@Model[i].IUPrice</td>
+                        <td class="itemtot">@(Model[i].Quntity*Model[i].IUPrice)</td>
 
-        </tbody>
-    </table>
-</div>
-<div class="row">
-    <div class="col-6">
-        <a asp-action="Index" asp-controller="Home" class="btn btn-success">Back to Home</a>
+
+
+                        <td>
+                            <a asp-action="Remove" asp-controller="Home" asp-route-id="@Model[i].IItemId" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                        @*<td>
+                                <a asp-action="Update" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                            </td>*@
+                    </tr>
+                }
+
+            </tbody>
+        </table>
     </div>
-    <div class="col-6 text-right">
-        <h3>Total Amount</h3>
-        <h3>Grant Total : @Model.Sum(c => c.IUPrice) </h3>
-        <a  asp-action="Checkout" asp-controller="Order" class="btn btn-info">Process to Checkout</a>
+    <div class="row">
+        <div class="col-6">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-success">Back to Home</a>
+        </div>
+        <div class="col-6 text-right">
+            <h3>Total Amount</h3>
+            <h3>Grant Total : <label id="totvalue"></label> </h3>
+            <button type="submit" class="btn btn-info">Process to Checkout</button>
+            @*<a asp-action="Checkout" asp-controller="Order" class="btn btn-info">Process to Checkout</a>*@
+        </div>
     </div>
-</div>
-
+</form>
 <script>
+    // $(document).ready(function () {
+    setTimeout(function () {
+        CalTot();
+    }, 500);
+   // });
     function setItemTotal(e) {
         var qty = $(e).val();
         var up = parseFloat($(e).closest("td").next().text());
-        $(e).closest("td").next().next().text(qty * up);
+        $(e).closest("td").next().next().text((qty * up).toFixed(2));
+        CalTot();
 
+    }
+    function CalTot() {
+        var tds = $(".itemtot");
+        var totvalue = 0;
+        for (var i = 0, j = tds.length; i < j; i++) {
+            totvalue = totvalue + parseFloat(tds.eq(i).text());
+        }
+        $("#totvalue").text(totvalue.toFixed(2));
     }
 
 </script>

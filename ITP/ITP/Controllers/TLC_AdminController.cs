@@ -747,6 +747,7 @@ namespace ITP.Controllers
             return View("Owner/Owner_dashboard");
         }
 
+
         public IActionResult managerpartail()
         {
             command = new SqlCommand("select * from admin",connection);
@@ -938,5 +939,17 @@ namespace ITP.Controllers
         {
             return View("errorpage");
         }
+
+        public IActionResult DriverDash()
+        {
+            command = new SqlCommand("SELECT * FROM driver", connection);
+            connection.Open();
+            reader = command.ExecuteReader();
+            int dcount = reader.Cast<object>().Count();
+            reader.Close();
+            ViewBag.Driver = dcount;
+            return PartialView("Owner/DriverDash");
+        }
+
     }
 }
