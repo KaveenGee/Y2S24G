@@ -749,25 +749,42 @@ namespace ITP.Controllers
 
 
         public IActionResult CartPartialView() {
+
+            DateTime now = DateTime.Now;
+            
+            int cmonth = now.Month;
+
             command = new SqlCommand("SELECT * FROM orders", connection);
             connection.Open();
             reader = command.ExecuteReader();
             int ocount = reader.Cast<object>().Count();
             reader.Close();
 
-            command = new SqlCommand("SELECT count(Quntity) as QCount from OrderDetails", connection);
+            command = new SqlCommand("SELECT Quntity FROM Orders o, Orderdetails od where o.id = od.OrderId and  datepart(month,OrderDate) = @m ", connection);
+            command.Parameters.Add("@m", SqlDbType.Int).Value = cmonth;
             reader = command.ExecuteReader();
-            int Quntitiycount = int.Parse(reader["QCount"].ToString());
-            reader.Close();
-            
-            command = new SqlCommand("SELECT  sum(TotalPrice) as OPTotal from OrderDetails", connection);
-            reader = command.ExecuteReader();
-            int OrderPriceTotal = int.Parse(reader["OPTotal"].ToString()); ;
+            int qtotal = 0;
+            while (reader.Read())
+            {
+                int value = int.Parse(reader["Quntity"].ToString());
+                qtotal = qtotal + value;
+            }
             reader.Close();
 
-            ViewBag.cart = ocount;
-            ViewBag.cart = Quntitiycount;
-            ViewBag.cart = OrderPriceTotal;
+            command = new SqlCommand("SELECT TotalPrice FROM Orders o, Orderdetails od where o.id = od.OrderId and  datepart(month,OrderDate) = @m ", connection);
+            command.Parameters.Add("@m", SqlDbType.Int).Value = cmonth;
+            reader = command.ExecuteReader();
+            int total = 0;
+            while (reader.Read())
+            {
+                int value = int.Parse(reader["TotalPrice"].ToString());
+                total = total + value;
+            }
+            reader.Close();
+
+            ViewBag.cart1 = ocount;
+            ViewBag.cart2 = qtotal;
+            ViewBag.cart3 = total;
 
             return PartialView("Owner/CartPartialView");
         }
