@@ -690,5 +690,10 @@ namespace ITP.Controllers
             return View("Owner/Owner_dashboard");
         }
 
+        public IActionResult FeedbackPartial()
+        {
+            return PartialView("Owner/FeedDash");
+        }
+
     }
 }
