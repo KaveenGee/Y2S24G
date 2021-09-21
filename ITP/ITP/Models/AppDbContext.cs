@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ITP.Models.DriverModels;
 using Microsoft.EntityFrameworkCore;
 namespace ITP.Models
 {
@@ -12,6 +13,8 @@ namespace ITP.Models
 
         }
         public DbSet<Customer> CustomerInfo { get; set; }
+        public DbSet<NewCont> ContactusTable { get; set; }
+        public DbSet<Newfeed> Feedback { get; set; }
 
         public DbSet<supplierlog> Supplierlog { get; set; }
 
@@ -30,12 +33,19 @@ namespace ITP.Models
 
         public DbSet<Admin> Admin{ get; set; }
 
+        public DbSet<ITP.Models.CartClass> CartClass { get; set; }
 
         public DbSet<EmployeeClass> Employee { get; set; }
         
         public DbSet<AttendeesModel> AttendeesTable { get; set; }
 
        
+
+        public DbSet<NewDriverClass> Driver { get; set; }
+
+
+
+
 
     }
 }
