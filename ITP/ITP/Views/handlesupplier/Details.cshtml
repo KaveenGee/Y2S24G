@@ -3,15 +3,9 @@
 @{
     ViewData["Title"] = "Details";
 }
-<style>
-    div.col-md-6 {
-        filter: drop-shadow(10px 10px 10px black);
-    }
-</style>
-    <body style="background-image: linear-gradient(#00008b, #483d8b,#6a5acd,#4682b4,#87ceeb); ">
-        <div class="col-md-6" style="position:absolute;margin-left:30%;margin-top:-6.5%; padding-left:30px">
-            <img src="~/Images/Handlesupplier/senaridetails.png" alt="Alternate Text" class="img-responsive" style="width:600px; height: 450px;" />
-        </div>
+<body style="background-color:darkblue;">
+
+
     <div style="background-color:white; border-radius:30px; padding:25px;width:450px; margin-top:5%;">
 
         <h4 style="text-align:center; color:cornflowerblue;"><b>SEE DETAILS</b></h4>
@@ -51,6 +45,6 @@
         @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
         <a asp-action="Index" class=" btn btn-outline-primary">Back to List</a>
     </div>
-
-
+               
+      
 </body>

@@ -3,55 +3,49 @@
 @{
     ViewData["Title"] = "Delete";
 }
-<style>
-    div.col-md-6 {
-        filter: drop-shadow(10px 10px 10px black);
-    }
-</style>
-<body style="background-image: linear-gradient(#00008b, #483d8b,#6a5acd,#4682b4,#87ceeb); ">
-    <div class="col-md-6" style="position:absolute;margin-left:30%;margin-top:-5%; padding-left:30px">
-        <img src="~/Images/Handlesupplier/deletehandlesupply.png" alt="Alternate Text" class="img-responsive" style="width:550px; height:400px;" />
-    </div>
 
-    <div style="background-color: white;border-radius:30px; padding:20px;width:450px;margin-top:7%">
-        <h4 style="text-align: center; color:cornflowerblue;"><b>DELETE SUPPLIER?</b></h4>
-        <h6><b>Are you sure you want to delete this?</b></h6>
-        <dl class="row">
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.SupplierIndex)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.SupplierIndex)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.NameofSupplier)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.NameofSupplier)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.Company)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.Company)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.PhoneNumber)
-            </dd>
-        </dl>
 
-        <form asp-action="Delete">
-            <input type="submit" value="Delete" class="btn btn-outline-primary" /> |
-            <a asp-action="Index" class=" btn btn-outline-primary">Back to List</a>
-        </form>
-    </div>
-</body>
+<body style="background-color:darkblue">
+
+<div style="background-color: white;border-radius:30px; padding:20px;width:450px;margin-top:10%">
+    <h4 style="text-align: center; color:cornflowerblue;"><b>DELETE SUPPLIER?</b></h4>
+    <h6><b>Are you sure you want to delete this?</b></h6>
+    <dl class="row">
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.SupplierIndex)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.SupplierIndex)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.NameofSupplier)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.NameofSupplier)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-outline-primary" /> |
+        <a asp-action="Index" class=" btn btn-outline-primary">Back to List</a>
+    </form>
+</div>
+    </body>
