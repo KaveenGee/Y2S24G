@@ -690,5 +690,28 @@ namespace ITP.Controllers
             return View("Owner/Owner_dashboard");
         }
 
+        public IActionResult CartPartialView() {
+            command = new SqlCommand("SELECT * FROM orders", connection);
+            connection.Open();
+            reader = command.ExecuteReader();
+            int ocount = reader.Cast<object>().Count();
+            reader.Close();
+
+            command = new SqlCommand("SELECT count(Quntity) as QCount from OrderDetails", connection);
+            reader = command.ExecuteReader();
+            int Quntitiycount = int.Parse(reader["QCount"].ToString());
+            reader.Close();
+            
+            command = new SqlCommand("SELECT  sum(TotalPrice) as OPTotal from OrderDetails", connection);
+            reader = command.ExecuteReader();
+            int OrderPriceTotal = int.Parse(reader["OPTotal"].ToString()); ;
+            reader.Close();
+
+            ViewBag.cart = ocount;
+            ViewBag.cart = Quntitiycount;
+            ViewBag.cart = OrderPriceTotal;
+
+            return PartialView("Owner/CartPartialView");
+        }
     }
 }
