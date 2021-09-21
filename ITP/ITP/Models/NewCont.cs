@@ -24,6 +24,7 @@ namespace ITP.Models
         //Email
         [Required(ErrorMessage = "Enter Email address")]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         //Phonenumber
