@@ -146,7 +146,7 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn2">
                     <i class="fas fa-users me-2"></i>Customers
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn3">
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="man">
                     <i class="fas fa-users-cog me-2"></i>Managers
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
@@ -155,14 +155,14 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="far fa-flag me-2"></i>Notices
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-truck-moving me-2"></i>Vehicals
+                <a href="#" id="Driver" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-truck-moving me-2"></i>Driver
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-comment-dots me-2"></i>Feedbacks
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-map-marker-alt me-2"></i>Outlet
+                    <i class="fas fa-map-marker-alt me-2"></i>Orders
                 </a>
                 <a href="#" id="cart" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-shopping-cart me-2"></i>Cart
@@ -252,7 +252,7 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
-                                    <h3 class="fs-2 counter">3899</h3>
+                                    <h3 class="fs-2 counter">@ViewBag.ecount</h3>
                                     <p class="fs-5">Employees</p>
                                 </div>
 
@@ -275,8 +275,8 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
-                                    <h3 class="fs-2 counter">720</h3>
-                                    <p class="fs-5">Income</p>
+                                    <h3 class="fs-2 counter">@ViewBag.mocount</h3>
+                                    <p class="fs-5">Month Income</p>
                                 </div>
                                 <i class="fas fa-money-bill-alt fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                             </div>
@@ -285,7 +285,7 @@
                         <div class="col-md-3">
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
-                                    <h3 class="fs-2 counter">4920</h3>
+                                    <h3 class="fs-2 counter">@ViewBag.scount</h3>
                                     <p class="fs-5">Suppliers</p>
                                 </div>
                                 <i class="fas fa-people-carry fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -306,7 +306,7 @@
                             <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                                 <div>
                                     <h3 class="fs-2 counter">@ViewBag.fcount</h3>
-                                    <p class="fs-5">Riviews</p>
+                                    <p class="fs-5">Reviews</p>
                                 </div>
                                 <i class="fas fa-newspaper fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                             </div>
@@ -364,13 +364,29 @@
                     function myFunction1() {
 
                      $("#con").load("@Html.Raw(Url.Action("_customer", "TLC_Admin")) ")
+                     }
+
+
+                     document.getElementById("man").onclick = function () { managerfunc() };
+                     function managerfunc() {
+
+                     $("#con").load("@Html.Raw(Url.Action("managerpartail", "TLC_Admin")) ")
+                     }
+
+      
+                    document.getElementById("Driver").onclick = function () { myFunction4() };
+                    function myFunction4() {
+
+                     $("#con").load("@Html.Raw(Url.Action("DriverDash", "TLC_Admin")) ")
                     }
+
 
                     document.getElementById("cart").onclick = function () { myFunction3() };
                     function myFunction3() {
 
                      $("#con").load("@Html.Raw(Url.Action("CartPartialView", "TLC_Admin")) ")
                     }
+
     </script>
 </body>
 </html>
