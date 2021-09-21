@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ITP.Models.DriverModels.NewDriverClass>
+
+@{
+    ViewData["Title"] = "DriverIndex";
+}
+
+<h1>DriverIndex</h1>
+
+<p>
+    <a asp-action="CreateDriver">Create New</a>
+</p>
+<table class="table table-hover table-striped table-bordered table-responsive">
+    <thead class="thead thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.username)
+            </th>
+            @* <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Driver_Description)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_Number)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Driver_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Driver_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+                @*     <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Driver_Description)
+                    </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact_Number)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditDriver", new { id = item.Driver_ID }, new { @class = "btn btn-outline-primary" }) |
+                    @Html.ActionLink("Details", "DetailsDriver", new { id = item.Driver_ID }, new { @class = "btn btn-outline-success" }) |
+                    @Html.ActionLink("Delete", "DeleteDriver", new { id = item.Driver_ID }, new { @class = "btn btn-outline-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

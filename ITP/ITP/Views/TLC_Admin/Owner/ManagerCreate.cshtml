@@ -1,0 +1,121 @@
+﻿@model ITP.Models.Dropmodel2
+
+@{
+    ViewData["Title"] = "ManagerCreate";
+    Layout = "_layout1";
+}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+
+       
+    </div>
+   
+    <div class="col-md-4"></div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-4" style="margin-left:200px;">
+            <div class="card" style="padding:50px;margin-top:70px;">
+                <h3 style="margin-bottom:50px;margin-left:30px">Create New Manager</h3>
+                <form asp-action="ManagerCreate">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label>Position</label>
+                        @Html.DropDownListFor(m => m.Type2, Dropmodel2.GetSelectItems2(), new { id = "id1" })
+
+                    </div>
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> Name </span>
+                        </div>
+                        <input class="form-control" placeholder="Enter Name" required name="f1" />
+
+                    </div>
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> Email </span>
+                        </div>
+                        <input class="form-control" placeholder="Enter Email" type="email" required onclick="func()" name="f2" />
+                        <input id="getval" type="hidden" name="f6" />
+
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> Phone </span>
+                        </div>
+                        <input class="form-control" placeholder="Enter Phone Number" required id="in5" name="f3" />
+
+                    </div>
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> NIC </span>
+                        </div>
+                        <input class="form-control" placeholder="Enter NIC" required id="in6" name="f4" />
+
+                    </div>
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> Qualifications </span>
+                        </div>
+                        <textarea class="form-control" placeholder="Enter Qualifications" required name="f5">
+                </textarea>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" id="save" disabled="disabled" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <img src ="~/Images/Customer/createman.gif"  style="width:500px;margin-top:120px;margin-left:80px;"/>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    </div>
+    
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $('#in5').on('keyup', function () {
+        var va = $('#in5').val();
+        var testphone = /^[0-9]{10}$/i;
+        if (testphone.test(va)) {
+            $('#save').removeAttr('disabled');
+        }
+        else {
+            $('#save').attr('disabled', 'disabled');
+        }
+
+    });
+
+
+    $('#in6').on('keyup', function () {
+        var va = $('#in6').val();
+        var testnic = /^[0-9]{9}[V]{1}$/i;
+        if (testnic.test(va)) {
+            $('#save').removeAttr('disabled');
+        }
+        else {
+            $('#save').attr('disabled', 'disabled');
+        }
+
+    });
+
+    var func = function () {
+        var ha = $('#id1').val();
+        $('#getval').val(ha);
+    }
+</script>

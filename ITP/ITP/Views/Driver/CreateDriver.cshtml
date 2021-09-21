@@ -1,0 +1,88 @@
+﻿@model ITP.Models.DriverModels.NewDriverClass
+
+@{
+    ViewData["Title"] = "CreateDriver";
+}
+
+<h1 class="display-4" style="color:midnightblue">Create Driver Account</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateDriver" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="Driver_ID" class="control-label"></label>
+            <input asp-for="Driver_ID" class="form-control" />
+            <span asp-validation-for="Driver_ID" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="Driver_Name" class="control-label"></label>
+                <input asp-for="Driver_Name" class="form-control" />
+                <span asp-validation-for="Driver_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="username" class="control-label"></label>
+                <input asp-for="username" class="form-control" />
+                <span asp-validation-for="username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RePassword" class="control-label"></label>
+                <input asp-for="RePassword" class="form-control" />
+                <span asp-validation-for="RePassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Driver_Description" class="control-label"></label>
+                <textarea asp-for="Driver_Description" class="form-control"></textarea>
+                <span asp-validation-for="Driver_Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contact_Number" class="control-label"></label>
+                <input asp-for="Contact_Number" class="form-control" />
+                <span asp-validation-for="Contact_Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vehicle_Type" class="control-label"></label>
+                <input asp-for="Vehicle_Type" class="form-control" />
+                <span asp-validation-for="Vehicle_Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vehicle_Number" class="control-label"></label>
+                <input asp-for="Vehicle_Number" class="form-control" />
+                <span asp-validation-for="Vehicle_Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vehicle_Capacity" class="control-label"></label>
+                <input asp-for="Vehicle_Capacity" class="form-control" />
+                <span asp-validation-for="Vehicle_Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="DriverIndex">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

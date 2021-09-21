@@ -1,7 +1,10 @@
 ﻿@model ITP.Models.Customer
+@{ 
+    Layout = "_layout1";
+ }
 <style>
-    * {
-     
+    .cf{
+        background-color: #f2f2f2;
     }
     .table {
         border-collapse: separate;
@@ -41,8 +44,7 @@
        display:none;
    }
 </style>
- <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
@@ -50,153 +52,165 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"
         integrity="sha256-C6CB9UYIS9UJeqinPHWTHVqh/E1uhG5Twh+Y5qFQmYg="
         crossorigin="anonymous"></script>
+
     
-
-<div class="container">
-<div class="row">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="container-fluid cf" style="height:630px">
+<div class="row" >
     <div class="col-md-12 my-auto ">
+      
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom:30px;margin-top:30px">
-  Add Customer
-</button>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row" style="margin-top:50px">
+            <div class="col-md-3"></div>
+            <div class="col-md-5">
 
                 <form class="d-flex" method="get" asp-action="CustomerList2">
                     <input class="form-control me-2" type="search" placeholder="Search for a customer" aria-label="Search" value="@ViewData["cusdetails"]" name="cusSearch">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                   
+
                 </form>
             </div>
-            <div class="col-md-6 ">
+            @*<div class="col-md-6 ">
                   <h2>Customer list</h2>
-            </div>
-
+            </div>*@
+            <div class="col-md-4"></div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <a asp-action="CustomerList"> All Customer</a>
+            <div class="col-md-4" style="margin-top:60px">
+                <a asp-action="CustomerList" class="btn btn-outline-success"> All Customer</a>
+            </div>
+            <div class="col-md-4" style="margin-top:40px">
+                <h1>Customer List</h1>
+            </div>
+            <div class="col-md-4" style="margin-top:30px;">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom:30px;margin-top:30px;margin-left:230px;">
+                    Add Customer
+                </button>
             </div>
         </div>
-      
-
-        <div class="modal fade modal1" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form id="Customercreate">
-              <div class="modal-body">
-                  
-                      <label>First Name</label>
-
-                      @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control",@required = "true"})
-                      <label>Last Name</label>
-                      @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                      <label>Address</label>
-                      @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @type = "email" })
-                      <label>Email</label>
-                      @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                      <label>Phone Number</label>
-                      @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-                      <label>NIC</label>
-                      @Html.TextBoxFor(m => m.NIC, new { @class = "form-control" })
-
-              </div>
-              <div class="modal-footer">
-                  <button class="btn btn-success" id="btnsave" type="submit" >Create</button>
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-
-              </div>
-          </form>
-      </div>
-</div>
-</div>
 
 
-
-        <table class="table table-hover" style="font-size:15px;" id="customers">
-            <thead>
-                <tr class="table-light">
-                    <th>
-                        @Html.DisplayNameFor(model => model.Image)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Cusid)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FirstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.Address)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.NIC)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PhoneNumber)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ViewBag.totalcustomer)
-                {
-                <tr class="bg-white">
-                    <td>
-                        <img src="~/Images/Customer/@item.Image" style="width:40px;height:40px;border-radius:50%" id="pich" />
-                    </td>
-                    <td>
-                        @item.Cusid
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.Email
-                    </td>
-
-                    <td>
-                        @item.Address
-                    </td>
-
-                    <td>
-                        @item.NIC
-                    </td>
-                    <td>
-                        @item.PhoneNumber
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" onclick="editcus(@item.Cusid, '@item.FirstName', '@item.LastName', '@item.NIC', '@item.Address', '@item.PhoneNumber', '@item.Email')">
-                            Edit
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #0099FF;">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="viewcus(@item.Cusid, '@item.FirstName', '@item.LastName', '@item.NIC', '@item.Address', '@item.PhoneNumber', '@item.Email')">
-                            View
-                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="Customercreate">
+                            <label>First Name</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            <label>Last Name</label>
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            <label>Address</label>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                            <label>Email</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" ,@id = "em" })
+                            <label>Phone Number</label>
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control",@id = "pn" })
+                            <label>NIC</label>
+                            @Html.TextBoxFor(m => m.NIC, new { @class = "form-control",@id ="nic" })
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button href="#" class="btn btn-primary" id="btnsave" disabled ="disabled">Add Customer</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
 
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="confirmDelete(@item.Cusid)">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-                }
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            </tbody>
-             <input type="hidden" id="wid"/>
-        </table>
+
+        <div class="row" style="padding-bottom:150px">
+            <div class="col-md-12">
+
+
+                <table class="table table-hover" style="font-size:15px;margin-top:-20px;" id="customers">
+                    <thead>
+                        <tr class="table-light">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cusid)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.NIC)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.totalcustomer)
+                        {
+                            <tr class="bg-white">
+                                <td>
+                                    <img src="~/Images/Customer/@item.Image" style="width:40px;height:40px;border-radius:50%" id="pich" />
+                                </td>
+                                <td>
+                                    @item.Cusid
+                                </td>
+                                <td>
+                                    @item.LastName
+                                </td>
+                                <td>
+                                    @item.FirstName
+                                </td>
+                                <td>
+                                    @item.Email
+                                </td>
+
+                                <td>
+                                    @item.Address
+                                </td>
+
+                                <td>
+                                    @item.NIC
+                                </td>
+                                <td>
+                                    @item.PhoneNumber
+                                </td>
+                                <td>
+                                    <i type="button" class="btn btn-success fas fa-edit" data-bs-toggle="modal" data-bs-target="#exampleModal1" onclick="editcus(@item.Cusid, '@item.FirstName', '@item.LastName', '@item.NIC', '@item.Address', '@item.PhoneNumber', '@item.Email')">
+                                      
+                                    </i>
+                                    <i type="button" class="btn btn-primary fas fa-eye" data-bs-toggle="modal" data-bs-target="#exampleModal2" onclick="viewcus(@item.Cusid, '@item.FirstName', '@item.LastName', '@item.NIC', '@item.Address', '@item.PhoneNumber', '@item.Email')">
+                                        
+                                    </i>
+
+                                    <i type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="confirmDelete(@item.Cusid)">
+                                       
+                                    </i>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <input type="hidden" id="wid" />
+                </table>
+            </div>
+        </div>
     </div>
     </div>
     </div>
@@ -211,8 +225,8 @@
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Customer Delete</h5>
+      <div class="modal-header" style="background-color: #0099FF;">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Customer Delete</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -230,8 +244,8 @@
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Customer Information</h5>
+      <div class="modal-header" style="background-color: #0099FF;">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Customer Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -264,14 +278,14 @@
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Customer Update</h5>
+      <div class="modal-header" style="background-color: #0099FF;">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Customer Update</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <form id="Customeredit">
           <label>Cusid</label>
-          @Html.TextBoxFor(m => m.Cusid, new { @class = "form-control", @id = "in0" })
+          @Html.TextBoxFor(m => m.Cusid, new { @class = "form-control", @id = "in0",@Readonly = "readonly" })
                     <label>First Name</label>
                                       @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "in1" })
                                         <label>Last Name</label>
@@ -281,22 +295,23 @@
                                         <label>Email</label>
                                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "in4" })
                                         <label>Phone Number</label>
-                                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @id = "in5" })
+                                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @id = "in5"})
                                         <label>NIC</label>
                                         @Html.TextBoxFor(m => m.NIC, new { @class = "form-control", @id = "in6" })
                                     </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="editdata2">Save changes</button>
+                                    <button type="button" class="btn btn-primary" id="editdata2"  >Save changes</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
 
-    <script>
+<script>
     $(document).ready(function () {
+
         $("#btnsave").click(function () {
             var data1 = $("#Customercreate").serialize();
 
@@ -307,6 +322,7 @@
                 success: function () {
                     window.location.reload(true);
                 }
+                
             })
         })
 
@@ -318,10 +334,10 @@
                 data: { id: _id },
                 success: function () {
                     window.location.reload(true);
-                    }
-
+                }
                 
-    
+
+
             })
         })
         $("#editdata2").click(function () {
@@ -350,7 +366,7 @@
         $("#in4").val(e);
         $("#in5").val(p);
         $("#in6").val(n);
-        
+
     }
     var viewcus = function (id, f, l, n, a, p, e) {
 
@@ -362,7 +378,96 @@
         $("#dis5").val(p);
         $("#dis6").val(a);
 
+        }
+
+
+
+    $('#in4').on('keyup', function () {
+    var va = $('#in4').val();
+    var testEmail = /^[A-Z0-9._%+-]+@@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+    if (testEmail.test(va)) {
+        $('#editdata2').removeAttr('disabled');
     }
+    else {
+        $('#editdata2').attr('disabled', 'disabled');
+    }
+    });
+
+
+    $('#in5').on('keyup', function () {
+        var va = $('#in5').val();
+        var testphone = /^[0-9]{10}$/i;
+        if (testphone.test(va)) {
+            $('#editdata2').removeAttr('disabled');
+        }
+        else {
+            $('#editdata2').attr('disabled', 'disabled');
+        }
+       
+    });
+
+
+
+    $('#in6').on('keyup', function () {
+        var va = $('#in6').val();
+        var testnic = /^[0-9]{9}[V]{1}$/i;
+        if (testnic.test(va)) {
+            $('#editdata2').removeAttr('disabled');
+        }
+        else {
+            $('#editdata2').attr('disabled', 'disabled');
+        }
+
+    });
+
+
+
+
+   
+
+    $('#em').on('keyup', function () {
+        var va = $('#em').val();
+        var testEmail = /^[A-Z0-9._%+-]+@@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+        if (testEmail.test(va)) {
+            $('#btnsave').removeAttr('disabled');
+        }
+        else {
+            $('#btnsave').attr('disabled', 'disabled');
+        }
+    });
+
+
+    $('#pn').on('keyup', function () {
+        var va = $('#pn').val();
+        var testphone = /^[0-9]{10}$/i;
+        if (testphone.test(va)) {
+            $('#btnsave').removeAttr('disabled');
+        }
+        else {
+            $('#btnsave').attr('disabled', 'disabled');
+        }
+
+    });
+
+
+
+    $('#nic').on('keyup', function () {
+        var va = $('#nic').val();
+        var testnic = /^[0-9]{9}[V]{1}$/i;
+        if (testnic.test(va)) {
+            $('#btnsave').removeAttr('disabled');
+        }
+        else {
+            $('#btnsave').attr('disabled', 'disabled');
+        }
+
+    });
+
+
+
+
+   
+
 </script>
 
 

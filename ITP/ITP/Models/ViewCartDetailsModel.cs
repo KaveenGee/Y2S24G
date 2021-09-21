@@ -14,5 +14,6 @@ namespace ITP.Models
         public string IDescription { get; set; }
         public int Quntity { get; set; }
         public string ImageName { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

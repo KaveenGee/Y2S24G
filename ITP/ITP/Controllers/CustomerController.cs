@@ -4,12 +4,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using ITP.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using PasswordGenerator;
 
 namespace ITP.Controllers
 {
@@ -173,7 +177,7 @@ namespace ITP.Controllers
             ViewBag.ob = test;
 
             int cid1 = 0;
-            String action1, action2, icon, action3;
+            String action1, action2, icon, action3,action4 = null;
 
             if (HttpContext.Session.GetString("customersession") != null)
             {
@@ -183,6 +187,7 @@ namespace ITP.Controllers
                 action2 = "LOGOUT";
                 icon = "fa-power-off";
                 action3 = "userprofile";
+                action4 = "logout";
 
             }
             else
@@ -191,11 +196,13 @@ namespace ITP.Controllers
                 action2 = "SIGN UP";
                 icon = "fa-user-plus";
                 action3 = "Customerlogin";
+                action4 = "Register";
             }
             ViewData["action3"] = action3;
             ViewData["icon"] = icon;
             ViewData["action1"] = action1;
             ViewData["action2"] = action2;
+            ViewData["action4"] = action4;
             ViewData["cid"] = cid1;
             return View();
 
@@ -224,6 +231,7 @@ namespace ITP.Controllers
 
                 TestList.Add(test);
             }
+            ViewBag.ob = test;
             return PartialView("_cusedit", test);
         }
 
@@ -278,20 +286,66 @@ namespace ITP.Controllers
             connection.Open();
             command.ExecuteNonQuery();
             int cid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("customersession"));
-            Customer d = await DBob.CustomerInfo.FindAsync(cid);
+            command = new SqlCommand("SELECT * FROM CustomerInfo where Cusid = @c", connection);
+            command.Parameters.Add("@c", SqlDbType.Int).Value = cid;
             
-            ViewBag.ob = d;
-            ViewData["action1"] = "PROFILE";
-            ViewData["action2"] = "LOGOUT";
-            if (String.IsNullOrEmpty(d.Image))
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                test = new Customer();
+                test.Cusid = int.Parse(reader["Cusid"].ToString());
+                test.FirstName = reader["FirstName"].ToString();
+                test.LastName = reader["LastName"].ToString();
+                test.Email = reader["Email"].ToString();
+                test.Address = reader["Address"].ToString();
+                test.Password = reader["Password"].ToString();
+                test.NIC = reader["NIC"].ToString();
+                test.PhoneNumber = reader["PhoneNumber"].ToString();
+                test.Username = reader["Username"].ToString();
+                test.Image = reader["Image"].ToString();
+
+
+            }
+
+
+            ViewBag.ob = test;
+            int cid1 = 0;
+            String action1, action2, icon, action3, action4 = null;
+
+            if (HttpContext.Session.GetString("customersession") != null)
+            {
+
+                cid1 = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("customersession"));
+                action1 = "PROFILE";
+                action2 = "LOGOUT";
+                icon = "fa-power-off";
+                action3 = "userprofile";
+                action4 = "logout";
+
+            }
+            else
+            {
+                action1 = "LOGIN";
+                action2 = "SIGN UP";
+                icon = "fa-user-plus";
+                action3 = "Customerlogin";
+                action4 = "Register";
+            }
+            ViewData["action3"] = action3;
+            ViewData["icon"] = icon;
+            ViewData["action1"] = action1;
+            ViewData["action2"] = action2;
+            ViewData["action4"] = action4;
+            ViewData["cid"] = cid1;
+            if (String.IsNullOrEmpty(test.Image))
             {
                 ViewBag.img = "default.png";
                 ViewBag.url = "default.png";
             }
             else
             {
-                ViewBag.img = d.Image;
-                ViewBag.url = d.Image;
+                ViewBag.img = test.Image;
+                ViewBag.url = test.Image;
             }
             return View("userprofile");
 
@@ -348,7 +402,7 @@ namespace ITP.Controllers
             ViewBag.ob = test;
 
             int cid1 = 0;
-            String action1, action2, icon, action3;
+            String action1, action2, icon, action3,action4 = null;
 
             if (HttpContext.Session.GetString("customersession") != null)
             {
@@ -358,6 +412,7 @@ namespace ITP.Controllers
                 action2 = "LOGOUT";
                 icon = "fa-power-off";
                 action3 = "userprofile";
+                action4 = "logout";
 
             }
             else
@@ -366,11 +421,13 @@ namespace ITP.Controllers
                 action2 = "SIGN UP";
                 icon = "fa-user-plus";
                 action3 = "Customerlogin";
+                action4 = "logout";
             }
             ViewData["action3"] = action3;
             ViewData["icon"] = icon;
             ViewData["action1"] = action1;
             ViewData["action2"] = action2;
+            ViewData["action4"] = action4;
             ViewData["cid"] = cid1;
             return View("userprofile");
 
@@ -386,10 +443,187 @@ namespace ITP.Controllers
             command.Parameters.Add("@id", SqlDbType.Int).Value = cid;
             connection.Open();
             command.ExecuteNonQuery();
+            HttpContext.Session.Remove("customersession");
+            HttpContext.Session.Remove("customersession_img");
             return RedirectToAction("index", "Home");
         }
 
-    
+        public async Task<IActionResult> editpassword(string cp, string np, string npa)
+        {
+            int cid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("customersession"));
+            command = new SqlCommand("update CustomerInfo set Password = @p,ConfirmPassword = @cp where Cusid = @id", connection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = cid;
+            command.Parameters.Add("@p", SqlDbType.NVarChar, 255).Value = np;
+            command.Parameters.Add("@cp", SqlDbType.NVarChar, 255).Value = np;
+            connection.Open();
+            command.ExecuteNonQuery();
+            return RedirectToAction("userprofile");
 
+        }
+
+       
+        //method that use to send email to the user
+        [HttpPost]
+        public IActionResult setEmail(string emailin) {
+
+            command = new SqlCommand("select FirstName,Cusid from customerinfo where Email = @e", connection);
+            command.Parameters.Add("@e", SqlDbType.NVarChar, 255).Value = emailin;
+            int cid = 0;
+            string name = null;
+            connection.Open();
+            reader = command.ExecuteReader();
+            if (reader.HasRows) {
+                while (reader.Read())
+                {
+                     cid = int.Parse(reader["Cusid"].ToString());
+                    name = reader["FirstName"].ToString();
+                }
+              
+                var pwd = new Password().IncludeLowercase().IncludeUppercase().LengthRequired(5);
+                string result = pwd.Next();
+                HttpContext.Session.SetString("cid", JsonConvert.SerializeObject(cid));
+                HttpContext.Session.SetString("pass", JsonConvert.SerializeObject(result)); 
+
+                string Themessage = @"<html>
+                          <body>
+                            <div style="" width: 500px; height: 620px; border: 6px solid DodgerBlue;position:relative; "">
+
+                <img src = cid:myImageID style = "" width:150px;height:auto;position:relative;left:180px;margin-left:170px"">
+        
+
+                 <h4 style = ""position:relative;left:40px;font-family:Comic Sans MS;margin-left:100px;font-size:20px"" ><font color = ""DodgerBlue""> Hi </font>{name} your Password is Reseted </h4>
+                  
+                         <img src = cid:myImageID2 style = "" width:270px;height:250px;position:absolute;left:300px;border-radius:50%;margin-left:120px"">
+                     
+                            <h4 style = ""position:relative;left:190px;top:20px;margin-left:170px;font-size:20px""> New Password </h4>
+                          
+                              <p style = ""font-size:40px;color:#FF7F50;position:relative;left:180px;top:20px;letter-spacing:5px;margin-left:170px"" >{result} </p>
+                           
+
+                           </div>
+                            </body>
+                            </html>";
+
+
+
+
+
+
+
+
+                Themessage = Themessage.Replace("{result}", result);
+                Themessage = Themessage.Replace("{name}", name);
+                string to = emailin; //To address    
+                string from = "tlclifepartner2021@gmail.com"; //From address    
+                MailMessage message = new MailMessage(from, to);
+                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(Themessage, null, "text/html");
+
+
+                LinkedResource theEmailImage = new LinkedResource("wwwroot/Images/Customer/logo.png");
+                theEmailImage.ContentId = "myImageID";
+                htmlView.LinkedResources.Add(theEmailImage);
+
+                LinkedResource theEmailImage2 = new LinkedResource("wwwroot/Images/Customer/re.gif");
+                theEmailImage2.ContentId = "myImageID2";
+                htmlView.LinkedResources.Add(theEmailImage2);
+
+                message.AlternateViews.Add(htmlView);
+
+                message.Subject = "Sending Email Using Asp.Net & C#";
+                //message.Body = mailbody;
+                message.BodyEncoding = Encoding.UTF8;
+                message.IsBodyHtml = true;
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+                NetworkCredential MyCredentials = new NetworkCredential("tlclifepartner2021@gmail.com", "Tlc@2021");
+
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = MyCredentials;
+
+
+                client.Send(message);
+                ViewBag.pass = result;
+                ViewBag.cid = cid;
+                return View("ForgetPassword2");
+
+
+
+            }
+            else
+            {
+                ViewBag.indicator = "false";
+                return View("ForgetPassword1");
+
+            }
+          
+            
+        }
+
+        //method that use to view the fogetpassword page
+        public IActionResult ForgetPassword2()
+        {
+            ViewBag.indicator = "true";
+            return View();
+        }
+
+        //method that use to view the fogetpassword page
+        public IActionResult ForgetPassword1()
+        {
+            ViewBag.indicator = "true";
+            return View();
+        }
+
+        //method that use to view the fogetpassword page
+        public IActionResult ForgetPassword3()
+        {
+           
+            return View();
+        }
+
+        //method that use to compare the code that send throught email
+        public IActionResult verifypassword(string pass, string inp1, string inp2, string inp3, string inp4, string inp5,string cid)
+        {
+            string getpass = inp1 + inp2 + inp3 + inp4 + inp5;
+            if (pass.Equals(getpass))
+            {
+                ViewBag.cid = cid;
+                return View("ForgetPassword3");
+
+            }
+            else
+            {
+                string pass1 = JsonConvert.DeserializeObject<string>(HttpContext.Session.GetString("pass"));
+                ViewBag.pass = pass1;
+                ViewBag.indicator = "false";
+                return View("ForgetPassword2");
+
+            }
+
+        }
+
+        //method that use to recover the password
+        public IActionResult savenewPassword(string np,string npa,string getcid)
+        {
+            command = new SqlCommand("update CustomerInfo set Password = @p,ConfirmPassword = @cp where Cusid = @id", connection);
+            int cid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("cid"));
+            
+            command.Parameters.Add("@id", SqlDbType.Int).Value = cid;
+            command.Parameters.Add("@p", SqlDbType.NVarChar, 255).Value = np;
+            command.Parameters.Add("@cp", SqlDbType.NVarChar, 255).Value = np;
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+
+            return RedirectToAction("Customerlogin");
+        }
+
+
+        //method  that use to logout
+        public IActionResult logout()
+        {
+            HttpContext.Session.Remove("customersession");
+            HttpContext.Session.Remove("customersession_img");
+            return RedirectToAction("Index","Home");
+        }
     }
 }

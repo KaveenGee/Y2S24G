@@ -1,5 +1,146 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<ITP.Models.supplierlog>
+
 @{
+    ViewData["Title"] = "Index";
 }
+<body style="background-image: linear-gradient(#00008b, #483d8b,#6a5acd,#4682b4,#87ceeb); ">
+    @*<body style="background-color:darkblue">*@
+
+
+    <div class="col-md-12" style="background-color:white;margin-top:2%;border-radius:20px;padding:20px;">
+        <div class="button" style="position:absolute;margin-left:90%;color:black">
+            <button onclick="document.location='https://localhost:44333/Home/Index'">HOME</button></div>
+
+
+            <h1 style="text-align: center; color: darkblue; @*text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px lightblue;*@"><b>HANDLE SUPPLIER LOG</b></h1>
+
+            <div class="supplierButton" style="position:absolute;margin-left:15px;margin-top:40px">
+                <p>
+                    <a asp-action="Create" class="btn btn-outline-dark">Add New Supplier LOG <i class="far fa-plus-square"></i> </a>
+                </p>
+            </div>
+            <div class="searchCont" style="float:right;margin-top:40px;">
+                <form method="get" asp-action="Index">
+                    <p>
+                        <input type="search" placeholder="Enter Model...." value="@ViewData["GetSupplierdetails"]" name="SupplierLogsearch" style="width:300px;border-color:Highlight;border-radius:8px;height:30px;padding:5px" />
+                        <input type="submit" value="Search" class="btn btn-primary" />
+                        @*<a asp-action="Index" class="btn btn-outline-primary">Get Total Supplier Log</a>*@
+
+                    </p>
+                </form>
+            </div>
+
+            <div class="container-fluid">
+                <div class="table">
+                    <table class="table-sm" style="background-color:azure">
+                        <thead style="background-color:deepskyblue">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SupplierID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ProductID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ProductCatergory)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Model)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BrandName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SupplyDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QuantityPurchased)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UnitPrice)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TotalPrice)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SupplyStatus)
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SupplierID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductCatergory)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Model)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BrandName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SupplyDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QuantityPurchased)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SupplyStatus)
+                                    </td>
+                                    <td>
+
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.SupplierID }, new { @class = "btn btn-primary" })
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", new { id = item.SupplierID }, new { @class = "btn btn-primary" })
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.SupplierID }, new { @class = "btn btn-primary" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="getSupLog" style="">
+                    <form method="get" asp-action="Index">
+                        <p>
+                            @*<input type="search" placeholder="Enter Model...." value="@ViewData["GetSupplierdetails"]" name="SupplierLogsearch" style="width:400px;" />
+                            <input type="submit" value="Search" class="btn btn-primary" />*@
+                            <a asp-action="Index" class="btn btn-outline-primary">Get Total Supplier Log</a>
+
+                        </p>
+                    </form>
+                </div>
+                <p>
+                    <a asp-action="Generate" class="btn btn-primary"> Generate Report </a>
+                </p>
+            </div>
+        </div>
+        <style>
+            tr:nth-child(even) {
+                background-color: #dcdddd;
+            }
+
+            tr:hover {
+                background-color: #a4bff1;
+            }
+        </style>
+</body>
