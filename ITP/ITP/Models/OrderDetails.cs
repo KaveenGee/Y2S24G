@@ -18,7 +18,7 @@ namespace ITP.Models
 
         public int Quntity { get; set; }
         public decimal Price { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; } 
 
 
         [ForeignKey("OrderId")]

@@ -19,32 +19,26 @@ namespace ITP.Controllers
         }
 
         //Get check out action method
-        public IActionResult Checkout()
+        [HttpPost]
+        public IActionResult Checkout(List<ViewCartDetailsModel> viewCartDetailsModels)
         {
-            List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
-            if (items == null)
+
+            //List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
+            List<OrderDetails> orderDetailsList = new List<OrderDetails>();
+            foreach (var item in viewCartDetailsModels)
             {
-                items = new List<OrderDetails>();
+                OrderDetails orderDetails = new OrderDetails();
+                orderDetails.ItemId = item.IItemId;
+                orderDetails.Quntity = item.Quntity;
+                orderDetails.Price = item.IUPrice;
+                orderDetails.TotalPrice = item.Quntity * item.IUPrice;
+                item.TotalPrice = item.Quntity * item.IUPrice;
+                orderDetailsList.Add(orderDetails);
             }
-            List<ViewCartDetailsModel> viewCartDetailsModelsList = new List<ViewCartDetailsModel>();
-            foreach (var item in items)
-            {
-                ViewCartDetailsModel viewCartDetailsModel = new ViewCartDetailsModel();
+            HttpContext.Session.Set("items", orderDetailsList);
 
-                viewCartDetailsModel.IItemId = item.ItemId;
-                viewCartDetailsModel.Quntity = item.Quntity;
-                viewCartDetailsModel.IUPrice = item.Price;
-
-                var product = _db.Item.FirstOrDefault(c => c.IItemId == item.ItemId);
-
-                viewCartDetailsModel.IBrand = product.IBrand;
-                viewCartDetailsModel.IDescription = product.IDescription;
-                viewCartDetailsModel.ImageName = product.ImageName;
-
-                viewCartDetailsModelsList.Add(viewCartDetailsModel);
-            }
             ViewCartDeliveryDetails viewCartDeliveryDetails = new ViewCartDeliveryDetails();
-            viewCartDeliveryDetails.viewCartDetailsModelList = viewCartDetailsModelsList;
+            viewCartDeliveryDetails.viewCartDetailsModelList = viewCartDetailsModels;
             return View(viewCartDeliveryDetails);
         }
 
@@ -52,7 +46,7 @@ namespace ITP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Checkout(ViewCartDeliveryDetails viewCartDeliveryDetails)
+        public async Task<IActionResult> ProcessCheckout(ViewCartDeliveryDetails viewCartDeliveryDetails)
         {
             Order order = new Order();
             List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
@@ -76,15 +70,53 @@ namespace ITP.Controllers
             order.Email = viewCartDeliveryDetails.Email;
 
             _db.Orders.Add(order);
-            await _db.SaveChangesAsync();
+            var a = await _db.SaveChangesAsync();
             HttpContext.Session.Set("items", new List<OrderDetails>());
-            return RedirectToAction("CheckoutDetails");
+            return RedirectToAction("CheckoutDetails", new { id = order.Id });
             //return View(); 
         }
 
-        public IActionResult CheckoutDetails()
+
+        //get delivery details and item details
+        public IActionResult CheckoutDetails(int? id)
         {
-            return View();
+            var order = _db.Orders.FirstOrDefault(c => c.Id == id);
+
+
+            List<OrderDetails> items = _db.OrderDetails.Where(c => c.OrderId == id).ToList();
+            //HttpContext.Session.Get<List<OrderDetails>>("items");
+            if (items == null)
+            {
+                items = new List<OrderDetails>();
+            }
+            List<ViewCartDetailsModel> viewCartDetailsModelsList = new List<ViewCartDetailsModel>();
+            foreach (var item in items)
+            {
+                ViewCartDetailsModel viewCartDetailsModel = new ViewCartDetailsModel();
+
+                viewCartDetailsModel.IItemId = item.ItemId;
+                viewCartDetailsModel.Quntity = item.Quntity;
+                viewCartDetailsModel.IUPrice = item.Price;
+
+                var product = _db.Item.FirstOrDefault(c => c.IItemId == item.ItemId);
+
+                viewCartDetailsModel.IBrand = product.IBrand;
+                viewCartDetailsModel.IDescription = product.IDescription;
+                viewCartDetailsModel.ImageName = product.ImageName;
+
+                viewCartDetailsModelsList.Add(viewCartDetailsModel);
+            }
+            ViewCartDeliveryDetails viewCartDeliveryDetails = new ViewCartDeliveryDetails();
+
+            viewCartDeliveryDetails.OrderNo = order.OrderNo;
+            viewCartDeliveryDetails.ReceiverName = order.ReceiverName;
+            viewCartDeliveryDetails.DeliveryAddress = order.DeliveryAddress;
+            viewCartDeliveryDetails.PhoneNo = order.PhoneNo;
+            viewCartDeliveryDetails.City = order.City;
+            viewCartDeliveryDetails.Email = order.Email;
+
+            viewCartDeliveryDetails.viewCartDetailsModelList = viewCartDetailsModelsList;
+            return View(viewCartDeliveryDetails);
         }
 
         public string GetOrderNo()
