@@ -155,8 +155,8 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="far fa-flag me-2"></i>Notices
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-truck-moving me-2"></i>Vehicals
+                <a href="#" id="Driver" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-truck-moving me-2"></i>Driver
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-comment-dots me-2"></i>Feedbacks
@@ -364,6 +364,13 @@
                     function myFunction1() {
 
                      $("#con").load("@Html.Raw(Url.Action("_customer", "TLC_Admin")) ")
+                    }
+
+
+                    document.getElementById("Driver").onclick = function () { myFunction4() };
+                    function myFunction4() {
+
+                     $("#con").load("@Html.Raw(Url.Action("DriverDash", "TLC_Admin")) ")
                     }
     </script>
 </body>

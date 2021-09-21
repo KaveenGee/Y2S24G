@@ -200,11 +200,15 @@ namespace ITP.Controllers
 
 
         //Driver Login
-        public IActionResult Driver_Login()
+        public IActionResult Index()
         {
-            return View();
+            return View("Driver_Login");
         }
 
+        public IActionResult Driver_Login()
+        {
+            return View("Driver_Login");
+        }
         [HttpPost]
 
         public async Task<IActionResult> DriverLogin(string UserName, string password)
