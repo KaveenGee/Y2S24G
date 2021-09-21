@@ -1,0 +1,209 @@
+﻿@model ITP.Models.CartClass
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout1";
+}
+<style>
+
+    .two h1 {
+        text-transform: capitalize;
+        text-align: center;
+        position: relative;
+        padding: 5px;
+        margin: 0;
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        font-size: 40px;
+        color: #080808;
+        -webkit-transition: all 0.4s ease 0s;
+        -o-transition: all 0.4s ease 0s;
+        transition: all 0.4s ease 0s;
+    }
+
+
+        .two h1:before {
+            width: 28px;
+            height: 5px;
+            display: block;
+            content: "";
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            margin-left: -14px;
+            background-color: #b80000;
+        }
+
+        .two h1:after {
+            width: 100px;
+            height: 1px;
+            display: block;
+            content: "";
+            position: relative;
+            margin-top: 25px;
+            left: 50%;
+            margin-left: -50px;
+            background-color: #b80000;
+        }
+
+        .two h1 span {
+            display: block;
+            font-size: 0.5em;
+            line-height: 1.3;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 3em;
+            padding-left: 0.25em;
+            color: rgba(0, 0, 0, 0.4);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+</style>
+<div class="two">
+    <h1>
+        Customer Oder Details
+        <span>edit</span>
+    </h1>
+</div>
+<link rel="stylesheet" href="~/css/sweetalert2.css" />
+<hr />
+    @*<div class="col-md-4">*@
+ <form asp-action="Edit">
+        <div class="p-4 rounded border row">
+            <div class="col-8">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="OrderId" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="OrderId" class="form-control text-dark mb-2 bg-primary  bg-opacity-25" />
+                        <span asp-validation-for="OrderId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="OrderNo" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="OrderNo" class="form-control" />
+                        <span asp-validation-for="OrderNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ItemId" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="ItemId" class="form-control" />
+                        <span asp-validation-for="ItemId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IBrand" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="IBrand" class="form-control" />
+                        <span asp-validation-for="IBrand" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="IModel" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="IModel" class="form-control" />
+                        <span asp-validation-for="IModel" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Quntity" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="Quntity" class="form-control" />
+                        <span asp-validation-for="Quntity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Price" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="TotalPrice" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="TotalPrice" class="form-control" />
+                        <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="PhoneNo" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input asp-for="PhoneNo" class="form-control" />
+                        <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="ReceiverName" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input asp-for="ReceiverName" class="form-control" />
+                        <span asp-validation-for="ReceiverName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="OrderDate" class="control-label"></label>
+                    </div>
+                    <div class="col-8 ">
+                        <input readonly="readonly" asp-for="OrderDate" class="form-control" />
+                        <span asp-validation-for="OrderDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                <br />
+                @*<input type="submit" value="Save" class="btn btn-primary form-control" />*@
+                <img src="~/Images/Items/@ViewBag.img" width="100%" object-fit="contain" />
+                <br />
+                <button type="submit" onclick="sweetalertclick()" value="Save" class="btn btn-primary form-control">Save</button>
+                <script src="~/js/sweetalert2.all.min.js"></script>
+                <br /><br />
+                <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+            </div>
+    </div>
+</form>
+    
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    function sweetalertclick() {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+</script>

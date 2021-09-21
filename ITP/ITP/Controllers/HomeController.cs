@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,7 +16,7 @@ namespace ITP.Controllers
 {
     public class HomeController : Controller
     {
-        
+
         private readonly ILogger<HomeController> _logger;
         private AppDbContext _db;
 
@@ -30,9 +30,9 @@ namespace ITP.Controllers
 
         public IActionResult Index()
         {
-            
+
             int cid = 0;
-            string action1, action2, icon, action3, action4 = null,action5,img = null;
+            string action1, action2, icon, action3, action4 = null, action5, img = null;
 
             if (HttpContext.Session.GetString("customersession") != null)
             {
@@ -43,15 +43,15 @@ namespace ITP.Controllers
                 {
                     action5 = "default.png";
                 }
-                else {
+                else
+                {
                     action5 = img;
                 }
                 action1 = "PROFILE";
                 action2 = "LOGOUT";
                 icon = "fa-power-off";
                 action3 = "userprofile";
-                action4 = "logout";
-                
+
             }
             else
             {
@@ -125,8 +125,6 @@ namespace ITP.Controllers
             ViewData["cid"] = cid;
             ViewBag.img = action5;
 
-            
-
             ViewItemDetailsModel viewItemDetailsModel = new ViewItemDetailsModel();
             viewItemDetailsModel.IItemId = item.IItemId;
             viewItemDetailsModel.IBrand = item.IBrand;
@@ -135,36 +133,7 @@ namespace ITP.Controllers
             viewItemDetailsModel.Quntity = 1;
             viewItemDetailsModel.ImageName = item.ImageName;
             return View(viewItemDetailsModel);
-
         }
-
-        //POST items details action method
-        //[HttpPost]
-        //[ActionName("Detail")]
-        //public ActionResult ItemDetail(int? id)
-        //{
-        //    List<ItemModel> items = new List<ItemModel>();
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var item = _db.Item.FirstOrDefault(c => c.IItemId == id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    items = HttpContext.Session.Get<List<ItemModel>>("items");
-        //    if (items == null)
-        //    {
-        //        items = new List<ItemModel>();
-        //    }
-        //    items.Add(item);
-        //    HttpContext.Session.Set("items", items);
-        //    //return View(item);
-        //    return RedirectToAction(nameof(Detail));
-        //}
-
-
 
 
 
@@ -218,7 +187,7 @@ namespace ITP.Controllers
 
         //remove to cart action 
         [HttpPost]
-        public IActionResult Remove(int? id)
+        public IActionResult Remove(int? id, ViewItemDetailsModel viewItemDetailsModel)
         {
             List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
             if (items != null)
@@ -230,7 +199,7 @@ namespace ITP.Controllers
                     HttpContext.Session.Set("items", items);
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Detail", new { id = id });
         }
 
         //Get product cart action method
@@ -292,7 +261,6 @@ namespace ITP.Controllers
                 viewCartDetailsModel.Quntity = item.Quntity;
                 viewCartDetailsModel.IUPrice = item.Price;
 
-
                 var product = _db.Item.FirstOrDefault(c => c.IItemId == item.ItemId);
 
                 viewCartDetailsModel.IBrand = product.IBrand;
@@ -301,9 +269,6 @@ namespace ITP.Controllers
 
                 viewCartDetailsModelsList.Add(viewCartDetailsModel);
             }
-
-
-
 
             return View(viewCartDetailsModelsList);
         }
@@ -318,7 +283,5 @@ namespace ITP.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-       
     }
 }
