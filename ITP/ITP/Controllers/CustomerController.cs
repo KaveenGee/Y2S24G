@@ -443,6 +443,8 @@ namespace ITP.Controllers
             command.Parameters.Add("@id", SqlDbType.Int).Value = cid;
             connection.Open();
             command.ExecuteNonQuery();
+            HttpContext.Session.Remove("customersession");
+            HttpContext.Session.Remove("customersession_img");
             return RedirectToAction("index", "Home");
         }
 

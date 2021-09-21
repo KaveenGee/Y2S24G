@@ -52,27 +52,32 @@ namespace ITP.Controllers
         //render the owner dashboard partial view1
         public IActionResult _dashboard()
         {
-            command = new SqlCommand("SELECT * FROM item", connection);
-            connection.Open();
-            reader = command.ExecuteReader();
-            int icount = reader.Cast<object>().Count();
-            reader.Close();
+            string name = JsonConvert.DeserializeObject<String>(HttpContext.Session.GetString("nam"));
 
-            command = new SqlCommand("SELECT * FROM CustomerInfo", connection);
-            reader = command.ExecuteReader();
-            int ccount = reader.Cast<object>().Count();
-            reader.Close();
+            string img = JsonConvert.DeserializeObject<String>(HttpContext.Session.GetString("Adminsession_img"));
+            int ic = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("ic"));
+            int cc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("cc"));
+            int oc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("oc"));
+            int dc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("dc"));
+            int fc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("fc"));
+            int ec = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("ec"));
 
-            command = new SqlCommand("SELECT * FROM orders", connection);
-            reader = command.ExecuteReader();
-            int ocount = reader.Cast<object>().Count();
+            int sc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("sc"));
+            int moc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("moc"));
 
-
-
-
-            ViewBag.itemcount = icount;
-            ViewBag.cuscount = ccount;
-            ViewBag.ocount = ocount;
+            ViewBag.itemcount = ic;
+            ViewBag.cuscount = cc;
+            ViewBag.ocount = oc;
+            ViewBag.dcount = dc;
+            ViewBag.fcount = fc;
+            ViewBag.mocount = moc;
+            ViewBag.scount = sc;
+            ViewBag.ecount = ec;
+            DateTime now = DateTime.Now;
+            string s = now.DayOfWeek.ToString();
+            ViewBag.day = s;
+            ViewBag.name = name;
+            ViewBag.TerminoDaAvaliacao = now;
 
             return PartialView("Owner/_dashboard");
         }
@@ -126,6 +131,9 @@ namespace ITP.Controllers
             string result = pwd.Next();
             var uname = new Password().IncludeLowercase().LengthRequired(6);
             string runame = uname.Next();
+            DateTime dt = DateTime.Now;
+            DateTime dateOnly = dt.Date;
+            ob.Joindate = dateOnly;
             ob.Username = runame;
             ob.Password = result;
             ob.ConfirmPassword = result;
@@ -281,8 +289,8 @@ namespace ITP.Controllers
             connection.Open();
             reader = command.ExecuteReader();
             int ccount = reader.Cast<object>().Count();
+            
            
-
             ViewBag.c = ccount;
             return PartialView("Owner/_customer");
         }
@@ -328,7 +336,8 @@ namespace ITP.Controllers
             if (type1.Equals("HR"))
             {
                 type1 = "HR Manager";
-                page = "Owner/Owner_dashboard";
+                
+
             }
             else if (type1.Equals("IM")) {
                 type1 = "Inventory Manager";
@@ -344,6 +353,8 @@ namespace ITP.Controllers
             else if (type1.Equals("OW"))
             {
                 type1 = "Owner";
+                page = "Owner/Owner_dashboard";
+
             }
 
             command = new SqlCommand("SELECT * FROM Admin where Username = @id and Password = @p and Type = @t", connection);
@@ -379,6 +390,8 @@ namespace ITP.Controllers
                 {
                     imgp = test.Image;
                 }
+                DateTime now = DateTime.Now;
+                int cmonth = now.Month;
 
                 command = new SqlCommand("SELECT * FROM item", connection);
                 connection.Open();
@@ -401,12 +414,42 @@ namespace ITP.Controllers
                 int dcount = reader.Cast<object>().Count();
                 reader.Close();
 
+                command = new SqlCommand("SELECT * FROM Employee", connection);
+                reader = command.ExecuteReader();
+                int ecount = reader.Cast<object>().Count();
+                reader.Close();
+
+
+               
+
+                command = new SqlCommand("SELECT * FROM Supplierlog", connection);
+                reader = command.ExecuteReader();
+                int scount = reader.Cast<object>().Count();
+                reader.Close();
+
+                command = new SqlCommand("SELECT TotalPrice FROM Orders o, Orderdetails od where o.id = od.OrderId and  datepart(month,OrderDate) = @m ", connection);
+                command.Parameters.Add("@m", SqlDbType.Int).Value = cmonth;
+                reader = command.ExecuteReader();
+                int total = 0;
+                while (reader.Read()) { 
+                    int value = int.Parse(reader["TotalPrice"].ToString());
+                    total = total + value;
+                }
+                reader.Close();
+
+
+
                 command = new SqlCommand("SELECT * FROM feedback", connection);
                 reader = command.ExecuteReader();
                 int fcount = reader.Cast<object>().Count();
 
 
                 HttpContext.Session.SetString("ic", JsonConvert.SerializeObject(icount));
+                HttpContext.Session.SetString("nam", JsonConvert.SerializeObject(test.Name));
+                HttpContext.Session.SetString("moc", JsonConvert.SerializeObject(total));
+                HttpContext.Session.SetString("sc", JsonConvert.SerializeObject(scount));
+              
+                HttpContext.Session.SetString("ec", JsonConvert.SerializeObject(ecount));
                 HttpContext.Session.SetString("cc", JsonConvert.SerializeObject(ccount));
                 HttpContext.Session.SetString("oc", JsonConvert.SerializeObject(ocount));
                 HttpContext.Session.SetString("dc", JsonConvert.SerializeObject(dcount));
@@ -416,8 +459,12 @@ namespace ITP.Controllers
                 ViewBag.ocount = ocount;
                 ViewBag.dcount = dcount;
                 ViewBag.fcount = fcount;
+                ViewBag.mocount = total;
+                ViewBag.scount = scount;
+                
+                ViewBag.ecount = ecount;
                 ViewBag.mpic = imgp;
-                DateTime now = DateTime.Now;
+               
                 string s = now.DayOfWeek.ToString();
                 ViewBag.day = s;
                 ViewBag.name = test.Name;
@@ -598,6 +645,10 @@ namespace ITP.Controllers
             int oc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("oc"));
             int dc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("dc"));
             int fc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("fc"));
+            int ec = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("ec"));
+           
+            int sc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("sc"));
+            int moc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("moc"));
             string Name = null, imgp = null;
             command = new SqlCommand("select Email from customerinfo", connection);
             connection.Open();
@@ -663,11 +714,17 @@ namespace ITP.Controllers
             }
             reader.Close();
             ViewBag.itemcount = ic;
-                ViewBag.cuscount = cc;
-                ViewBag.ocount = oc;
-                ViewBag.dcount = dc;
-                ViewBag.fcount = fc;
-                int aid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("Adminsession"));
+            ViewBag.cuscount = cc;
+            ViewBag.ocount = oc;
+            ViewBag.dcount = dc;
+            ViewBag.fcount = fc;
+            ViewBag.mocount = moc;
+            ViewBag.scount = sc;
+         
+            ViewBag.ecount = ec;
+            ViewBag.mpic = imgp;
+
+            int aid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("Adminsession"));
                 command = new SqlCommand("SELECT * FROM Admin where Admin_ID = @id ", connection);
                 command.Parameters.Add("@id", SqlDbType.Int).Value = aid;
                 reader = command.ExecuteReader();
@@ -688,6 +745,199 @@ namespace ITP.Controllers
 
             
             return View("Owner/Owner_dashboard");
+        }
+
+
+        public IActionResult managerpartail()
+        {
+            command = new SqlCommand("select * from admin",connection);
+            connection.Open();
+            reader = command.ExecuteReader();
+            int count = reader.Cast<object>().Count();
+            ViewBag.c = count;
+            return PartialView("Owner/_manager");
+        }
+
+        public IActionResult managerList() {
+           List<Admin> ob =  DBob.Admin.ToList();
+            return View("Owner/managerList",ob);
+        }
+
+        //public JsonResult draw2()
+        //{
+        //    List<Areagraph> ob = new List<Areagraph>();
+        //    Areagraph ob1 = new Areagraph();
+        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+        //    string place1 = "%Diulapitiya%";
+        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
+        //    connection.Open();
+        //    reader = command.ExecuteReader();
+        //    int c1 = reader.Cast<object>().Count();
+        //    reader.Close();
+
+        //    ob1.area = "diulapitiya";
+        //    ob1.count = c1;
+        //    ob.Add(ob1);
+
+
+        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+        //    place1 = "%Diulapitiya%";
+        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
+        //    reader = command.ExecuteReader();
+        //    c1 = reader.Cast<object>().Count();
+        //    reader.Close();
+
+        //    ob1.area = "diulapitiya";
+        //    ob1.count = c1;
+        //    ob.Add(ob1);
+
+        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+        //    place1 = "%Diulapitiya%";
+        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
+        //    reader = command.ExecuteReader();
+        //    c1 = reader.Cast<object>().Count();
+        //    reader.Close();
+
+        //    ob1.area = "diulapitiya";
+        //    ob1.count = c1;
+        //    ob.Add(ob1);
+
+
+
+        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+        //    place1 = "%Diulapitiya%";
+        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
+        //    reader = command.ExecuteReader();
+        //    c1 = reader.Cast<object>().Count();
+        //    reader.Close();
+
+        //    ob1.area = "diulapitiya";
+        //    ob1.count = c1;
+        //    ob.Add(ob1);
+
+        //    return Json(ob);
+        //}
+
+
+        public IActionResult ManagerCreate() {
+
+            return View("Owner/ManagerCreate");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManagerCreate(string f1, string f2, string f3, string f4, string f5, string f6)
+        {
+            var pwd = new Password().IncludeLowercase().IncludeUppercase().LengthRequired(5);
+            string result = pwd.Next();
+            var uname = new Password().IncludeLowercase().LengthRequired(6);
+            string runame = uname.Next();
+            Admin ob = new Admin();
+            ob.Name = f1;
+            ob.Email = f2;
+            ob.Phone_Number = f3;
+            ob.NIC = f4;
+            ob.Qualifications = f5;
+            ob.Username = runame;
+            ob.Password = result;
+            ob.Re_Password = result;
+            string type = null;
+            if (f6.Equals("HR"))
+            {
+                type = "HR manager";
+            }
+            else if (f6.Equals("IM"))
+            {
+                type = "Inventory Manager";
+            }
+            else if (f6.Equals("SM")) {
+                type = "Supplier Manager";
+            }
+            else
+            {
+                type = "Delivery Manager";
+            }
+            ob.Type = type;
+            DBob.Add(ob);
+            await DBob.SaveChangesAsync();
+            string Themessage = @"<html>
+                          <body>
+                            <div style="" width: 500px; height: 620px; border: 6px solid DodgerBlue;position:relative; "">
+
+                <img src = cid:myImageID style = "" width:150px;height:auto;position:relative;left:180px;margin-left:170px"">
+        
+
+                 <h4 style = ""position:relative;left:40px;font-family:Comic Sans MS;margin-left:60px;font-size:20px"" ><font color = ""DodgerBlue""> Hi </font>{name} your are our new {type} </h4>
+                  
+                         <img src = cid:myImageID2 style = "" width:270px;height:250px;position:absolute;left:300px;border-radius:50%;margin-left:120px"">
+                     
+                            <h4 style = ""position:relative;left:90px;top:0px;margin-left:170px;font-size:20px""> Username = <font color = ""#9932CC"">{uname}</font> </h4>
+                            <h4 style = ""position:relative;left:90px;top:0px;margin-left:170px;font-size:20px""> Password = <font color = ""#9932CC"">{pword}</font> </h4>
+                          
+                              <p style = ""font-size:20px;color:#FF7F50;position:relative;left:80px;top:0px;letter-spacing:5px;margin-left:70px"" >WELCOME TO TLC FAMILY </p>
+                           
+
+                           </div>
+                            </body>
+                            </html>";
+
+
+
+
+
+
+
+
+            Themessage = Themessage.Replace("{uname}", runame);
+            Themessage = Themessage.Replace("{type}", ob.Type);
+            Themessage = Themessage.Replace("{pword}", result);
+            Themessage = Themessage.Replace("{name}", ob.Name);
+            string to = ob.Email; //To address    
+            string from = "tlclifepartner2021@gmail.com"; //From address    
+            MailMessage message = new MailMessage(from, to);
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(Themessage, null, "text/html");
+
+
+            LinkedResource theEmailImage = new LinkedResource("wwwroot/Images/Customer/logo.png");
+            theEmailImage.ContentId = "myImageID";
+            htmlView.LinkedResources.Add(theEmailImage);
+
+            LinkedResource theEmailImage2 = new LinkedResource("wwwroot/Images/Customer/man.gif");
+            theEmailImage2.ContentId = "myImageID2";
+            htmlView.LinkedResources.Add(theEmailImage2);
+
+            message.AlternateViews.Add(htmlView);
+
+            message.Subject = "Welcome To TLC Family";
+            //message.Body = mailbody;
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+            NetworkCredential MyCredentials = new NetworkCredential("tlclifepartner2021@gmail.com", "Tlc@2021");
+
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = MyCredentials;
+
+
+            client.Send(message);
+            return RedirectToAction("managerList");
+
+        }
+
+        [HttpPost]
+        public ActionResult Deleteadmin(int id)
+        {
+            command = new SqlCommand("delete admin where Admin_ID = @id", connection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            // command.CommandType = System.Data.CommandType.TableDirect;
+            connection.Open();
+            command.ExecuteNonQuery();
+            return RedirectToAction("managerList");
+
+        }
+        public IActionResult errorpage()
+        {
+            return View("errorpage");
         }
 
         public IActionResult DriverDash()

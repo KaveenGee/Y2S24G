@@ -1,0 +1,165 @@
+﻿@model IEnumerable<ITP.Models.Admin>
+
+@{
+    ViewData["Title"] = "managerList";
+    Layout = "_layout1";
+}
+<style>
+    th {
+        background-color: #DC143C !important;
+        color: white;
+    }
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"
+        integrity="sha256-C6CB9UYIS9UJeqinPHWTHVqh/E1uhG5Twh+Y5qFQmYg="
+        crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="row">
+    <div class="col-md-4">
+
+        <p>
+            <a asp-action="Create" class="btn btn-outline-success" style="margin-left:120px;margin-top:80px">Manager List</a>
+        </p>
+    </div>
+    <div class="col-md-4 text-center">
+        <h1>ManagerList</h1><br>
+        <form class="d-flex" method="get" asp-action="CustomerList2">
+            <input class="form-control me-2" type="search" placeholder="Search for a Manager" aria-label="Search" value="@ViewData["cusdetails"]" name="cusSearch">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+
+        </form>
+
+    </div>
+    <div class="col-md-4">
+
+        <p>
+            <a asp-action="ManagerCreate" class="btn btn-outline-primary" style="margin-left:200px;margin-top:80px">Add Manager</a>
+        </p>
+    </div>
+</div>
+
+<div class="row" >
+    <div class="col-md-12">
+        <table class="table table-light table-striped table-bordered table-hover" style="margin-right:40px !important">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Admin_ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone_Number)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.NIC)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Qualifications)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Admin_ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone_Number)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NIC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Qualifications)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.ActionLink("", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "fas fa-edit btn btn-primary" }) |
+                            @Html.ActionLink("", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "fas fa-eye btn btn-success" }) |
+                            <i type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="confirmDelete(@item.Admin_ID)">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<input type ="hidden" id="wid"/>
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0099FF;">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Manager Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure you want to Delete?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="delcus">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#delcus").click(function () {
+            var _id = $("#wid").val();
+            $.ajax({
+                type: "POST",
+                url: "/TLC_Admin/Deleteadmin",
+                data: { id: _id },
+                success: function () {
+                    window.location.reload(true);
+                }
+
+
+
+            })
+        })
+    })
+
+    var confirmDelete = function (id) {
+
+        $("#wid").val(id);
+
+    }
+</script>
