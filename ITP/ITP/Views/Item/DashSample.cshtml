@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -84,7 +83,7 @@
             }
 
         #sidebar-wrapper .list-group a:hover {
-            background-color: #9724B2 !important;
+            background-color: #235CCD !important;
         }
 
         .list-group-item {
@@ -95,7 +94,7 @@
         }
 
             .list-group-item:hover {
-                background-color: #9724B2 !important;
+                background-color: orange !important;
             }
 
             .list-group-item:hover {
@@ -136,41 +135,36 @@
 
         <div class="bg-white" id="sidebar-wrapper">
 
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase " style="background-color:dodgerblue !important;height:110px;">
-                Owner
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase " style="background-color: #235CCD !important; height: 110px;">
+                Inventory Manager
             </div>
             <div class="list-group list-group-flush my-3">
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active" id="btn1">
-                    <i class="fas fa-tachometer-alt me-2"></i>Profile
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn2">
-                    <i class="fas fa-users me-2"></i>Customers
+                    <i class="fas fa-users me-2"></i>Inventory
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="man">
-                    <i class="fas fa-users-cog me-2"></i>Managers
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn3">
+                    <i class="fas fa-users-cog me-2"></i>Report
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                @*<a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="ana">
                     <i class="fas fa-chart-pie me-2"></i>Analysis
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="far fa-flag me-2"></i>Notices
                 </a>
-                <a href="#" id="Driver" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-truck-moving me-2"></i>Driver
-                </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn8">
-                    <i class="fas fa-star me-2"></i>Feedbacks
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="cont">
-                    <i class="fas fa-map-marker-alt me-2"></i>Contacts
-
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-map-marker-alt me-2"></i>Orders
-
+                    <i class="fas fa-truck-moving me-2"></i>Vehicals
                 </a>
-                <a href="#" id="cart" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-shopping-cart me-2"></i>Cart
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-comment-dots me-2"></i>Feedbacks
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-map-marker-alt me-2"></i>Outlet
+                </a>*@
+                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+                    <i class="fas fa-power-off me-2"></i>Logout
                 </a>
             </div>
         </div>
@@ -197,7 +191,7 @@
 
                             <li class="nav-item dropdown nav-link">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/Images/Manager/@ViewBag.mpic" width="60" height="60" class="rounded-circle" />
+                                    <img src="" width="60" height="60" class="rounded-circle" />
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="dropdown-item" asp-action="Managerprofile" asp-controller="TLC_Admin">Profile</a></li>
@@ -214,113 +208,77 @@
 
 
             <div class="container" id="con">
-
                 <div class="row">
-                    <div class="card text-center" style="margin-top: 30px; margin-left: 30px; margin-right: 30px;">
-                        <div class="card-header">
-                            <h4> @String.Format("{0:dd/MM/yyyy}", ViewBag.TerminoDaAvaliacao)</h4>
-                        </div>
-                        <div class="card-body" style="background-color:white">
-                            <h2 class="card-title">Welcome @ViewBag.name</h2>
-                            <p class="card-text"></p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                        <div class="card-footer text-muted">
-
-                            <h1>@ViewBag.day</h1>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-primary o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-comments"></i>
+                                </div>
+                                <div class="mr-5"><b>11</b><br /><b>Products</b></div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                @*<span class="float-left">View Details</span>
+                <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                </span>*@
+                            </a>
                         </div>
                     </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-warning o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-check-square"></i></i>
+                                </div>
+                                <div class="mr-5"><b>00</b> <br /> <b>Sample</b></div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                @*<span class="float-left">View Details</span>
+                        <span class="float-right">
+                            <i class="fas fa-angle-right"></i>
+                        </span>*@
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-success o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-spinner"></i>
+                                </div>
+                                <div class="mr-5"><b>00</b><br /><b>Sample</b></div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                @*<span class="float-left">View Details</span>
+                        <span class="float-right">
+                            <i class="fas fa-angle-right"></i>
+                        </span>*@
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-danger o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-backspace"></i></i>
+                                </div>
+                                <div class="mr-5"><b>00</b><br /><b>Sample</b></div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                @*<span class="float-left">View Details</span>
+                        <span class="float-right">
+                            <i class="fas fa-angle-right"></i>
+                        </span>*@
+                            </a>
+                        </div>
+                    </div>
+
+
                 </div>
-
-                <div class="container-fluid px-4" style="margin-left:30px;">
-                    <div class="row g-3 my-2">
-                        <div class="col-md-3">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.cuscount</h3>
-                                    <p class="fs-5">Users</p>
-                                </div>
-                                <i class="fas fa-users fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.itemcount</h3>
-                                    <p class="fs-5">Products</p>
-                                </div>
-                                <i class="fas fa-tv fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.ecount</h3>
-                                    <p class="fs-5">Employees</p>
-                                </div>
-
-                                <i class="fas fa-users-cog fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 ">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.ocount</h3>
-                                    <p class="fs-5">Orders</p>
-                                </div>
-                                <i class="fas fa-shopping-cart fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row g-3 my-2">
-                        <div class="col-md-3">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.mocount</h3>
-                                    <p class="fs-5">Month Income</p>
-                                </div>
-                                <i class="fas fa-money-bill-alt fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.scount</h3>
-                                    <p class="fs-5">Suppliers</p>
-                                </div>
-                                <i class="fas fa-people-carry fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.dcount</h3>
-                                    <p class="fs-5">Vehicals</p>
-                                </div>
-                                <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                                <div>
-                                    <h3 class="fs-2 counter">@ViewBag.fcount</h3>
-                                    <p class="fs-5">Reviews</p>
-                                </div>
-                                <i class="fas fa-newspaper fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
+
         </div>
 
     </div>
@@ -329,7 +287,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-  
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
@@ -355,54 +313,24 @@
 
                     toggleButton.onclick = function () {
                         el.classList.toggle("toggled");
-                    };
+                  };
+
+
+
 
 
                     document.getElementById("btn1").onclick = function () { myFunction() };
                     function myFunction() {
 
-                     $("#con").load("@Html.Raw(Url.Action("_dashboard", "TLC_Admin")) ")
+                     $("#con").load("@Html.Raw(Url.Action("_dashboard", "Item")) ")
                     }
-
 
                     document.getElementById("btn2").onclick = function () { myFunction1() };
                     function myFunction1() {
 
-                     $("#con").load("@Html.Raw(Url.Action("_customer", "TLC_Admin")) ")
-                     }
-
-
-                     document.getElementById("man").onclick = function () { managerfunc() };
-                     function managerfunc() {
-
-                     $("#con").load("@Html.Raw(Url.Action("managerpartail", "TLC_Admin")) ")
-                     }
-
-      
-                    document.getElementById("Driver").onclick = function () { myFunction4() };
-                    function myFunction4() {
-
-                     $("#con").load("@Html.Raw(Url.Action("DriverDash", "TLC_Admin")) ")
+                     $("#con").load("@Html.Raw(Url.Action("_inventory", "Item")) ")
                     }
 
-      
-                    document.getElementById("btn8").onclick = function () { myFunction2() };
-                    function myFunction2() {
-
-                     $("#con").load("@Html.Raw(Url.Action("FeedbackPartial", "TLC_Admin")) ")
-                    }
-
-                    document.getElementById("cont").onclick = function () { myFunction5() };
-                    function myFunction5() {
-
-                     $("#con").load("@Html.Raw(Url.Action("ContactPartial", "TLC_Admin")) ")
-                    }
-
-                    document.getElementById("cart").onclick = function () { myFunction3() };
-                    function myFunction3() {
-
-                     $("#con").load("@Html.Raw(Url.Action("CartPartialView", "TLC_Admin")) ")
-                    }
 
 
     </script>

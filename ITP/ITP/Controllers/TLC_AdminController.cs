@@ -747,6 +747,12 @@ namespace ITP.Controllers
             return View("Owner/Owner_dashboard");
         }
 
+        public IActionResult FeedbackPartial()
+        {
+            return PartialView("Owner/FeedDash");
+        }
+
+
 
         public IActionResult CartPartialView() {
 
@@ -992,7 +998,6 @@ namespace ITP.Controllers
             ViewBag.Driver = dcount;
             return PartialView("Owner/DriverDash");
         }
-
 
     }
 }

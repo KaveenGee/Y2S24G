@@ -90,7 +90,7 @@ namespace ITP.Controllers
         }
 
 
-        public IActionResult Dashboard()
+        public IActionResult Ownerdashboard()
         {
             return View();
         }
@@ -100,5 +100,13 @@ namespace ITP.Controllers
             var displaydata = _db.ContactusTable.ToList();
             return PartialView("ContDash", displaydata);
         }
+
+        public IActionResult ContactPartial()
+        {
+
+            return PartialView("Owner/ContactDash");
+        }
     }
+
+
 }
