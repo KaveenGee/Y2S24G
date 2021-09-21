@@ -1,6 +1,10 @@
 ﻿@model ITP.Models.Customer
+    <div class="row">
+        <div class="col-md-3"></div>
+       <div class="col-md-6"><h2>Edit Your Profile</h2></div>
+        <div class="col-md-3"></div>
+    </div>
 
-<h4>Customer</h4>
 <hret />
 
 @{
@@ -29,7 +33,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="LastName" class="control-label"></label>
-                    <input asp-for="LastName" class="form-control" />
+                    <input asp-for="LastName" class="form-control" required />
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
             </div>
@@ -38,14 +42,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="FirstName" class="control-label"></label>
-                    <input asp-for="FirstName" class="form-control" />
+                    <input asp-for="FirstName" class="form-control" required/>
                     <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" type="email" />
+                    <input asp-for="Email" class="form-control" type="email" required />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
@@ -54,14 +58,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Username" class="control-label"></label>
-                    <input asp-for="Username" class="form-control" />
+                    <input asp-for="Username" class="form-control" required />
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="NIC" class="control-label"></label>
-                    <input asp-for="NIC" class="form-control" id="in6" />
+                    <input asp-for="NIC" class="form-control" id="in6" required />
                     <span asp-validation-for="NIC" class="text-danger"></span>
                 </div>
             </div>
@@ -70,14 +74,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="PhoneNumber" class="control-label"></label>
-                    <input asp-for="PhoneNumber" class="form-control" type="tel" id="in5" />
+                    <input asp-for="PhoneNumber" class="form-control" type="tel" id="in5" required />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="Address" class="control-label"></label>
-                    <input asp-for="Address" class="form-control" />
+                    <input asp-for="Address" class="form-control"  required/>
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
             </div>
@@ -90,7 +94,7 @@
     </form>
     <div class="row">
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Change Password</button>
+            <button type="button" class="btn btn-warning btn-roundedy" data-bs-toggle="modal" data-bs-target="#exampleModal">Change Password</button>
         </div>
     </div>
     <input type="hidden" value="@ob1.Password" id="hid" />
@@ -129,7 +133,7 @@
                         </div>
                     <div class="modal-footer">
 
-                        <input type="submit" class="btn btn-primary" value="Save changes" id="save" disabled ="disabled" />
+                        <input type="submit" class="btn btn-primary" value="Save changes" id="save1" disabled ="disabled" />
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -208,14 +212,14 @@
         if ($('#password2').val() == $('#password3').val()) {
             $('#message').html('Matching').css('color', 'green');
             if ($('#hid1').val() == num) {
-                $('#save').removeAttr('disabled');
+                $('#save1').removeAttr('disabled');
             }
 
 
 
         } else {
             $('#message').html('Not Matching').css('color', 'red');
-            $('#save').attr('disabled', 'disabled');
+            $('#save1').attr('disabled', 'disabled');
         }
 
     });
@@ -223,11 +227,11 @@
     $('#password').on('keyup', function () {
         if ($('#hid').val() == $('#password').val()) {
             $('#message1').html('Matching').css('color', 'green');
-            $('#save').removeAttr('disabled');
+            $('#save1').removeAttr('disabled');
 
         } else {
             $('#message1').html('Not Matching').css('color', 'red');
-            $('#save').attr('disabled', 'disabled');
+            $('#save1').attr('disabled', 'disabled');
         }
         
     });
@@ -240,12 +244,12 @@
 
         if (password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@@%!])[0-9a-zA-Z@@%!]{8,}$/)) {
             $("#divPasswordValidationResult").html("Good");
-            $('#save').removeAttr('disabled');
+            $('#save1').removeAttr('disabled');
             $("#hid1").val(1);
         }
         else {
             $("#divPasswordValidationResult").html("Bad");
-            $('#save').attr('disabled', 'disabled');
+            $('#save1').attr('disabled', 'disabled');
             
         }
 

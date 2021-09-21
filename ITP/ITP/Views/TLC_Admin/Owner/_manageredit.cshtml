@@ -116,7 +116,7 @@
                     </div>
                     <div class="modal-footer">
 
-                        <input type="submit" class="btn btn-primary" value="Save changes" id="save" disabled="disabled" />
+                        <input type="submit" class="btn btn-primary" value="Save changes" id="save1" disabled="disabled" />
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -125,6 +125,8 @@
         </div>
     </div>
 </div>
+
+
 <script>
 
 
@@ -193,14 +195,14 @@
         if ($('#password2').val() == $('#password3').val()) {
             $('#message').html('Matching').css('color', 'green');
             if ($('#hid1').val() == num) {
-                $('#save').removeAttr('disabled');
+                $('#save1').removeAttr('disabled');
             }
 
 
 
         } else {
             $('#message').html('Not Matching').css('color', 'red');
-            $('#save').attr('disabled', 'disabled');
+            $('#save1').attr('disabled', 'disabled');
         }
 
     });
@@ -208,11 +210,11 @@
     $('#password').on('keyup', function () {
         if ($('#hid').val() == $('#password').val()) {
             $('#message1').html('Matching').css('color', 'green');
-            $('#save').removeAttr('disabled');
+            $('#save1').removeAttr('disabled');
 
         } else {
             $('#message1').html('Not Matching').css('color', 'red');
-            $('#save').attr('disabled', 'disabled');
+            $('#save1').attr('disabled', 'disabled');
         }
 
     });
@@ -225,12 +227,12 @@
 
         if (password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@@%!])[0-9a-zA-Z@@%!]{8,}$/)) {
             $("#divPasswordValidationResult").html("Good");
-            $('#save').removeAttr('disabled');
+            $('#save1').removeAttr('disabled');
             $("#hid1").val(1);
         }
         else {
             $("#divPasswordValidationResult").html("Bad");
-            $('#save').attr('disabled', 'disabled');
+            $('#save1').attr('disabled', 'disabled');
 
         }
 
