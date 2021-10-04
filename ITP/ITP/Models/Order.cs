@@ -24,8 +24,9 @@ namespace ITP.Models
         public string PhoneNo { get; set; }
         [Required]
         public string City { get; set; }
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Enter Driver Email")]
+        [Display(Name = "Driver Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         //public DateTime OrderDate { get; set; }

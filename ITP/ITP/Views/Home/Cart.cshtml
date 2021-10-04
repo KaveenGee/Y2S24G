@@ -1,7 +1,5 @@
 ﻿@using ITP.Models
 @model List<ViewCartDetailsModel>
-@*@model IEnumerable<ITP.Models.ViewCartDetailsModel>*@
-
 
 
 @{
@@ -22,7 +20,7 @@
                     <th>Quntity</th>
                     <th>Price</th>
                     <th>Total Price</th>
-                    @*<th></th>*@
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -44,7 +42,7 @@
                             <input type="hidden" asp-for="@Model[i].IUPrice" />
                             <input type="hidden" asp-for="@Model[i].IItemId" />
                             <input type="hidden" asp-for="@Model[i].TotalPrice" />
-                            <input asp-for="@Model[i].Quntity" type="number" onchange="setItemTotal(this)" />
+                            <input asp-for="@Model[i].Quntity" type="number" min="1" onchange="setItemTotal(this)" />
                         </td>
                         <td>@Model[i].IUPrice</td>
                         <td class="itemtot">@(Model[i].Quntity*Model[i].IUPrice)</td>
@@ -56,11 +54,7 @@
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
-                        @*<td>
-                                <a asp-action="Update" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                            </td>*@
+                     
                     </tr>
                 }
 
@@ -75,7 +69,6 @@
             <h3>Total Amount</h3>
             <h3>Grant Total : <label id="totvalue"></label> </h3>
             <button type="submit" class="btn btn-info">Process to Checkout</button>
-            @*<a asp-action="Checkout" asp-controller="Order" class="btn btn-info">Process to Checkout</a>*@
         </div>
     </div>
 </form>

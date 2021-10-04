@@ -149,7 +149,7 @@
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="man">
                     <i class="fas fa-users-cog me-2"></i>Managers
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="ana">
                     <i class="fas fa-chart-pie me-2"></i>Analysis
                 </a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
@@ -378,12 +378,20 @@
                      $("#con").load("@Html.Raw(Url.Action("managerpartail", "TLC_Admin")) ")
                      }
 
-      
+
                     document.getElementById("Driver").onclick = function () { myFunction4() };
                     function myFunction4() {
 
                      $("#con").load("@Html.Raw(Url.Action("DriverDash", "TLC_Admin")) ")
                     }
+
+
+                     document.getElementById("ana").onclick = function () { analysisfunction() };
+                     function analysisfunction() {
+
+                     $("#con").load("@Html.Raw(Url.Action("analysisfunction", "TLC_Admin")) ")
+                    }
+
 
       
                     document.getElementById("btn8").onclick = function () { myFunction2() };
@@ -403,6 +411,7 @@
 
                      $("#con").load("@Html.Raw(Url.Action("CartPartialView", "TLC_Admin")) ")
                     }
+
 
 
     </script>

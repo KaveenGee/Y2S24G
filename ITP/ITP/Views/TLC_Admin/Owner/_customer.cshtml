@@ -1,9 +1,9 @@
 ﻿@*
-   
+
 *@
 @model ITP.Models.Email
-@{ 
-    
+@{
+
 }
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -73,6 +73,7 @@
         background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
         color: #fff;
     }
+
     .thirteen h4 {
         position: relative;
         font-size: 20px;
@@ -104,9 +105,6 @@
         .thirteen h4:after {
             right: -20px;
         }
-
-
-
 </style>
 <div class="row">
     <div class="col-md-11" style="margin-top:40px;">
@@ -136,17 +134,18 @@
 </div>
 <div class="row">
     <div id="char_div" style="margin-left:100px;" class="col-md-10">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     </div>
-    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 <div class="row" style="margin-top:40px">
-   <div class="thirteen"> <h4 style="margin-left:160px">Notify Updates</h4></div>
+    <div class="thirteen"> <h4 style="margin-left:160px">Notify Updates</h4></div>
     <div class="col-md-4" style="background-color:white;padding:30px;margin-left:100px">
 
 
@@ -190,14 +189,19 @@
 
     </div>
     <div class="col-md-1"></div>
-   
-    <div class="col-md-2">
 
-        <div class="bg-white rounded shadow-sm py-3 px-4">
-            <img src="~/Images/Customer/images (1).jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-            <h5 class="mb-0">kavindu</h5><span class="small text-uppercase text-muted"></span>
-           
-        </div>
+    @*<div class="col-md-2">
+
+            <div class="bg-white rounded shadow-sm py-3 px-4">
+                <img src="~/Images/Customer/images (1).jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">kavindu</h5><span class="small text-uppercase text-muted"></span>
+
+            </div>
+
+        </div>*@
+
+    <div class="col-md-4" id="char_div2" style="height:400px">
+
 
     </div>
 
@@ -237,8 +241,36 @@
     });
     }
 
-  
 
 
-        </script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+     google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart2() {
+            var data2 = new google.visualization.DataTable();
+            data2.addColumn('string', 'area');
+            data2.addColumn('number', 'Customers');
+
+
+            $.getJSON("@Url.Action("draw2", "TLC_Admin")", null, function (chartData2) {
+        $.each(chartData2, function (i, item) {
+            data2.addRow([item.area, item.count]);
+        });
+
+
+                 var options2 = {
+                     title: 'Customer Location',
+                     curveType: 'function',
+                     legend: { position: 'bottom' }
+                 };
+
+                var chart2 = new google.visualization.PieChart(document.getElementById('char_div2'));
+        chart2.draw(data2, options2);
+    });
+    }
+
+
+
+
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
