@@ -1,0 +1,371 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>sampleAdmin</title>
+    <style>
+        header {
+            display: none;
+        }
+
+        #footer {
+            display: none;
+        }
+
+        body {
+            background: #efefef;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        #wrapper {
+            overflow-x: hidden;
+        }
+
+        #sidebar-wrapper {
+            min-height: 100vh;
+            margin-left: -15rem;
+            -webkit-transition: margin 0.25s ease-out;
+            -moz-transition: margin 0.25s ease-out;
+            -o-transition: margin 0.25s ease-out;
+            transition: margin 0.25s ease-out;
+        }
+
+            #sidebar-wrapper .sidebar-heading {
+                padding: 0.875rem 1.25rem;
+                font-size: 1.2rem;
+            }
+
+            #sidebar-wrapper .list-group {
+                width: 15rem;
+            }
+
+        #page-content-wrapper {
+            min-width: 100vw;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+            margin-left: 0;
+        }
+
+        #menu-toggle {
+            cursor: pointer;
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 20px 30px;
+        }
+
+            .list-group-item.active {
+                background-color: transparent;
+                color: var(--main-text-color);
+                font-weight: bold;
+                border: none;
+            }
+
+        #sidebar-wrapper .list-group a:hover {
+            background-color: orange !important;
+        }
+
+        .list-group-item {
+            margin: 8px;
+            border-radius: 15px;
+            width: 200px;
+            background-color: white;
+        }
+
+            .list-group-item:hover {
+                background-color: orange !important;
+            }
+
+            .list-group-item:hover {
+                color: white !important;
+            }
+
+        .primary-text {
+            background-color: #9724B2 !important;
+            color: white !important;
+        }
+
+        @@media (min-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: 0;
+            }
+
+            #page-content-wrapper {
+                min-width: 0;
+                width: 100%;
+            }
+
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: -15rem;
+            }
+
+            .dropdown-toggle::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <div class="d-flex" id="wrapper">
+
+
+        <div class="bg-white" id="sidebar-wrapper">
+
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase " style="background-color:#57a3e8 !important;height:110px;">
+                Delivery Manager
+            </div>
+            <div class="list-group list-group-flush my-3">
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active" id="btn1">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn2">
+                    <i class="fas fa-users me-2"></i>Delivery List
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn3">
+                    <i class="fas fa-users-cog me-2"></i>Reports
+                </a>
+                @*<a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="ana">
+                    <i class="fas fa-chart-pie me-2"></i>Analysis
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="far fa-flag me-2"></i>Notices
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-truck-moving me-2"></i>Vehicals
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-comment-dots me-2"></i>Feedbacks
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-map-marker-alt me-2"></i>Outlet
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+                    <i class="fas fa-power-off me-2"></i>Logout
+                </a>*@
+            </div>
+        </div>
+
+        <div id="page-content-wrapper">
+
+
+
+
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <div class="d-flex align-items-center nav-link">
+                        <i class="fas fa-align-left  fs-4 me-3" id="menu-toggle"></i>
+                        <img src="~/Images/Customer/logo.png" style="width:80px;" />
+                    </div>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                        <ul class="navbar-nav  ml-auto ">
+
+                            <li class="nav-item dropdown nav-link">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="" width="60" height="60" class="rounded-circle" />
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li><a class="dropdown-item" asp-action="Managerprofile" asp-controller="TLC_Admin">Profile</a></li>
+                                    <li><a class="dropdown-item" asp-action="logout" asp-controller="TLC_Admin">Logout</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+
+
+            <div class="container" id="con">               
+
+                        <div class="row">
+                            <div class="col-xl-3 col-sm-6 mb-3">
+                                <div class="card text-white bg-primary o-hidden h-100">
+                                    <div class="card-body">
+                                        <div class="card-body-icon">
+                                            <i class="fas fa-fw fa-comments"></i>
+                                        </div>
+                                        <div class="mr-5"><b>40</b><br /><b>New Orders</b></div>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1" href="#">
+                                        @*<span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>*@
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-3">
+                                <div class="card text-white bg-warning o-hidden h-100">
+                                    <div class="card-body">
+                                        <div class="card-body-icon">
+                                            <i class="fas fa-check-square"></i></i>
+                                        </div>
+                                        <div class="mr-5"><b>5786</b> <br /> <b>Delivered Orders</b></div>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1" href="#">
+                                        @*<span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>*@
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-3">
+                                <div class="card text-white bg-success o-hidden h-100">
+                                    <div class="card-body">
+                                        <div class="card-body-icon">
+                                            <i class="fas fa-spinner"></i>
+                                        </div>
+                                        <div class="mr-5"><b>20</b><br /><b>Pending Orders</b></div>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1" href="#">
+                                        @*<span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>*@
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-3">
+                                <div class="card text-white bg-danger o-hidden h-100">
+                                    <div class="card-body">
+                                        <div class="card-body-icon">
+                                            <i class="fas fa-backspace"></i></i>
+                                        </div>
+                                        <div class="mr-5"><b>33</b><br /><b>canceled Orders</b></div>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1" href="#">
+                                        @*<span class="float-left">View Details</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>*@
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                            <canvas id="myChart" style="width:100%;max-width:700px;"></canvas>
+                            <script style="color:white">
+                                var xValues = ["Ship from warehouse", "Shop from store", "Pick up frome store", "Delivery"];
+                                var yValues = [15, 50, 25, 40];
+                                var barColors = [
+                                    "#b91d47",
+                                    "#00aba9",
+                                    "#2b5797",
+                                    "#1e7145"
+                                ];
+
+                                new Chart("myChart", {
+                                    type: "doughnut",
+                                    data: {
+                                        labels: xValues,
+                                        datasets: [{
+                                            backgroundColor: barColors,
+                                            data: yValues
+                                        }]
+                                    },
+                                    options: {
+                                        title: {
+                                            display: true,
+                                            text: "Delivery Method"
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
+           
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <script src="~/js/site.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.counter').counterUp({
+                delay: 10,
+                time: 1200
+            });
+        });
+                    var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+
+
+
+
+
+
+                    toggleButton.onclick = function () {
+                        el.classList.toggle("toggled");
+                  };
+
+
+
+
+
+                    document.getElementById("btn1").onclick = function () { myFunction() };
+                    function myFunction() {
+                     $("#con").load("@Html.Raw(Url.Action("Methodk", "OrderList")) ")
+        };
+
+
+                    document.getElementById("btn2").onclick = function () { myFunction() };
+                    function myFunction() {
+                     $("#con").load("@Html.Raw(Url.Action("delivery", "OrderList")) ")
+                    }
+
+
+
+    </script>
+</body>
+</html>
