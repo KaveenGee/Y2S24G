@@ -97,14 +97,19 @@ namespace ITP.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        public IActionResult DashboardView()
+        public IActionResult DeliveryDashboardView()
         {
             return View();
         }
         public IActionResult Methodk()
         {
             var displaydata = _db.DeliveryList.ToList();
-            return PartialView("OrderDash",displaydata);
+            return PartialView("DeliveryDashView",displaydata);
+        }
+        public IActionResult delivery()
+        {
+            var displaydata = _db.DeliveryList.ToList();
+            return PartialView("DeliveryLogView", displaydata);
         }
     }
 }

@@ -119,7 +119,160 @@
 
         .social-like-count > span {
             margin-left: 25px;
-        }                    
+        }
+   
+
+        
+   .card {
+    width: 350px;
+    border: none;
+    height: 300px;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden
+}
+
+.p-info {
+    display: flex;
+    justify-content: space-between
+}
+
+.p-price {
+    position: absolute;
+    right: 10px;
+    top: 20px
+}
+
+.heart i {
+    font-size: 50px;
+    opacity: 0;
+    color: red
+}
+
+.heart i:hover {
+    color: red
+}
+
+.p-image img {
+    width: 200px;
+    transform: rotate(0);
+    transition: all 0.5s
+}
+
+.card:hover .heart i {
+    animation: heart 300ms ease-in forwards;
+    animation-delay: 500ms
+}
+
+.p-about {
+    position: absolute;
+    width: 170px;
+    font-size: 15px;
+    top: 140px;
+    left: -125px;
+    opacity: 0
+}
+
+.card:hover .p-about {
+    animation: content 300ms ease-in forwards
+}
+
+@@keyframes content {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1;
+        left: 25px
+    }
+}
+
+@@keyframes heart {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+.card:hover .p-image img {
+    animation: onimage 300ms ease-in forwards
+}
+
+.card:hover .p-price {
+    animation: onprice 500ms ease-in forwards
+}
+
+@@keyframes onprice {
+    0% {
+        right: 10px;
+        top: 20px
+    }
+
+    50% {
+        right: 60px;
+        top: 30px
+    }
+
+    100% {
+        right: 207px;
+        top: 70px
+    }
+}
+
+@@keyframes onimage {
+    0% {
+        width: 180px
+    }
+
+    50% {
+        width: 150px;
+        transform: translateY(-30px);
+        transform: translateX(100px)
+    }
+
+    100% {
+        width: 130px;
+        top: 100px;
+        transform: translateY(100px);
+        transform: translateX(110px)
+    }
+}
+
+.buttons {
+    position: absolute;
+    bottom: -150px
+}
+
+.card:hover .buttons {
+    animation: buttons 500ms ease-in forwards
+}
+
+@@keyframes buttons {
+    0% {
+        bottom: -100px
+    }
+
+    100% {
+        bottom: 20px
+    }
+}
+
+.btn {
+    height: 40px;
+    font-size: 16px;
+    width: 140px !important;
+    font-weight: 600
+}
+    #items {
+        background-color: #F8F8F8;
+    }
+
+
 </style>
 <section id="banner">
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -166,31 +319,41 @@
 </section>
 <br />
 <br />
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-4">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">
-                        <label style="font-size: 23px;color: steelblue">@item.IBrand</label>
-                    </h4>
-                </div>
-                <img src="~/images/items/@item.ImageName" alt="Card Image" class="card-img-top" style="height: 300px; object-fit:contain;" />
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <label style="font-size: 20px;color: #a51313"><b>Price : @item.IUPrice</b></label>
+
+
+
+<from>
+    <section id="items">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4" style="margin-top:20px">
+                    <div class="card p-2">
+                        <div class="p-info px-3 py-3">
+                            <div>
+                                <h5 class="mb-0">@item.ICategory</h5> <span>@item.IBrand</span>
+                            </div>
+                            <div class="p-price d-flex flex-row">
+                                <span>Rs</span>
+                                <h1>@item.IUPrice</h1>
+                            </div>
+                            <div class="heart"> <i class="bx bx-heart"></i> </div>
                         </div>
-                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="pull-right" > <i class="fas fa-shopping-cart"></i> </a>
-                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-success pull-right btn-outline-info">Deatils</a>
+                        <div class="text-center p-image"> <img src="~/Images/Items/@item.ImageName"> </div>
+                        <div class="p-about">
+                            <p>Brand -<b>@item.IBrand</b> <br>Model -<b>@item.IModel</b> <br>InStock -<b>@item.IQStock</b> <br>Discount -<b>@item.IDiscount</b><br></p>
+                        </div>
+                        <div class="buttons d-flex flex-row gap-3 px-3">
+                            <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.IItemId" class="btn btn-danger w-100 pull-right btn-outline-info">Deatils</a>
+                        </div>
                     </div>
                 </div>
-
-            </div>
+            }
         </div>
-    }
-</div>
+    </section>
+</from>
+
+
 <br>
 <br>
 <div class="container bootstrap snippets bootdey">
