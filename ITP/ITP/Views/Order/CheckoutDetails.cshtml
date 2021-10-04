@@ -6,10 +6,10 @@
     ViewData["Title"] = "Order Details";
 }
 
-<h1>success</h1>
 <br />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<h2 class="text-info">Order Details</h2>
+<h2 style="text-align:center" class="text-danger">Your Order is Successful</h2>
+<h2 style="text-align:center" class="text-info">Order Details</h2>
 <form asp-action="ProcessCheckout" method="post" enctype="multipart/form-data">
     <div class="p-4 rounded border row">
         <div asp-validation-summary="ModelOnly" class="text-danger">
@@ -21,10 +21,10 @@
                     <label asp-for="ReceiverName"></label>
                 </div>
                 <div class="col-8">
-                    @Model.ReceiverName
-                    @*<input type="hidden" asp-for="Id" />
+                    @*@Model.ReceiverName*@
+                    <input type="hidden" asp-for="Id" />
                     <input readonly="readonly"  asp-for="ReceiverName" class="form-control" />
-                    <span asp-validation-for="ReceiverName" class="text-danger"></span>*@
+                    <span asp-validation-for="ReceiverName" class="text-danger"></span>
                 </div>
 
             </div>
@@ -33,7 +33,7 @@
                     <label asp-for="DeliveryAddress"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="DeliveryAddress" class="form-control" />
+                    <input readonly="readonly"  asp-for="DeliveryAddress" class="form-control" />
                     <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
                 </div>
 
@@ -43,7 +43,7 @@
                     <label asp-for="PhoneNo"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="PhoneNo" class="form-control" />
+                    <input readonly="readonly"   asp-for="PhoneNo" class="form-control" />
                     <span asp-validation-for="PhoneNo" class="text-danger"></span>
                 </div>
 
@@ -54,7 +54,7 @@
                     <label asp-for="City"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="City" class="form-control" />
+                    <input readonly="readonly"   asp-for="City" class="form-control" />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
 
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-8">
                     @*<select asp-for="ProductTypeId" asp-items="ViewBag.productTypeId" class="form-control"></select>*@
-                    <input asp-for="Email" class="form-control" />
+                    <input readonly="readonly"   asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
@@ -90,21 +90,19 @@
                     {
                         <tr>
                             <td>
-                                <img src="~/Images/Items/@item.ImageName" height="100px" width="150px" object-fit="contain" />
+                                <img src="~/Images/Items/@item.ImageName" height="100px" object-fit="contain" />
                             </td>
                             <td>@item.IBrand</td>
                             <td>@item.Quntity</td>
-                            <td>@item.IUPrice</td>
-                            <td>@(item.Quntity*item.IUPrice)</td>
+                            <td>@item.IUPrice.00</td>
+                            <td>@(item.Quntity*item.IUPrice).00</td>
                         </tr>
                     }
                 </tbody>
             </table>
             <div class="text-right">
                 @* <h3>Total Price : @items.Sum(c => c.IUPrice)</h3>*@
-            </div>
-            <div class="form-group text-right">
-                <input type="submit" value="Place Order" class="btn btn-success" />
+                <h3> Total Price : @Model.viewCartDetailsModelList.Sum(c => c.TotalPrice).00</h3>
             </div>
         </div>
 
