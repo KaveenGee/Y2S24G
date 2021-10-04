@@ -24,6 +24,7 @@ namespace ITP.Models
         //Email
         [Required(ErrorMessage = "Enter Email address")]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         //Phonenumber
@@ -34,6 +35,7 @@ namespace ITP.Models
         //Message
         [Required(ErrorMessage = "Enter Message")]
         [Display(Name = "Message")]
+        [DataType(DataType.MultilineText)]
         public string Cmessage { get; set; }
     }
 }
