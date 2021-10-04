@@ -36,18 +36,18 @@ namespace ITP.Controllers
         }
         public IActionResult Index()
         {
-           
+
             return View();
         }
 
         //method that use to load the owner dashboard
         public IActionResult Owner_dashboard()
         {
-            
+
             return View("Owner/Owner_dashboard");
         }
 
-     
+
 
         //render the owner dashboard partial view1
         public IActionResult _dashboard()
@@ -82,7 +82,7 @@ namespace ITP.Controllers
             return PartialView("Owner/_dashboard");
         }
 
-       
+
 
         //render the owner dashboard partial view2
         public ActionResult CustomerList()
@@ -114,19 +114,19 @@ namespace ITP.Controllers
             }
             connection.Close();
             ViewBag.url = img;
-          ViewBag.totalcustomer = TestList;
+            ViewBag.totalcustomer = TestList;
             return View("Owner/CustomerList");
         }
 
 
-      
+
 
         //method for add new customer by admin modal
         [HttpPost]
         public ActionResult saveCustomer(Customer ob)
         {
 
-          
+
             var pwd = new Password().IncludeLowercase().IncludeUppercase().LengthRequired(5);
             string result = pwd.Next();
             var uname = new Password().IncludeLowercase().LengthRequired(6);
@@ -168,7 +168,7 @@ namespace ITP.Controllers
 
 
 
-           
+
             Themessage = Themessage.Replace("{uname}", runame);
             Themessage = Themessage.Replace("{pword}", result);
             Themessage = Themessage.Replace("{name}", ob.FirstName);
@@ -247,7 +247,7 @@ namespace ITP.Controllers
             cusSearch = "%" + cusSearch + "%";
             command.Parameters.Add("@key", SqlDbType.VarChar).Value = cusSearch;
 
-            
+
             connection.Open();
             reader = command.ExecuteReader();
 
@@ -276,11 +276,11 @@ namespace ITP.Controllers
             ViewBag.url = img;
             ViewBag.totalcustomer = TestList;
             return View("Owner/CustomerList");
-         
-           
-           
 
-            
+
+
+
+
         }
 
         //reder customer partial view
@@ -289,8 +289,8 @@ namespace ITP.Controllers
             connection.Open();
             reader = command.ExecuteReader();
             int ccount = reader.Cast<object>().Count();
-            
-           
+
+
             ViewBag.c = ccount;
             return PartialView("Owner/_customer");
         }
@@ -327,20 +327,22 @@ namespace ITP.Controllers
         }
 
 
-        
+
         //method for admin login
-        public IActionResult ManagerLogin(String username, String password,String type1)
+        public IActionResult ManagerLogin(String username, String password, String type1)
         {
             String page = null;
             Admin test = null;
             if (type1.Equals("HR"))
             {
                 type1 = "HR Manager";
-                
+
+
 
             }
             else if (type1.Equals("IM")) {
                 type1 = "Inventory Manager";
+
             }
             else if (type1.Equals("DM"))
             {
@@ -373,7 +375,7 @@ namespace ITP.Controllers
                     test.Name = reader["Name"].ToString();
 
 
-                    
+
                 }
                 ViewBag.ob = test;
                 HttpContext.Session.SetString("Adminsession", JsonConvert.SerializeObject(test.Admin_ID));
@@ -381,7 +383,7 @@ namespace ITP.Controllers
                 connection.Close();
 
                 string imgp = null;
-                
+
                 if (String.IsNullOrEmpty(test.Image))
                 {
                     imgp = "default.png";
@@ -420,7 +422,7 @@ namespace ITP.Controllers
                 reader.Close();
 
 
-               
+
 
                 command = new SqlCommand("SELECT * FROM Supplierlog", connection);
                 reader = command.ExecuteReader();
@@ -431,7 +433,7 @@ namespace ITP.Controllers
                 command.Parameters.Add("@m", SqlDbType.Int).Value = cmonth;
                 reader = command.ExecuteReader();
                 int total = 0;
-                while (reader.Read()) { 
+                while (reader.Read()) {
                     int value = int.Parse(reader["TotalPrice"].ToString());
                     total = total + value;
                 }
@@ -448,7 +450,7 @@ namespace ITP.Controllers
                 HttpContext.Session.SetString("nam", JsonConvert.SerializeObject(test.Name));
                 HttpContext.Session.SetString("moc", JsonConvert.SerializeObject(total));
                 HttpContext.Session.SetString("sc", JsonConvert.SerializeObject(scount));
-              
+
                 HttpContext.Session.SetString("ec", JsonConvert.SerializeObject(ecount));
                 HttpContext.Session.SetString("cc", JsonConvert.SerializeObject(ccount));
                 HttpContext.Session.SetString("oc", JsonConvert.SerializeObject(ocount));
@@ -461,18 +463,18 @@ namespace ITP.Controllers
                 ViewBag.fcount = fcount;
                 ViewBag.mocount = total;
                 ViewBag.scount = scount;
-                
+
                 ViewBag.ecount = ecount;
                 ViewBag.mpic = imgp;
-               
+
                 string s = now.DayOfWeek.ToString();
                 ViewBag.day = s;
                 ViewBag.name = test.Name;
                 ViewBag.TerminoDaAvaliacao = now;
                 connection.Close();
                 return View(page);
-            
-               
+
+
             }
             else
             {
@@ -482,7 +484,7 @@ namespace ITP.Controllers
 
         public IActionResult Managerprofile() {
             Admin test = null;
-            
+
             int aid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("Adminsession"));
             command = new SqlCommand("SELECT * FROM Admin where Admin_ID = @id ", connection);
             command.Parameters.Add("@id", SqlDbType.Int).Value = aid;
@@ -502,7 +504,7 @@ namespace ITP.Controllers
                 test.NIC = reader["NIC"].ToString();
                 test.Type = reader["Type"].ToString();
 
-                
+
                 if (reader["Image"] == DBNull.Value)
                 {
                     ViewBag.url = "default.png";
@@ -515,7 +517,7 @@ namespace ITP.Controllers
                     ViewBag.img = test.Image;
                 }
 
-               
+
             }
             ViewBag.ob = test;
             return View("Owner/Managerprofile");
@@ -551,10 +553,10 @@ namespace ITP.Controllers
             command.Parameters.Add("@f", SqlDbType.NVarChar, 255).Value = ob.Name;
             command.Parameters.Add("@l", SqlDbType.NVarChar, 255).Value = ob.Username;
             command.Parameters.Add("@e", SqlDbType.NVarChar, 200).Value = ob.Email;
-            
+
             command.Parameters.Add("@nic", SqlDbType.NVarChar, 100).Value = ob.NIC;
             command.Parameters.Add("@phone", SqlDbType.NVarChar, 100).Value = ob.Phone_Number;
-            
+
 
             connection.Open();
             command.ExecuteNonQuery();
@@ -568,12 +570,12 @@ namespace ITP.Controllers
             }
             else
             {
-               
+
                 ViewBag.url = d.Image;
                 ViewBag.img = d.Image;
             }
 
-            
+
             return View("Owner/Managerprofile");
 
         }
@@ -602,13 +604,13 @@ namespace ITP.Controllers
             connection.Open();
             command.ExecuteNonQuery();
 
-             d = await DBob.Admin.FindAsync(cid);
+            d = await DBob.Admin.FindAsync(cid);
 
 
             ViewBag.ob = d;
             ViewBag.url = picname;
-                ViewBag.img = picname;
-           
+            ViewBag.img = picname;
+
 
             return View("Owner/Managerprofile");
 
@@ -646,15 +648,15 @@ namespace ITP.Controllers
             int dc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("dc"));
             int fc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("fc"));
             int ec = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("ec"));
-           
+
             int sc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("sc"));
             int moc = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("moc"));
             string Name = null, imgp = null;
             command = new SqlCommand("select Email from customerinfo", connection);
             connection.Open();
             reader = command.ExecuteReader();
-            
-           
+
+
             string rootpath = _hostEnvironment.WebRootPath;
             string picname = Path.GetFileNameWithoutExtension(ob.Imagename.FileName);
             string extension = Path.GetExtension(ob.Imagename.FileName);
@@ -720,37 +722,37 @@ namespace ITP.Controllers
             ViewBag.fcount = fc;
             ViewBag.mocount = moc;
             ViewBag.scount = sc;
-         
+
             ViewBag.ecount = ec;
             ViewBag.mpic = imgp;
 
             int aid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("Adminsession"));
-                command = new SqlCommand("SELECT * FROM Admin where Admin_ID = @id ", connection);
-                command.Parameters.Add("@id", SqlDbType.Int).Value = aid;
-                reader = command.ExecuteReader();
-               
-                while (reader.Read())
-                {
+            command = new SqlCommand("SELECT * FROM Admin where Admin_ID = @id ", connection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = aid;
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
 
 
-                   Name = reader["Name"].ToString();
-                   imgp = reader["Image"].ToString();
-                }
-                ViewBag.mpic = imgp;
-                DateTime now = DateTime.Now;
-                string s = now.DayOfWeek.ToString();
-                ViewBag.day = s;
-                ViewBag.name = Name;
-                ViewBag.TerminoDaAvaliacao = now;
+                Name = reader["Name"].ToString();
+                imgp = reader["Image"].ToString();
+            }
+            ViewBag.mpic = imgp;
+            DateTime now = DateTime.Now;
+            string s = now.DayOfWeek.ToString();
+            ViewBag.day = s;
+            ViewBag.name = Name;
+            ViewBag.TerminoDaAvaliacao = now;
 
-            
+
             return View("Owner/Owner_dashboard");
         }
 
 
         public IActionResult managerpartail()
         {
-            command = new SqlCommand("select * from admin",connection);
+            command = new SqlCommand("select * from admin", connection);
             connection.Open();
             reader = command.ExecuteReader();
             int count = reader.Cast<object>().Count();
@@ -759,64 +761,67 @@ namespace ITP.Controllers
         }
 
         public IActionResult managerList() {
-           List<Admin> ob =  DBob.Admin.ToList();
-            return View("Owner/managerList",ob);
+            List<Admin> ob = DBob.Admin.ToList();
+            return View("Owner/managerList", ob);
         }
 
-        //public JsonResult draw2()
-        //{
-        //    List<Areagraph> ob = new List<Areagraph>();
-        //    Areagraph ob1 = new Areagraph();
-        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
-        //    string place1 = "%Diulapitiya%";
-        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
-        //    connection.Open();
-        //    reader = command.ExecuteReader();
-        //    int c1 = reader.Cast<object>().Count();
-        //    reader.Close();
-
-        //    ob1.area = "diulapitiya";
-        //    ob1.count = c1;
-        //    ob.Add(ob1);
-
-
-        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
-        //    place1 = "%Diulapitiya%";
-        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
-        //    reader = command.ExecuteReader();
-        //    c1 = reader.Cast<object>().Count();
-        //    reader.Close();
-
-        //    ob1.area = "diulapitiya";
-        //    ob1.count = c1;
-        //    ob.Add(ob1);
-
-        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
-        //    place1 = "%Diulapitiya%";
-        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
-        //    reader = command.ExecuteReader();
-        //    c1 = reader.Cast<object>().Count();
-        //    reader.Close();
-
-        //    ob1.area = "diulapitiya";
-        //    ob1.count = c1;
-        //    ob.Add(ob1);
+        public JsonResult draw2()
+        {
+            List<Areagraph> ob = new List<Areagraph>();
+            Areagraph ob1;
+            command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+            string place1 = "%Diulapitiya%";
+            command.Parameters.Add("@t", SqlDbType.NVarChar).Value = place1;
+            connection.Open();
+            reader = command.ExecuteReader();
+            int c1 = reader.Cast<object>().Count();
+            reader.Close();
+             ob1 = new Areagraph();
+            ob1.area = "diulapitiya";
+            ob1.count = c1;
+            ob.Add(ob1);
 
 
+            command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+            place1 = "%Colombo%";
+            command.Parameters.Add("@t", SqlDbType.NVarChar).Value = place1;
+            reader = command.ExecuteReader();
+            c1 = reader.Cast<object>().Count();
+            reader.Close();
+            ob1 = new Areagraph();
+            ob1.area = "Colombo";
+            ob1.count = c1;
+            ob.Add(ob1);
 
-        //    command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
-        //    place1 = "%Diulapitiya%";
-        //    command.Parameters.Add("@id", SqlDbType.NVarChar).Value = place1;
-        //    reader = command.ExecuteReader();
-        //    c1 = reader.Cast<object>().Count();
-        //    reader.Close();
+            command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+            place1 = "%Padukka%";
+            command.Parameters.Add("@t", SqlDbType.NVarChar).Value = place1;
+            reader = command.ExecuteReader();
+            c1 = reader.Cast<object>().Count();
+            reader.Close();
+            ob1 = new Areagraph();
+            ob1.area = "Padukka";
+            ob1.count = c1;
+            ob.Add(ob1);
 
-        //    ob1.area = "diulapitiya";
-        //    ob1.count = c1;
-        //    ob.Add(ob1);
 
-        //    return Json(ob);
-        //}
+
+            command = new SqlCommand("select Cusid from Customerinfo where address like @t", connection);
+            place1 = "%Homagama%";
+            command.Parameters.Add("@t", SqlDbType.NVarChar).Value = place1;
+            reader = command.ExecuteReader();
+            c1 = reader.Cast<object>().Count();
+            reader.Close();
+            ob1 = new Areagraph();
+            ob1.area = "Homagama";
+            ob1.count = c1;
+            ob.Add(ob1);
+            //ob1.area = "sss";
+            //ob1.count = 7;
+            //ob.Add(ob1);
+            var data = ob;
+            return Json(data);
+        }
 
 
         public IActionResult ManagerCreate() {
@@ -949,6 +954,180 @@ namespace ITP.Controllers
             reader.Close();
             ViewBag.Driver = dcount;
             return PartialView("Owner/DriverDash");
+        }
+
+        public IActionResult editManager(Admin ob) {
+
+            command = new SqlCommand("update Admin set Name = @n,Email = @e,phone_number = @pn,NIC = @ni,qualifications = @q where Admin_ID = @id",connection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = ob.Admin_ID;
+            command.Parameters.Add("@n", SqlDbType.NVarChar, 255).Value = ob.Name;
+            command.Parameters.Add("@e", SqlDbType.NVarChar, 255).Value = ob.Email;
+            command.Parameters.Add("@pn", SqlDbType.NVarChar, 255).Value = ob.Phone_Number;
+            command.Parameters.Add("@ni", SqlDbType.NVarChar, 255).Value = ob.NIC;
+            command.Parameters.Add("@q", SqlDbType.NVarChar, 255).Value = ob.Qualifications;
+            connection.Open();
+            command.ExecuteNonQuery();
+            return RedirectToAction("managerList");
+
+        }
+
+
+        public async Task<IActionResult> manager_editAsync(int id) {
+            Admin ob = await DBob.Admin.FindAsync(id);
+            return View(ob);
+        }
+
+        public IActionResult analysisfunction() {
+            return PartialView("Owner/_analysis");
+        }
+
+        public JsonResult draw3()
+        {
+            DateTime now = DateTime.Now;
+            string monthName = null;
+            List<DailyIncome> ob = new List<DailyIncome>();
+
+            int cday = now.Day;
+            int month = now.Month;
+
+
+            for (int i = 1; i <= cday; i++)
+            {
+                command = new SqlCommand("select datepart(day,orderdate) as da,sum(totalprice) as tot from orders o,orderdetails od where datepart(day,orderdate) = @d  and datepart(month,orderdate) = @m and od.orderid = o.id group by datepart(day,orderdate) ", connection);
+                command.Parameters.Add("@m", SqlDbType.Int).Value = month;
+                command.Parameters.Add("@d", SqlDbType.Int).Value = i;
+                connection.Open();
+                DailyIncome ob1 = new DailyIncome();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ob1.day = i.ToString();
+                    ob1.total = double.Parse(reader["tot"].ToString());
+                    ob.Add(ob1);
+                }
+                connection.Close();
+            }
+
+            var data = ob;
+
+            return Json(data);
+
+
+        }
+
+        //public JsonResult draw4()
+        //{
+        //    DateTime now = DateTime.Now;
+        //    string monthName = null;
+        //    List<DailyIncome> ob = new List<DailyIncome>();
+
+        //    int cday = now.Day;
+        //    int month = now.Month;
+
+
+        //    for (int i = 1; i <= cday; i++)
+        //    {
+        //        command = new SqlCommand("select datepart(day,orderdate) as da,sum(totalprice) as tot from orders o,orderdetails od where datepart(day,orderdate) = @d  and datepart(month,orderdate) = @m and od.orderid = o.id group by datepart(day,orderdate) ", connection);
+        //        command.Parameters.Add("@m", SqlDbType.Int).Value = month;
+        //        command.Parameters.Add("@d", SqlDbType.Int).Value = i;
+        //        connection.Open();
+        //        DailyIncome ob1 = new DailyIncome();
+        //        reader = command.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            ob1.day = i;
+        //            ob1.total = double.Parse(reader["tot"].ToString());
+        //            ob.Add(ob1);
+        //        }
+        //        connection.Close();
+        //    }
+
+        //    var data = ob;
+
+        //    return Json(data);
+        //}
+
+        public JsonResult draw5()
+        {
+            DateTime now = DateTime.Now;
+            string monthName = null;
+            List<DailyIncome> ob = new List<DailyIncome>();
+
+            int cday = now.Day;
+            int month = now.Month;
+
+
+            for (int i = 1; i <= cday; i++)
+            {
+                command = new SqlCommand("select  datepart(day,orderdate) as day,count(id) as total from orders where datepart(day,orderdate)  = @d and datepart(month,orderdate) = @m group by datepart(day,orderdate) ", connection);
+                command.Parameters.Add("@m", SqlDbType.Int).Value = month;
+                command.Parameters.Add("@d", SqlDbType.Int).Value = i;
+                connection.Open();
+                DailyIncome ob1 = new DailyIncome();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ob1.day = i.ToString();
+                    ob1.total = double.Parse(reader["total"].ToString());
+                    ob.Add(ob1);
+                }
+                connection.Close();
+            }
+
+            var data = ob;
+
+            return Json(data);
+        }
+
+
+        public JsonResult draw6()
+        {
+            
+            List<DailyIncome> ob = new List<DailyIncome>();
+
+                command = new SqlCommand("select ibrand,sum(iqstock) as items from item group by ibrand ", connection);
+                connection.Open();
+            DailyIncome ob1;
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                ob1 = new DailyIncome();
+                    ob1.day = reader["Ibrand"].ToString();
+                    ob1.total = double.Parse(reader["items"].ToString());
+                    ob.Add(ob1);
+                }
+                connection.Close();
+            
+
+            var data = ob;
+
+            return Json(data);
+        }
+
+
+
+        public JsonResult draw7()
+        {
+
+            List<DailyIncome> ob = new List<DailyIncome>();
+
+            command = new SqlCommand("select icategory, sum(iqstock) as stock from item group by icategory ", connection);
+            connection.Open();
+            DailyIncome ob1;
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                ob1 = new DailyIncome();
+                ob1.day = reader["icategory"].ToString();
+                ob1.total = double.Parse(reader["stock"].ToString());
+                ob.Add(ob1);
+            }
+            connection.Close();
+
+
+            var data = ob;
+
+            return Json(data);
         }
 
     }
