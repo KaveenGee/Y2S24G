@@ -8,7 +8,7 @@ namespace ITP.Models
 {
     public enum Type
     {
-        HR,IM,DM,SM,Owner
+        HR,IM,DR,SR,Owner
     }
     public class DropModel
     {

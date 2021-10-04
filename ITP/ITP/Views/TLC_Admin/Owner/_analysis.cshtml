@@ -1,0 +1,226 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="row">
+    <div class="col-md-12">
+        <h1>analysisi</h1>
+        <div class="row">
+            <div class="col-md-12" id="chart1">
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" id="chart2">
+
+
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:60px">
+            <div class="col-md-12" id="chart3">
+
+
+            </div>
+        </div>
+
+
+
+        <div class="row" style="margin-top:60px">
+            <div class="col-md-6" id="chart4">
+
+
+            </div>
+
+            <div class="col-md-6" id="chart5">
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+</div>
+
+<script>
+     google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'day');
+            data.addColumn('number', 'Income');
+
+
+            $.getJSON("@Url.Action("draw3","TLC_Admin")", null, function (chartData) {
+        $.each(chartData, function (i, item) {
+            data.addRow([item.day, item.total]);
+        });
+
+
+                 var options = {
+                     title: 'Daily Incomes This Month',
+                     curveType: 'function',
+                     legend: { position: 'bottom' },
+                     backgroundColor: '#33cc33',
+                     colors: ['white']
+                     //animation: {
+                     //    duration: 1000,
+                     //    easing: 'out',
+                     //}
+                 };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart1'));
+        chart.draw(data, options);
+    });
+    }
+
+
+     @*google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart2() {
+            var data2 = new google.visualization.DataTable();
+            data2.addColumn('number', 'day');
+            data2.addColumn('number', 'Income');
+
+
+            $.getJSON("@Url.Action("draw3","TLC_Admin")", null, function (chartData2) {
+        $.each(chartData2, function (i, item) {
+            data2.addRow([item.day, item.total]);
+        });
+
+
+                 var options = {
+                     title: 'Daily Incomes This Month',
+                     curveType: 'function',
+                     legend: { position: 'bottom' }
+                     //animation: {
+                     //    duration: 1000,
+                     //    easing: 'out',
+                     //}
+                 };
+
+                var chart2 = new google.visualization.LineChart(document.getElementById('chart2'));
+        chart2.draw(data, options);
+    });
+    }*@
+
+
+
+
+     google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart3);
+
+        function drawChart3() {
+            var data3 = new google.visualization.DataTable();
+            data3.addColumn('string', 'day');
+            data3.addColumn('number', 'Orders');
+
+
+            $.getJSON("@Url.Action("draw5","TLC_Admin")", null, function (chartData3) {
+        $.each(chartData3, function (i, item) {
+            data3.addRow([item.day, item.total]);
+        });
+
+
+                 var options3 = {
+                     title: 'Daily Orders This Month',
+                     curveType: 'function',
+                     legend: { position: 'bottom' },
+                     colors: ['white'],
+                     backgroundColor: '#f99806',
+
+                     is3D: true
+                     //animation: {
+                     //    duration: 1000,
+                     //    easing: 'out',
+                     //}
+                 };
+
+                var chart3 = new google.visualization.LineChart(document.getElementById('chart3'));
+        chart3.draw(data3, options3);
+    });
+    }
+
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart4);
+
+        function drawChart4() {
+            var data4 = new google.visualization.DataTable();
+            data4.addColumn('string', 'Brand');
+            data4.addColumn('number', 'Items');
+
+
+            $.getJSON("@Url.Action("draw6","TLC_Admin")", null, function (chartData4) {
+        $.each(chartData4, function (i, item) {
+            data4.addRow([item.day, item.total]);
+        });
+
+
+                 var options4 = {
+                     title: 'Items on each Brand',
+                     curveType: 'function',
+                     legend: { position: 'bottom' }
+
+
+
+                     //animation: {
+                     //    duration: 1000,
+                     //    easing: 'out',
+                     //}
+                 };
+
+                var chart4 = new google.visualization.PieChart(document.getElementById('chart4'));
+        chart4.draw(data4, options4);
+    });
+    }
+
+
+
+
+     google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart5);
+
+        function drawChart5() {
+            var data5 = new google.visualization.DataTable();
+            data5.addColumn('string', 'Brand');
+            data5.addColumn('number', 'Items');
+
+
+            $.getJSON("@Url.Action("draw7","TLC_Admin")", null, function (chartData5) {
+        $.each(chartData5, function (i, item) {
+            data5.addRow([item.day, item.total]);
+        });
+
+
+                 var options5 = {
+                     title: 'Items on each category',
+                     curveType: 'function',
+                     legend: { position: 'bottom' },
+                     
+
+
+                     //animation: {
+                     //    duration: 1000,
+                     //    easing: 'out',
+                     //}
+                 };
+
+                var chart5 = new google.visualization.PieChart(document.getElementById('chart5'));
+        chart5.draw(data5, options5);
+    });
+    }
+
+</script>

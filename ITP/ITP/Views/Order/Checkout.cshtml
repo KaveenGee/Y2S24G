@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-8">
                     <input type="hidden" asp-for="Id" />
-                    <input asp-for="ReceiverName" class="form-control" />
+                    <input asp-for="ReceiverName" placeholder="Reciver Name" class="form-control" />
                     <span asp-validation-for="ReceiverName" class="text-danger"></span>
                 </div>
 
@@ -41,7 +41,7 @@
                     <label asp-for="DeliveryAddress"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="DeliveryAddress" class="form-control" />
+                    <input asp-for="DeliveryAddress" placeholder="Delivery Address" class="form-control" />
                     <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
                 </div>
 
@@ -51,7 +51,7 @@
                     <label asp-for="PhoneNo"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="PhoneNo" class="form-control" />
+                    <input asp-for="PhoneNo" placeholder="0712345678 or +94712345678" class="form-control" />
                     <span asp-validation-for="PhoneNo" class="text-danger"></span>
                 </div>
 
@@ -62,7 +62,7 @@
                     <label asp-for="City"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="City" class="form-control" />
+                    <input asp-for="City" placeholder="City" class="form-control" />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
 
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-8">
                     @*<select asp-for="ProductTypeId" asp-items="ViewBag.productTypeId" class="form-control"></select>*@
-                    <input asp-for="Email" class="form-control" />
+                    <input asp-for="Email"placeholder="someone@gmail.com" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
@@ -98,7 +98,7 @@
                     {
                         <tr>
                             <td>
-                                <img src="~/Images/Items/@item.ImageName" height="100px" width="150px" object-fit="contain" />
+                                <img src="~/Images/Items/@item.ImageName" height="100px"  object-fit="contain" />
                             </td>
                             <td>@item.IBrand</td>
                             <td>@item.Quntity</td>
@@ -130,23 +130,6 @@
         var dateTime = date + ' ' + time;
         document.getElementById("currentDateTime").value = dateTime;
 
-        //$(document).ready(function () {
-        //    $(function () {
-        //        var dtToday = new Date();
-
-        //        var month = dtToday.getMonth() + 1;
-        //        var day = dtToday.getDate();
-        //        var year = dtToday.getFullYear();
-        //        if (month < 10)
-        //            month = '0' + month.toString();
-        //        if (day < 10)
-        //            day = '0' + day.toString();
-
-        //        var maxDate = year + '-' + month + '-' + day;
-        //        $('#currentDateTime').attr('min', maxDate).attr('max', maxDate);
-          
-        //    });
-        //});
     </script>
 
 }
