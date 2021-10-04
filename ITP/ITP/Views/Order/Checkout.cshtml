@@ -98,7 +98,7 @@
                     {
                         <tr>
                             <td>
-                                <img src="~/Images/Items/@item.ImageName" height="100px" width="150px" object-fit="contain" />
+                                <img src="~/Images/Items/@item.ImageName" height="100px"  object-fit="contain" />
                             </td>
                             <td>@item.IBrand</td>
                             <td>@item.Quntity</td>
@@ -130,23 +130,6 @@
         var dateTime = date + ' ' + time;
         document.getElementById("currentDateTime").value = dateTime;
 
-        //$(document).ready(function () {
-        //    $(function () {
-        //        var dtToday = new Date();
-
-        //        var month = dtToday.getMonth() + 1;
-        //        var day = dtToday.getDate();
-        //        var year = dtToday.getFullYear();
-        //        if (month < 10)
-        //            month = '0' + month.toString();
-        //        if (day < 10)
-        //            day = '0' + day.toString();
-
-        //        var maxDate = year + '-' + month + '-' + day;
-        //        $('#currentDateTime').attr('min', maxDate).attr('max', maxDate);
-          
-        //    });
-        //});
     </script>
 
 }
