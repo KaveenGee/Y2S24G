@@ -52,13 +52,6 @@ namespace ITP.Controllers
             List<OrderDetails> items = HttpContext.Session.Get<List<OrderDetails>>("items");
             if (items != null)
             {
-                //foreach (var item in items)
-                //{
-                //    OrderDetails orderDetails = new OrderDetails();
-                //    orderDetails.ItemId = item.IItemId;
-                //    anOrder.OrderDetails.Add(orderDetails);
-
-                //}
                 order.OrderDetails = items;
             }
 
@@ -103,7 +96,7 @@ namespace ITP.Controllers
                 viewCartDetailsModel.IBrand = product.IBrand;
                 viewCartDetailsModel.IDescription = product.IDescription;
                 viewCartDetailsModel.ImageName = product.ImageName;
-
+                viewCartDetailsModel.TotalPrice = item.Quntity * item.Price;
                 viewCartDetailsModelsList.Add(viewCartDetailsModel);
             }
             ViewCartDeliveryDetails viewCartDeliveryDetails = new ViewCartDeliveryDetails();

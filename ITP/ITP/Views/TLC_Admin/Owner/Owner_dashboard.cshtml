@@ -158,14 +158,19 @@
                 <a href="#" id="Driver" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-truck-moving me-2"></i>Driver
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
-                    <i class="fas fa-comment-dots me-2"></i>Feedbacks
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="btn8">
+                    <i class="fas fa-star me-2"></i>Feedbacks
                 </a>
+
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold" id="cont">
+                    <i class="fas fa-map-marker-alt me-2"></i>Contacts
+
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
                     <i class="fas fa-map-marker-alt me-2"></i>Orders
+
                 </a>
-                <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
-                    <i class="fas fa-power-off me-2"></i>Logout
+                <a href="#" id="cart" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+                    <i class="fas fa-shopping-cart me-2"></i>Cart
                 </a>
             </div>
         </div>
@@ -380,11 +385,34 @@
                      $("#con").load("@Html.Raw(Url.Action("DriverDash", "TLC_Admin")) ")
                     }
 
+
                      document.getElementById("ana").onclick = function () { analysisfunction() };
                      function analysisfunction() {
 
                      $("#con").load("@Html.Raw(Url.Action("analysisfunction", "TLC_Admin")) ")
                     }
+
+
+      
+                    document.getElementById("btn8").onclick = function () { myFunction2() };
+                    function myFunction2() {
+
+                     $("#con").load("@Html.Raw(Url.Action("FeedbackPartial", "TLC_Admin")) ")
+                    }
+
+                    document.getElementById("cont").onclick = function () { myFunction5() };
+                    function myFunction5() {
+
+                     $("#con").load("@Html.Raw(Url.Action("ContactPartial", "TLC_Admin")) ")
+                    }
+
+                    document.getElementById("cart").onclick = function () { myFunction3() };
+                    function myFunction3() {
+
+                     $("#con").load("@Html.Raw(Url.Action("CartPartialView", "TLC_Admin")) ")
+                    }
+
+
 
     </script>
 </body>

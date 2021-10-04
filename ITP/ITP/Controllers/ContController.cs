@@ -89,16 +89,12 @@ namespace ITP.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public IActionResult Dashboard()
+        public IActionResult ContactPartial()
         {
-            return View();
-        }
 
-        public IActionResult MethodC()
-        {
-            var displaydata = _db.ContactusTable.ToList();
-            return PartialView("ContDash", displaydata);
+            return PartialView("Owner/ContactDash");
         }
     }
+
+
 }
