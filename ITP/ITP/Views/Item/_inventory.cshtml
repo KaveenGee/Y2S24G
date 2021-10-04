@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    
+
     <style>
         body, html {
             height: 100%;
@@ -22,7 +22,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: black;
-            font-weight:bolder;
+            font-weight: bolder;
+            text-shadow: 2px 2px 4px #FFFFFF;
         }
 
             .hero-text button {
@@ -31,40 +32,42 @@
                 display: inline-block;
                 padding: 10px 25px;
                 color: black;
-                background-color: #ddd;
+                background-image: linear-gradient(to right, #00fc4c, #00e2c2, #0068ff);
                 text-align: center;
                 cursor: pointer;
             }
 
                 .hero-text button:hover {
-                    background-color: #555;
+                    background-image: linear-gradient(to right, #ff0000, #ff0093, #ffde00);
                     color: white;
                 }
+
         div.welcome {
             text-align: center;
             color: #235CCD;
-            font-family:Roboto;
-            font-size:70px;
-            font-weight:bold;
-
+            font-family: Roboto;
+            font-size: 70px;
+            font-weight: bold;
         }
-
     </style>
 </head>
 <body>
     <div class="welcome">
         <p class="wfont">WELCOME</p>
     </div>
-    
+
 
     <div class="hero-image">
-        <img src="~/Images/Items/6541 copy.jpg" style="width:100%; height:600px;" />
-        <div class="hero-text">
-            <h1 style="font-size:50px">You Can Manage All Of Your Products</h1>
+        <img src="~/Images/Items/inven3.gif" style="width:100%;" />
+        <div class="hero-text" style="padding-top:20%;">
+            <h1 style="font-size: 50px; font-weight: bold;">You Can Manage All Of Your Products</h1>
             <p style="font-size:20px;">In Here</p>
             <button onclick="document.location='https://localhost:44308/Item/Index'">Manage Inventory</button>
         </div>
     </div>
+
+    @*style="padding-left:18%"*@
+
 
 </body>
 </html>

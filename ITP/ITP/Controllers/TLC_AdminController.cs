@@ -1004,6 +1004,8 @@ namespace ITP.Controllers
             return PartialView("Owner/DriverDash");
         }
 
+
+
         public IActionResult editManager(Admin ob) {
 
             command = new SqlCommand("update Admin set Name = @n,Email = @e,phone_number = @pn,NIC = @ni,qualifications = @q where Admin_ID = @id",connection);
@@ -1177,6 +1179,7 @@ namespace ITP.Controllers
 
             return Json(data);
         }
+
 
     }
 }
