@@ -89,18 +89,6 @@ namespace ITP.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public IActionResult Ownerdashboard()
-        {
-            return View();
-        }
-
-        public IActionResult MethodC()
-        {
-            var displaydata = _db.ContactusTable.ToList();
-            return PartialView("ContDash", displaydata);
-        }
-
         public IActionResult ContactPartial()
         {
 

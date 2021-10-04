@@ -35,6 +35,7 @@ namespace ITP.Models
         //Message
         [Required(ErrorMessage = "Enter Message")]
         [Display(Name = "Message")]
+        [DataType(DataType.MultilineText)]
         public string Cmessage { get; set; }
     }
 }
