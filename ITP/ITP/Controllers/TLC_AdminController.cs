@@ -341,6 +341,7 @@ namespace ITP.Controllers
             }
             else if (type1.Equals("IM")) {
                 type1 = "Inventory Manager";
+                page = "Item/DashSample";
             }
             else if (type1.Equals("DM"))
             {
@@ -992,7 +993,5 @@ namespace ITP.Controllers
             ViewBag.Driver = dcount;
             return PartialView("Owner/DriverDash");
         }
-
-
     }
 }
