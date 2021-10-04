@@ -66,7 +66,7 @@ namespace ITP.Controllers
         }
 
         // Route for view employee monthly attendence
-        [HttpGet("/MonthlyAttendence")]
+        [HttpGet("MonthlyAttendence")]
         public ActionResult MonthlyAttendence(string searching)
         {
             // For the search values

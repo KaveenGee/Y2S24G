@@ -29,6 +29,7 @@ namespace ITP.Models
         //Phonenumber
         [Required(ErrorMessage = "Enter Feedback Comment")]
         [Display(Name = "Feedback Comment")]
+        [DataType(DataType.MultilineText)]
         public string FeedDes { get; set; }
 
         [Display(Name = "Please rate quality of the products:")]

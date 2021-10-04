@@ -481,5 +481,18 @@ namespace ITP.Controllers
 
             return View("Driver_Login");
         }
+
+        public async Task<IActionResult> LoggedDriver()
+        {
+
+            int aid = JsonConvert.DeserializeObject<int>(HttpContext.Session.GetString("driversession"));
+            var getdriverdetails = await _db.Driver.FindAsync(aid);
+
+            ViewBag.img = getdriverdetails.Driver_Image;
+
+            return View("LogDriverDetails", getdriverdetails);
+
+        }
+
     }
 }
